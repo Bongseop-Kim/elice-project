@@ -6,9 +6,10 @@ import { LoggerMiddleware } from './common/logger/logger.middleware';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { HospitalModule } from './hospital/hospital.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), UsersModule, AuthModule, PrismaModule],
+  imports: [ConfigModule.forRoot(), UsersModule, AuthModule, PrismaModule, HospitalModule],
   controllers: [],
   providers: [],
 })

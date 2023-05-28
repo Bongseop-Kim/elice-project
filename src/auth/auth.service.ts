@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { LoginRequestDto } from './dto/login.request.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UsersRepository } from 'src/users/users.repository';
+import { RequestLoginDto } from './dto/request.login.dto';
 
 @Injectable()
 export class AuthService {
@@ -11,7 +11,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async jwtLogIn(data: LoginRequestDto) {
+  async jwtLogIn(data: RequestLoginDto) {
     const { email, password } = data;
 
     // 해당 하는 이메일이 있는지 확인

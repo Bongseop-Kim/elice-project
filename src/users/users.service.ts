@@ -1,14 +1,14 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import * as bcrypt from 'bcrypt';
-import { UserRequestDto } from './user.dot';
+import { CreateUserDto } from './dto/create.user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async signUp(body: UserRequestDto) {
-    const { email, name, password, address, phoneNumber } = body;
+  async signUp(body: CreateUserDto) {
+    const { email, name, password } = body;
     const isUserExist = await this.usersRepository.existByEmail(email);
 
     if (isUserExist) {
@@ -20,11 +20,9 @@ export class UsersService {
     const user = await this.usersRepository.create({
       email,
       name,
-      address,
-      phoneNumber,
       password: hashedPassedword,
     });
-    return user.readOnlyData;
+    return user;
   }
 
   async deleteUser(id: string) {

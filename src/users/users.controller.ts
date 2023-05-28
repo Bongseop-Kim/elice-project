@@ -10,13 +10,14 @@ import {
 
 import { UsersService } from './users.service';
 import { AuthService } from 'src/auth/auth.service';
-import { ApiBody, ApiOperation } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
-import { UserRequestDto } from './user.dot';
-import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
+import { CreateUserDto } from './dto/create.user.dto';
+import { RequestLoginDto } from 'src/auth/dto/request.login.dto';
 
-@Controller('users')
+@Controller('user')
+@ApiTags('User')
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
@@ -27,17 +28,16 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Get()
   getCurrentUser(@CurrentUser() user) {
-    return user.readOnlyData;
+    return user;
   }
 
   @ApiOperation({ summary: '회원가입' })
   @ApiBody({
     description: 'post signup',
-    type: UserRequestDto,
+    type: CreateUserDto,
   })
   @Post('signup')
-  async sighUp(@Body() body: UserRequestDto) {
-    console.log(body);
+  async sighUp(@Body() body: CreateUserDto) {
     return await this.usersService.signUp(body);
   }
 
@@ -53,10 +53,10 @@ export class UsersController {
   @ApiOperation({ summary: '로그인' })
   @ApiBody({
     description: 'post login',
-    type: LoginRequestDto,
+    type: RequestLoginDto,
   })
   @Post('login')
-  logIn(@Body() data: LoginRequestDto) {
+  logIn(@Body() data: RequestLoginDto) {
     return this.authService.jwtLogIn(data);
   }
 }

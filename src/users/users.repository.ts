@@ -1,41 +1,49 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
-import { User } from './users.schema';
-import { UserRequestDto } from './user.dot';
+import { Prisma, User } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class UsersRepository {
-  constructor(
-    @InjectModel(User.name, 'team05') private readonly userModel: Model<User>,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
-  async existByEmail(email: string): Promise<any> {
+  existByEmail(email: string): Promise<any> {
     try {
-      const result = await this.userModel.exists({ email });
-      return result;
+      const user = this.prisma.user.findUnique({
+        where: {
+          email: email,
+        },
+      });
+      return user;
     } catch (error) {
       throw new HttpException('db error', 400);
     }
   }
 
-  async create(user: UserRequestDto): Promise<User> {
-    return await this.userModel.create(user);
+  create(data: Prisma.UserCreateInput): Promise<User> {
+    return this.prisma.user.create({
+      data,
+    });
   }
 
-  async findUserByEmail(email: string): Promise<User | null> {
-    const user = await this.userModel.findOne({ email });
-    return user;
+  findUserByEmail(email: string): Promise<User | null> {
+    return this.prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
   }
 
-  async findUserByIdWithoutPassword(
-    userId: string | Types.ObjectId,
-  ): Promise<User | null> {
-    const user = await this.userModel.findById(userId);
-    return user;
+  findUserByIdWithoutPassword(id: string): Promise<User | null> {
+    return this.prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+    });
   }
 
-  async deleteUser(_id: string) {
-    return await this.userModel.deleteOne({ _id });
+  deleteUser(id: string) {
+    return this.prisma.user.delete({
+      where: { id },
+    });
   }
 }

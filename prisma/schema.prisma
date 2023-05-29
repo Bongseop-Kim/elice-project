@@ -16,3 +16,38 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Hospital {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  dutyAddr String
+  dutyDiv String
+  dutyDivNam String
+  dutyEmcls String?
+  dutyEmclsName String?
+  dutyEryn Int?
+  dutyEtc String?
+  dutyInf String?
+  dutyMapimg String?
+  dutyName String
+  dutyTel1 String
+  dutyTel3 String?
+  dutyTime1c String?
+  dutyTime1s String?
+  dutyTime2c String?
+  dutyTime2s String?
+  dutyTime3c String?
+  dutyTime3s String?
+  dutyTime4c String?
+  dutyTime4s String?
+  dutyTime5c String?
+  dutyTime5s String?
+  dutyTime6c String?
+  dutyTime6s String?
+  dutyTime7c String?
+  dutyTime7s String?
+  dutyTime8c String?
+  dutyTime8s String?
+  hpid String @unique
+  wgs84Lat Float
+  wgs84Lon Float
+}

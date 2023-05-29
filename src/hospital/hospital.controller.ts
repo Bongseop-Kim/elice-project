@@ -22,7 +22,9 @@ export class HospitalController {
 
   @Get('api')
   async api() {
-    return await this.hospitalService.api();
+    const hospitals = await this.hospitalService.api();
+
+    return hospitals;
   }
 
   @Get()

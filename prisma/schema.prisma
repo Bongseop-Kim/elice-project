@@ -13,8 +13,39 @@ model User {
   email String @unique
   emailVerified DateTime?
   password String
+  phoneNumber String
+  role Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  registeredHospital String?
+  adminVerified Boolean?
+
+  favoriteHospitals String?
+
+  haveChild Child[]
+
+  review Reviewers[]
+
+  reserved Reservation[]
+}
+
+model Child {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  parent User @relation(fields: [parentId], references: [id])
+  parentId String
+}
+
+model Reservation {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  whosReservation User @relation(fields: [whosReservationId], references: [id])
+  whosReservationId String
+}
+
+model Reviewers {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  poster User @relation(fields: [posterId], references: [id])
+  posterId String
 }
 
 model Hospital {

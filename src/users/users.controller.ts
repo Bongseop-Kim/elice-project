@@ -13,7 +13,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
-import { CreateUserDto } from './dto/create.user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 import { RequestLoginDto } from 'src/auth/dto/request.login.dto';
 
 @Controller('user')

@@ -25,35 +25,15 @@ export class HospitalService {
     const resItem = res.data.response.body.items.item;
 
     const data: Prisma.HospitalCreateInput = {
-      dutyAddr: resItem.dutyAddr,
-      dutyDiv: resItem.dutyDiv,
-      dutyDivNam: resItem.dutyDivNam,
-      dutyEmcls: resItem.dutyEmcls,
-      dutyEmclsName: resItem.dutyEmclsName,
-      dutyEryn: resItem.dutyEryn,
-      dutyEtc: resItem.dutyEtc,
-      dutyMapimg: resItem.dutyMapimg,
-      dutyName: resItem.dutyName,
-      dutyTel1: resItem.dutyTel1,
+      ...resItem,
       dutyTime1c: resItem.dutyTime1c?.toString(),
-      dutyTime1s: resItem.dutyTime1s?.toString(),
       dutyTime2c: resItem.dutyTime2c?.toString(),
-      dutyTime2s: resItem.dutyTime2s?.toString(),
       dutyTime3c: resItem.dutyTime3c?.toString(),
-      dutyTime3s: resItem.dutyTime3s?.toString(),
       dutyTime4c: resItem.dutyTime4c?.toString(),
-      dutyTime4s: resItem.dutyTime4s?.toString(),
       dutyTime5c: resItem.dutyTime5c?.toString(),
-      dutyTime5s: resItem.dutyTime5s?.toString(),
       dutyTime6c: resItem.dutyTime6c?.toString(),
-      dutyTime6s: resItem.dutyTime6s?.toString(),
       dutyTime7c: resItem.dutyTime7c?.toString(),
-      dutyTime7s: resItem.dutyTime7s?.toString(),
       dutyTime8c: resItem.dutyTime8c?.toString(),
-      dutyTime8s: resItem.dutyTime8s?.toString(),
-      hpid: resItem.hpid,
-      wgs84Lat: resItem.wgs84Lat,
-      wgs84Lon: resItem.wgs84Lon,
     };
 
     console.log(data);

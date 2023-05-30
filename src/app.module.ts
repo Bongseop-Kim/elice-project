@@ -9,7 +9,13 @@ import { PrismaModule } from './prisma/prisma.module';
 import { HospitalModule } from './hospital/hospital.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), UsersModule, AuthModule, PrismaModule, HospitalModule],
+  imports: [
+    ConfigModule.forRoot(),
+    UsersModule,
+    AuthModule,
+    PrismaModule,
+    HospitalModule,
+  ],
   controllers: [],
   providers: [],
 })

@@ -33,7 +33,7 @@ export class UsersRepository {
     });
   }
 
-  findUserByIdWithoutPassword(id: string): Promise<User | null> {
+  findUserByIdWithoutPassword(id: number): Promise<User | null> {
     return this.prisma.user.findUnique({
       where: {
         id: id,
@@ -41,7 +41,7 @@ export class UsersRepository {
     });
   }
 
-  deleteUser(id: string) {
+  deleteUser(id: number) {
     return this.prisma.user.delete({
       where: { id },
     });

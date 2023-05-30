@@ -18,8 +18,8 @@ export class UsersRepository {
       throw new HttpException('db error', 400);
     }
   }
-
-  create(data: Prisma.UserCreateInput): Promise<User> {
+  
+  newPost(data: Prisma.UserCreateInput): Promise<User> {
     return this.prisma.user.create({
       data,
     });

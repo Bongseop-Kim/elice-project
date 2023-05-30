@@ -14,14 +14,14 @@ model User {
   emailVerified DateTime?
   password String
   phoneNumber String
-  role Int?
+  role String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   registeredHospital String?
   adminVerified Boolean?
 
-  favoriteHospitals String?
+  favoriteHospitals Favorate[]
 
   haveChild Child[]
 
@@ -32,20 +32,38 @@ model User {
 
 model Child {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  parent User @relation(fields: [parentId], references: [id])
+  parent User @relation(fields: [parentId], references: [id], onDelete: Cascade)
   parentId String
+  name String
+  gender String
+  birth String
+  img String?
+  memo String[]
 }
 
 model Reservation {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  whosReservation User @relation(fields: [whosReservationId], references: [id])
+  whosReservation User @relation(fields: [whosReservationId], references: [id], onDelete: Cascade)
   whosReservationId String
+  isUsersChild String
+  hpid String
+  time String
+  memo String
 }
 
 model Reviewers {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  poster User @relation(fields: [posterId], references: [id])
+  poster User @relation(fields: [posterId], references: [id], onDelete: Cascade)
   posterId String
+  hospital String
+  vote Int
+}
+
+model Favorate {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  poster User @relation(fields: [posterId], references: [id], onDelete: Cascade)
+  posterId String
+  hospital String
 }
 
 model Hospital {

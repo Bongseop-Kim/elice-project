@@ -21,7 +21,7 @@ export class UserEntity implements User {
   phoneNumber: string;
 
   @ApiProperty()
-  role: number;
+  role: string;
 
   @ApiProperty()
   createdAt: Date;
@@ -36,7 +36,7 @@ export class UserEntity implements User {
   adminVerified: boolean;
 
   @ApiProperty()
-  favoriteHospitals: string;
+  favoriteHospitals: string[];
 
   @ApiProperty()
   haveChild: string[]

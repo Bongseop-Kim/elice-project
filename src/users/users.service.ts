@@ -17,11 +17,14 @@ export class UsersService {
 
     const hashedPassedword = await bcrypt.hash(password, 10);
 
-    const user = await this.usersRepository.create({
+    const user = await this.usersRepository.newPost({
       email,
       name,
       phoneNumber,
-      password: hashedPassedword
+      password: hashedPassedword,
+      role: 'client',
+      registeredHospital: null,
+      adminVerified: null
     });
     return user;
   }

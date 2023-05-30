@@ -59,4 +59,13 @@ export class UsersController {
   logIn(@Body() data: RequestLoginDto) {
     return this.authService.jwtLogIn(data);
   }
+
+  @ApiOperation({ summary: '유저 정보 조회'})
+  @ApiBody({
+    description: 'get userInfo'
+  })
+  @Get(':id')
+  async getUserInfo(@Param('id') id: string) {
+    return await this.usersService.getUserInfo(id)
+  }
 }

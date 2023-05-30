@@ -19,7 +19,7 @@ export class UsersRepository {
     }
   }
   
-  newPost(data: Prisma.UserCreateInput): Promise<User> {
+  signUp(data: Prisma.UserCreateInput): Promise<User> {
     return this.prisma.user.create({
       data,
     });
@@ -45,5 +45,13 @@ export class UsersRepository {
     return this.prisma.user.delete({
       where: { id },
     });
+  }
+
+  getUserInfo(id: string) {
+    return this.prisma.user.findUnique({
+      where: {
+        id: id
+      }
+    })
   }
 }

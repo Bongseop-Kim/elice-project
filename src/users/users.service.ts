@@ -17,7 +17,7 @@ export class UsersService {
 
     const hashedPassedword = await bcrypt.hash(password, 10);
 
-    const user = await this.usersRepository.newPost({
+    const user = await this.usersRepository.signUp({
       email,
       name,
       phoneNumber,
@@ -31,5 +31,10 @@ export class UsersService {
 
   async deleteUser(id: string) {
     return await this.usersRepository.deleteUser(id);
+  }
+
+  async getUserInfo(id: string) {
+    const user = await this.usersRepository.getUserInfo(id);
+    return user;
   }
 }

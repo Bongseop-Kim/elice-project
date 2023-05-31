@@ -1,6 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { ChildRepository } from './child.repository';
-import { RegistChildDto } from './dto/regist-child.dto';
+import { RegistChildDto, UpdateChildDto } from './dto/child.dtos';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class ChildService{
           }
         })
         
-        const child = await this.childRepository.regist({
+        const child = await this.childRepository.registChild({
             name,
             gender,
             birth,
@@ -26,6 +26,15 @@ export class ChildService{
             img,
             memo
         })
-  return child
-  }
+    return child;
+    }
+
+    async updateChild(id: string, body: UpdateChildDto) {
+      const child = await this.childRepository.updateChild(id, body)
+      return child;
+    }
+
+    async deleteChild(id: string) {
+      return await this.childRepository.deleteChild(id) 
+    }
 }

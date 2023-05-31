@@ -1,7 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { Prisma, Child } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { RegistChildDto } from './dto/regist-child.dto';
+import { RegistChildDto, UpdateChildDto } from './dto/child.dtos';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 
 @Injectable()
@@ -21,9 +21,9 @@ export class ChildRepository {
       }
     }
 
-    async regist(body: RegistChildDto):Promise<Child> {
+    registChild(body: RegistChildDto):Promise<Child> {
       const { parentId, ...rest} = body;
-      const child = await this.prisma.child.create({
+      const child = this.prisma.child.create({
         data:{
           ...rest,
           parent: {
@@ -34,5 +34,17 @@ export class ChildRepository {
         },
       })
       return child;
+    }
+    updateChild(id: string, body: UpdateChildDto){
+      return this.prisma.child.update({
+        where: { id : id },
+        data: body
+      })
+    }
+
+    deleteChild(id: string) {
+      return this.prisma.child.delete({
+        where: { id : id }
+      })
     }
 }

@@ -4,6 +4,7 @@ import {
     Delete,
     Get,
     Param,
+    Patch,
     Post,
     UseGuards,
   } from '@nestjs/common';
@@ -11,7 +12,7 @@ import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { ChildService } from './child.service';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { RegistChildDto } from './dto/regist-child.dto';
+import { RegistChildDto, UpdateChildDto } from './dto/child.dtos';
 
 @Controller('child')
 @ApiTags('Child')
@@ -27,8 +28,29 @@ export class ChildController {
     type: RegistChildDto,
   })
   @Post('regist')
-  async regustChild(@Body() body: RegistChildDto, @CurrentUser() User) {
-    return await this.childService.registChild(body, User);
+  registChild(@Body() body: RegistChildDto, @CurrentUser() User:Object) {
+    return this.childService.registChild(body, User);
   }
 
+  @ApiOperation({ summary: '아이 정보 수정하기' })
+  @UseGuards(JwtAuthGuard)
+  @ApiBody({
+    description: 'update child',
+    type: UpdateChildDto
+  })
+  @Patch(':id')
+  //@Body() body: Type 를 해주지 않으면 prisma method 실행 단계에서 prisma index 내부 파일에서 에러가 발생한다.
+  updateChild(@Param('id') id: string, @Body() body: UpdateChildDto, @CurrentUser() User:Object){
+    return this.childService.updateChild(id, body)
+  }
+
+  @ApiOperation({ summary: '아이 정보 삭제하기' })
+  @UseGuards(JwtAuthGuard)
+  @ApiBody({
+    description: 'delete child',
+  })
+  @Delete(':id')
+  deleteChild(@Param('id') id: string, @CurrentUser() User:Object){
+    return this.childService.deleteChild(id)
+  }
 }

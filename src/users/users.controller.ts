@@ -14,7 +14,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
-import { CreateUserDto, UpdateUserDto } from './dto/user.dtos';
+import { CreateUserDto, UpdateUserDto } from './dto/users.dtos';
 import { RequestLoginDto } from 'src/auth/dto/request.login.dto';
 
 @Controller('user')
@@ -28,8 +28,8 @@ export class UsersController {
   @ApiOperation({ summary: '현재 user 가져오기' })
   @UseGuards(JwtAuthGuard)
   @Get()
-  getCurrentUser(@CurrentUser() user:Object) {
-    return user;
+  getCurrentUser(@CurrentUser() User:Object) {
+    return User;
   }
 
   @ApiOperation({ summary: '회원가입' })
@@ -38,7 +38,7 @@ export class UsersController {
     type: CreateUserDto,
   })
   @Post('signup')
-  async sighUp(@Body() body: CreateUserDto) {
+  async signUp(@Body() body: CreateUserDto) {
     return await this.usersService.signUp(body);
   }
 
@@ -48,8 +48,8 @@ export class UsersController {
     description: 'user delete',
   })
   @Delete(':id')
-  async deleteUser(@Param('id') id: string, @CurrentUser() User:Object) {
-    return await this.usersService.deleteUser(id);
+  deleteUser(@Param('id') id: string, @CurrentUser() User:Object) {
+    return this.usersService.deleteUser(id);
   }
 
   @ApiOperation({ summary: '유저 로그인' })
@@ -58,8 +58,8 @@ export class UsersController {
     type: RequestLoginDto,
   })
   @Post('login')
-  logIn(@Body() data: RequestLoginDto) {
-    return this.authService.jwtLogIn(data);
+  async logIn(@Body() data: RequestLoginDto) {
+    return await this.authService.jwtLogIn(data);
   }
 
   @ApiOperation({ summary: '유저 정보 조회'})
@@ -68,8 +68,8 @@ export class UsersController {
     description: 'get userInfo'
   })
   @Get(':id')
-  async getUserInfo(@Param('id') id: string, @CurrentUser() User:Object) {
-    return await this.usersService.getUserInfo(id)
+  getUserInfo(@Param('id') id: string, @CurrentUser() User:Object) {
+    return this.usersService.getUserInfo(id)
   }
 
   @ApiOperation({ summary: '유저 정보 수정'})
@@ -78,7 +78,7 @@ export class UsersController {
     description: 'update userInfo'
   })
   @Patch(':id')
-  async updateUserInfo(@Param('id') id: string, @Body() body: UpdateUserDto, @CurrentUser() User:Object){
-    return await this.usersService.updateUserInfo(id, body)
+  updateUserInfo(@Param('id') id: string, @Body() body: UpdateUserDto, @CurrentUser() User:Object){
+    return this.usersService.updateUserInfo(id, body)
   }
 }

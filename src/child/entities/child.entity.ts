@@ -15,7 +15,7 @@ export class ChildEntity implements Child {
     birth: string;
 
     @ApiProperty()
-    img: string;
+    img: string | null;
 
     @ApiProperty()
     memo: string[];

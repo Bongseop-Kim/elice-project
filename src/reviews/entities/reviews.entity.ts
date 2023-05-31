@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User, Reviewers } from '@prisma/client';
+import { User, Reviews } from '@prisma/client';
 
-class ReviewersEntities implements Reviewers {
+class ReviewsEntities implements Reviews {
     @ApiProperty()
     id: string;
 
@@ -12,7 +12,7 @@ class ReviewersEntities implements Reviewers {
     posterId: string;
 
     @ApiProperty()
-    hospital: string;
+    hospitalId: string;
 
     @ApiProperty()
     vote: number;

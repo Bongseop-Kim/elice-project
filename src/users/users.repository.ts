@@ -49,9 +49,8 @@ export class UsersRepository {
 
   getUserInfo(id: string) {
     return this.prisma.user.findUnique({
-      where: {
-        id: id
-      }
+      where: { id: id },
+      include: { haveChild: true }
     })
   }
 }

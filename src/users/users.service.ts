@@ -23,16 +23,16 @@ export class UsersService {
       phoneNumber,
       password: hashedPassedword,
       role: 'client',
-      registeredHospital: null,
-      adminVerified: null
+      address: null
     });
     return user;
   }
-
+  //회원 탈퇴 API 입니다.
   async deleteUser(id: string) {
     return await this.usersRepository.deleteUser(id);
   }
 
+  //유저 상세 조회 API입니다.
   async getUserInfo(id: string) {
     const user = await this.usersRepository.getUserInfo(id);
     return user;

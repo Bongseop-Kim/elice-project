@@ -30,20 +30,20 @@ export class UserEntity implements User {
   updatedAt: Date;
 
   @ApiProperty()
-  registeredHospital: string;
+  hospitalId: string;
 
   @ApiProperty()
   adminVerified: boolean;
 
   @ApiProperty()
   favoriteHospitals: string[];
-
-  @ApiProperty()
-  haveChild: string[]
-
+  
   @ApiProperty()
   review: string[]
 
   @ApiProperty()
   reserved: string[]
+
+  @ApiProperty()
+  address: string | null;
 }

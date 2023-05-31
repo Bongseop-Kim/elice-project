@@ -13,4 +13,7 @@ class FavorateEntities implements Favorate {
 
     @ApiProperty()
     hospital: string;
+
+    @ApiProperty()
+    hospitalId: string;
 }

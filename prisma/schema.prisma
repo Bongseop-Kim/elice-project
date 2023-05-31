@@ -8,95 +8,103 @@ datasource db {
 }
 
 model User {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  email String @unique
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  email         String    @unique
   emailVerified DateTime?
-  password String
-  phoneNumber String
-  role String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  password      String
+  phoneNumber   String
+  role          String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
-  registeredHospital String?
+  hospital      Hospital? @relation(fields: [hospitalId], references: [id])
+  hospitalId    String?   @db.ObjectId
   adminVerified Boolean?
 
+  address           String?
   favoriteHospitals Favorate[]
-
-  haveChild Child[]
-
-  review Reviewers[]
-
-  reserved Reservation[]
+  haveChild         Child[]
+  review            Reviews[]
+  reserved          Reservation[]
 }
 
 model Child {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  parent User @relation(fields: [parentId], references: [id], onDelete: Cascade)
-  parentId String
-  name String
-  gender String
-  birth String
-  img String?
-  memo String[]
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  parent      User          @relation(fields: [parentId], references: [id], onDelete: Cascade)
+  parentId    String        @db.ObjectId
+  name        String
+  gender      String
+  birth       String
+  img         String?
+  memo        String[]
+  reservation Reservation[]
 }
 
 model Reservation {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  whosReservation User @relation(fields: [whosReservationId], references: [id], onDelete: Cascade)
-  whosReservationId String
-  isUsersChild String
-  hpid String
-  time String
-  memo String
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  whosReservation   User     @relation(fields: [whosReservationId], references: [id], onDelete: Cascade)
+  whosReservationId String   @db.ObjectId
+  isUsersChild      Child?   @relation(fields: [isUsersChildId], references: [id])
+  isUsersChildId    String   @db.ObjectId
+  hospital          Hospital @relation(fields: [hospitalId], references: [id])
+  hospitalId        String   @db.ObjectId
+  time              String
+  memo              String
 }
 
-model Reviewers {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  poster User @relation(fields: [posterId], references: [id], onDelete: Cascade)
-  posterId String
-  hospital String
-  vote Int
+model Reviews {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  poster     User     @relation(fields: [posterId], references: [id], onDelete: Cascade)
+  posterId   String   @db.ObjectId
+  hospital   Hospital @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
+  hospitalId String   @db.ObjectId
+  vote       Int
 }
 
 model Favorate {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  poster User @relation(fields: [posterId], references: [id], onDelete: Cascade)
-  posterId String
-  hospital String
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  poster     User     @relation(fields: [posterId], references: [id], onDelete: Cascade)
+  posterId   String   @db.ObjectId
+  hospital   Hospital @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
+  hospitalId String   @db.ObjectId
 }
 
 model Hospital {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  dutyAddr String
-  dutyDiv String
-  dutyDivNam String
-  dutyEmcls String?
+  id            String        @id @default(auto()) @map("_id") @db.ObjectId
+  dutyAddr      String
+  dutyDiv       String
+  dutyDivNam    String
+  dutyEmcls     String?
   dutyEmclsName String?
-  dutyEryn Int?
-  dutyEtc String?
-  dutyInf String?
-  dutyMapimg String?
-  dutyName String
-  dutyTel1 String
-  dutyTel3 String?
-  dutyTime1c String?
-  dutyTime1s String?
-  dutyTime2c String?
-  dutyTime2s String?
-  dutyTime3c String?
-  dutyTime3s String?
-  dutyTime4c String?
-  dutyTime4s String?
-  dutyTime5c String?
-  dutyTime5s String?
-  dutyTime6c String?
-  dutyTime6s String?
-  dutyTime7c String?
-  dutyTime7s String?
-  dutyTime8c String?
-  dutyTime8s String?
-  hpid String @unique
-  wgs84Lat Float
-  wgs84Lon Float
+  dutyEryn      Int?
+  dutyEtc       String?
+  dutyInf       String?
+  dutyMapimg    String?
+  dutyName      String
+  dutyTel1      String
+  dutyTel3      String?
+  dutyTime1c    String?
+  dutyTime1s    String?
+  dutyTime2c    String?
+  dutyTime2s    String?
+  dutyTime3c    String?
+  dutyTime3s    String?
+  dutyTime4c    String?
+  dutyTime4s    String?
+  dutyTime5c    String?
+  dutyTime5s    String?
+  dutyTime6c    String?
+  dutyTime6s    String?
+  dutyTime7c    String?
+  dutyTime7s    String?
+  dutyTime8c    String?
+  dutyTime8s    String?
+  hpid          String        @unique
+  wgs84Lat      Float
+  wgs84Lon      Float
+  favorated     Favorate[]
+  reviews       Reviews[]
+  reservations  Reservation[]
+  manager       User[]
 }

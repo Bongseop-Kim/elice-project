@@ -30,12 +30,5 @@ export class ChildController {
   async regustChild(@Body() body: RegistChildDto, @CurrentUser() User) {
     return await this.childService.registChild(body, User);
   }
-  
-  /*@ApiOperation({ summary: '현재 user 가져오기' })
-  @UseGuards(JwtAuthGuard)
-  @Get()
-  getCurrentUser(@CurrentUser() child) {
-    return child;
-  }*/
 
 }

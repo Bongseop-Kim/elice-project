@@ -1,21 +1,22 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { UpdateUserDto } from './dto/user.dtos'
 
 @Injectable()
 export class UsersRepository {
   constructor(private prisma: PrismaService) {}
 
-  existByEmail(email: string): Promise<any> {
+  async existByEmail(email: string): Promise<any> {
     try {
-      const user = this.prisma.user.findUnique({
+      const user = await this.prisma.user.findUnique({
         where: {
           email: email,
         },
       });
       return user;
     } catch (error) {
-      throw new HttpException('db error', 400);
+      throw new HttpException(error.message, 500);
     }
   }
   
@@ -51,6 +52,13 @@ export class UsersRepository {
     return this.prisma.user.findUnique({
       where: { id: id },
       include: { haveChild: true }
+    })
+  }
+
+  updateUserInfo(id: string, body: UpdateUserDto) {
+    return this.prisma.user.update({
+      where: { id: id },
+      data: body
     })
   }
 }

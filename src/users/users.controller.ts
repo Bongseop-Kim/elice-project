@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -13,7 +14,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto, UpdateUserDto } from './dto/user.dtos';
 import { RequestLoginDto } from 'src/auth/dto/request.login.dto';
 
 @Controller('user')
@@ -27,7 +28,7 @@ export class UsersController {
   @ApiOperation({ summary: '현재 user 가져오기' })
   @UseGuards(JwtAuthGuard)
   @Get()
-  getCurrentUser(@CurrentUser() user) {
+  getCurrentUser(@CurrentUser() user:Object) {
     return user;
   }
 
@@ -42,15 +43,16 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: '회원 탈퇴' })
+  @UseGuards(JwtAuthGuard)
   @ApiBody({
     description: 'user delete',
   })
-  @Delete('deleteUser/:id')
-  async deleteUser(@Param('id') id: string) {
+  @Delete(':id')
+  async deleteUser(@Param('id') id: string, @CurrentUser() User:Object) {
     return await this.usersService.deleteUser(id);
   }
 
-  @ApiOperation({ summary: '로그인' })
+  @ApiOperation({ summary: '유저 로그인' })
   @ApiBody({
     description: 'post login',
     type: RequestLoginDto,
@@ -61,11 +63,22 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: '유저 정보 조회'})
+  @UseGuards(JwtAuthGuard)
   @ApiBody({
     description: 'get userInfo'
   })
   @Get(':id')
-  async getUserInfo(@Param('id') id: string) {
+  async getUserInfo(@Param('id') id: string, @CurrentUser() User:Object) {
     return await this.usersService.getUserInfo(id)
+  }
+
+  @ApiOperation({ summary: '유저 정보 수정'})
+  @UseGuards(JwtAuthGuard)
+  @ApiBody({
+    description: 'update userInfo'
+  })
+  @Patch(':id')
+  async updateUserInfo(@Param('id') id: string, @Body() body: UpdateUserDto, @CurrentUser() User:Object){
+    return await this.usersService.updateUserInfo(id, body)
   }
 }

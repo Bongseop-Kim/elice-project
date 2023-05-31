@@ -1,5 +1,8 @@
+import { PrismaClient } from '@prisma/client';
 import axios from 'axios';
 import { writeFile } from 'fs/promises';
+
+const prisma = new PrismaClient();
 const url = `https://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey=aQFwyyURxZPboOkpSx1uUEC9mvyECY1ClICrCdzJ9lNT9JZC0oGtU%2BKwiY7dSTrZm3wodyTWqkdltlLRwKFafQ%3D%3D&QD=D002&pageNo=1&numOfRows=3`;
 
 axios
@@ -11,6 +14,14 @@ axios
   .catch((error) => {
     console.error(error);
   });
+
+// async function upload() {
+//   const data = {};
+//   const result = await prisma.hospital.create({
+//     data,
+//   });
+// }
+// upload();
 
 // const CreateHospital = async () => {
 //   const resItem = res.data.response.body.items.item;

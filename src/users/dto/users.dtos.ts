@@ -22,9 +22,6 @@ export class UpdateUserDto {
   email: string;
 
   @ApiProperty({ required: false })
-  emailVerified: Date;
-
-  @ApiProperty({ required: false })
   address: string;
 
   @ApiProperty({ required: false })

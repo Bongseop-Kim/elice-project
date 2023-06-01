@@ -35,6 +35,7 @@ export class ChildRepository {
       })
       return child;
     }
+    
     updateChild(id: string, body: UpdateChildDto){
       return this.prisma.child.update({
         where: { id : id },

@@ -28,7 +28,7 @@ export class UsersController {
   @ApiOperation({ summary: '현재 user 가져오기' })
   @UseGuards(JwtAuthGuard)
   @Get()
-  getCurrentUser(@CurrentUser() User:Object) {
+  getCurrentUser(@CurrentUser() User) {
     return User;
   }
 
@@ -47,9 +47,9 @@ export class UsersController {
   @ApiBody({
     description: 'user delete',
   })
-  @Delete(':id')
-  deleteUser(@Param('id') id: string, @CurrentUser() User:Object) {
-    return this.usersService.deleteUser(id);
+  @Delete('')
+  deleteUser(@CurrentUser() User) {
+    return this.usersService.deleteUser(User.id);
   }
 
   @ApiOperation({ summary: '유저 로그인' })
@@ -67,9 +67,9 @@ export class UsersController {
   @ApiBody({
     description: 'get userInfo'
   })
-  @Get(':id')
-  getUserInfo(@Param('id') id: string, @CurrentUser() User:Object) {
-    return this.usersService.getUserInfo(id)
+  @Get('get')
+  getUserInfo(@CurrentUser() User) {
+    return this.usersService.getUserInfo(User.id)
   }
 
   @ApiOperation({ summary: '유저 정보 수정'})
@@ -77,8 +77,8 @@ export class UsersController {
   @ApiBody({
     description: 'update userInfo'
   })
-  @Patch(':id')
-  updateUserInfo(@Param('id') id: string, @Body() body: UpdateUserDto, @CurrentUser() User:Object){
-    return this.usersService.updateUserInfo(id, body)
+  @Patch('')
+  updateUserInfo(@Body() body: UpdateUserDto, @CurrentUser() User){
+    return this.usersService.updateUserInfo(User.id, body)
   }
 }

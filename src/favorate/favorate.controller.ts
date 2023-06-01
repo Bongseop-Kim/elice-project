@@ -27,7 +27,7 @@ export class FavorateController{
         type: FavorateDto
     })
     @Post(':id')
-    async newFavorate(@Param('id') id: string, @CurrentUser() User: Object){
+    async newFavorate(@Param('id') id: number, @CurrentUser() User: Object){
         //@ts-ignore
         return await this.favorateService.newFavorate(id)
     }

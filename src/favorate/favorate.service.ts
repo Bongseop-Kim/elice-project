@@ -7,7 +7,7 @@ import { FavorateRepository } from './favorate.repository';
 export class FavorateService{
     constructor(private readonly favorateRepository:FavorateRepository) {}
 
-    async newFavorate(id: string, @CurrentUser() User){
+    async newFavorate(id: number, @CurrentUser() User){
         
     }
 }

@@ -1,19 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User, Favorate } from '@prisma/client';
+import { User, Hospital, Favorate } from '@prisma/client';
 
 class FavorateEntities implements Favorate {
     @ApiProperty()
-    id: string;
+    id: number;
 
     @ApiProperty()
     poster: User;
 
     @ApiProperty()
-    posterId: string;
+    posterId: number;
 
     @ApiProperty()
-    hospital: string;
+    hospital: Hospital;
 
     @ApiProperty()
-    hospitalId: string;
+    hospitalId: number;
 }

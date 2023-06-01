@@ -3,22 +3,22 @@ import { User, Child, Reservation } from '@prisma/client';
 
 export class ReservationtEntity implements Reservation {
     @ApiProperty()
-    id: string;
+    id: number;
 
     @ApiProperty()
     whosReservation: User;
 
     @ApiProperty()
-    whosReservationId: string;
+    whosReservationId: number;
 
     @ApiProperty()
     isUsersChild: Child;
 
     @ApiProperty()
-    isUsersChildId: string;
+    isUsersChildId: number;
 
     @ApiProperty()
-    hospitalId: string;
+    hospitalId: number;
 
     @ApiProperty()
     time: string;

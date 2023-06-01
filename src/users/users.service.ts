@@ -30,22 +30,22 @@ export class UsersService {
     return user;
   }
   //회원 탈퇴 API 입니다.
-  async deleteUser(id: string) {
+  async deleteUser(id: number) {
     return await this.usersRepository.deleteUser(id);
   }
 
   //유저 상세 조회 API입니다.
-  async getUserInfo(id: string) {
+  async getUserInfo(id: number) {
     const user = await this.usersRepository.getUserInfo(id);
     return user;
   }
 
   //유저 정보 수정 API입니다.
-  async updateUserInfo(id: string, body: UpdateUserDto){
+  async updateUserInfo(id: number, body: UpdateUserDto){
     try{
 
     if(body.email) {
-      throw new HttpException('email은 변경할 수 없습니다', 400)
+      throw new HttpException(console.error, 400)
     }
 
     if(body.password) {
@@ -57,6 +57,7 @@ export class UsersService {
 
     return user;
     } catch(error) {
+      //에러 처리는 미들웨어가 완성되면 거기에 맞출 계획입니다.
       return error.message;
     }
   }

@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("MONGODB_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  id            Int       @id @default(autoincrement())
   name          String
   email         String    @unique
   emailVerified DateTime?
@@ -18,10 +18,10 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  hospital      Hospital? @relation(fields: [hospitalId], references: [id])
-  hospitalId    String?   @db.ObjectId
-  adminVerified Boolean?
+  hospital   Hospital? @relation(fields: [hospitalId], references: [id])
+  hospitalId Int?
 
+  adminVerified     String?
   address           String?
   favoriteHospitals Favorate[]
   haveChild         Child[]
@@ -30,48 +30,48 @@ model User {
 }
 
 model Child {
-  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  id          Int           @id @default(autoincrement())
   parent      User          @relation(fields: [parentId], references: [id], onDelete: Cascade)
-  parentId    String        @db.ObjectId
+  parentId    Int
   name        String
   gender      String
   birth       String
   img         String?
-  memo        String[]
+  memo        String?
   reservation Reservation[]
 }
 
 model Reservation {
-  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                Int      @id @default(autoincrement())
   whosReservation   User     @relation(fields: [whosReservationId], references: [id], onDelete: Cascade)
-  whosReservationId String   @db.ObjectId
+  whosReservationId Int
   isUsersChild      Child?   @relation(fields: [isUsersChildId], references: [id])
-  isUsersChildId    String   @db.ObjectId
+  isUsersChildId    Int
   hospital          Hospital @relation(fields: [hospitalId], references: [id])
-  hospitalId        String   @db.ObjectId
+  hospitalId        Int
   time              String
   memo              String
 }
 
 model Reviews {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  id         Int      @id @default(autoincrement())
   poster     User     @relation(fields: [posterId], references: [id], onDelete: Cascade)
-  posterId   String   @db.ObjectId
+  posterId   Int
   hospital   Hospital @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
-  hospitalId String   @db.ObjectId
+  hospitalId Int
   vote       Int
 }
 
 model Favorate {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  id         Int      @id @default(autoincrement())
   poster     User     @relation(fields: [posterId], references: [id], onDelete: Cascade)
-  posterId   String   @db.ObjectId
+  posterId   Int
   hospital   Hospital @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
-  hospitalId String   @db.ObjectId
+  hospitalId Int
 }
 
 model Hospital {
-  id            String        @id @default(auto()) @map("_id") @db.ObjectId
+  id            Int           @id @default(autoincrement())
   dutyAddr      String
   dutyDiv       String
   dutyDivNam    String

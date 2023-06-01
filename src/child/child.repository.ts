@@ -21,7 +21,7 @@ export class ChildRepository {
       }
     }
 
-    registChild(body: RegistChildDto):Promise<Child> {
+    registChild(body: RegistChildDto):Promise<any> {
       const { parentId, ...rest} = body;
       const child = this.prisma.child.create({
         data:{
@@ -36,16 +36,16 @@ export class ChildRepository {
       return child;
     }
     
-    updateChild(id: string, body: UpdateChildDto){
+    updateChild(id: number, body: UpdateChildDto){
       return this.prisma.child.update({
-        where: { id : id },
+        where: { id : Number(id) },
         data: body
       })
     }
 
-    deleteChild(id: string) {
+    deleteChild(id: number) {
       return this.prisma.child.delete({
-        where: { id : id }
+        where: { id : Number(id) }
       })
     }
 }

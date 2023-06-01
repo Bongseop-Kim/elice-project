@@ -3,7 +3,7 @@ import { User, Child } from '@prisma/client';
 
 export class ChildEntity implements Child {
     @ApiProperty()
-    id: string;
+    id: number;
 
     @ApiProperty()
     name: string;
@@ -18,11 +18,11 @@ export class ChildEntity implements Child {
     img: string | null;
 
     @ApiProperty()
-    memo: string[];
+    memo: string;
 
     @ApiProperty()
     parent: User;
 
     @ApiProperty()
-    parentId: string;
+    parentId: number;
 }

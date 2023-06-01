@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class UserEntity implements User {
   @ApiProperty()
-  id: string;
+  id: number;
 
   @ApiProperty()
   name: string;
@@ -30,10 +30,10 @@ export class UserEntity implements User {
   updatedAt: Date;
 
   @ApiProperty()
-  hospitalId: string;
+  hospitalId: number;
 
   @ApiProperty()
-  adminVerified: boolean;
+  adminVerified: string;
 
   @ApiProperty()
   favoriteHospitals: string[];

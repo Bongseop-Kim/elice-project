@@ -34,7 +34,7 @@ export class UsersRepository {
     });
   }
 
-  findUserByIdWithoutPassword(id: string): Promise<User | null> {
+  findUserByIdWithoutPassword(id: number): Promise<User | null> {
     return this.prisma.user.findUnique({
       where: {
         id: id,
@@ -42,20 +42,20 @@ export class UsersRepository {
     });
   }
 
-  deleteUser(id: string) {
+  deleteUser(id: number) {
     return this.prisma.user.delete({
       where: { id },
     });
   }
 
-  getUserInfo(id: string) {
-    return this.prisma.user.findUnique({
+  getUserInfo(id: number) {
+    return this.prisma.user.findMany({
       where: { id: id },
       include: { haveChild: true }
     })
   }
 
-  updateUserInfo(id: string, body: UpdateUserDto) {
+  updateUserInfo(id: number, body: UpdateUserDto) {
     return this.prisma.user.update({
       where: { id: id },
       data: body

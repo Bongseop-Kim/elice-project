@@ -14,7 +14,7 @@ export class RegistChildDto {
     birth: string;
 
     @ApiProperty()
-    parentId: string;
+    parentId: number;
 
     @ApiProperty({ required: false })
     memo: string;
@@ -34,5 +34,5 @@ export class UpdateChildDto {
     birth: string;
 
     @ApiProperty({ required: false })
-    memo: string[];
+    memo: string;
 }

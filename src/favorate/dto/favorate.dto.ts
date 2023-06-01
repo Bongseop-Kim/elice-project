@@ -2,11 +2,11 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class FavorateDto {
     @ApiProperty()
-    id: string
+    id: number
 
     @ApiProperty()
-    posterid: string
+    posterid: number
 
     @ApiProperty()
-    hospitalid: string
+    hospitalid: number
 }

@@ -3,16 +3,16 @@ import { User, Reviews } from '@prisma/client';
 
 class ReviewsEntities implements Reviews {
     @ApiProperty()
-    id: string;
+    id: number;
 
     @ApiProperty()
     poster: User;
 
     @ApiProperty()
-    posterId: string;
+    posterId: number;
 
     @ApiProperty()
-    hospitalId: string;
+    hospitalId: number;
 
     @ApiProperty()
     vote: number;

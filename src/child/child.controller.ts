@@ -28,7 +28,7 @@ export class ChildController {
     type: RegistChildDto,
   })
   @Post('regist')
-  registChild(@Body() body: RegistChildDto, @CurrentUser() User:Object) {
+  registChild(@Body() body: RegistChildDto, @CurrentUser() User) {
     return this.childService.registChild(body, User);
   }
 
@@ -40,7 +40,7 @@ export class ChildController {
   })
   @Patch(':id')
   //@Body() body: Type 를 해주지 않으면 prisma method 실행 단계에서 prisma index 내부 파일에서 에러가 발생한다.
-  updateChild(@Param('id') id: string, @Body() body: UpdateChildDto, @CurrentUser() User:Object){
+  updateChild(@Param('id') id: number, @Body() body: UpdateChildDto, @CurrentUser() User){
     return this.childService.updateChild(id, body)
   }
 
@@ -50,7 +50,7 @@ export class ChildController {
     description: 'delete child',
   })
   @Delete(':id')
-  deleteChild(@Param('id') id: string, @CurrentUser() User:Object){
+  deleteChild(@Param('id') id: number, @CurrentUser() User){
     return this.childService.deleteChild(id)
   }
 }

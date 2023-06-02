@@ -2,20 +2,22 @@ import {
     Body,
     Controller,
     Delete,
-    Get,
     Param,
     Patch,
     Post,
     UseGuards,
+    UseInterceptors,
   } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { ChildService } from './child.service';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { RegistChildDto, UpdateChildDto } from './dto/child.dtos';
+import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 
 @Controller('child')
 @ApiTags('Child')
+@UseInterceptors(SuccessInterceptor)
 export class ChildController {
   constructor(
     private readonly childService: ChildService,

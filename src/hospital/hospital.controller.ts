@@ -20,13 +20,6 @@ export class HospitalController {
     return this.hospitalService.create(createHospitalDto);
   }
 
-  @Get('api')
-  async api() {
-    const hospitals = await this.hospitalService.api();
-
-    return hospitals;
-  }
-
   @Get()
   findAll() {
     return this.hospitalService.findAll();

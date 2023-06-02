@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 
 import { UsersService } from './users.service';
@@ -16,9 +17,11 @@ import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { CreateUserDto, UpdateUserDto } from './dto/users.dtos';
 import { RequestLoginDto } from 'src/auth/dto/request.login.dto';
+import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 
 @Controller('user')
 @ApiTags('User')
+@UseInterceptors(SuccessInterceptor)
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,

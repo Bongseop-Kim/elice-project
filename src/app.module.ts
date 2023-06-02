@@ -10,7 +10,13 @@ import { HospitalModule } from './hospital/hospital.module';
 import { ChildModule } from './child/child.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), ChildModule, UsersModule, AuthModule, PrismaModule, HospitalModule],
+  imports: [
+    ConfigModule.forRoot(),
+    UsersModule,
+    AuthModule,
+    PrismaModule,
+    HospitalModule,
+  ],
   controllers: [],
   providers: [],
 })

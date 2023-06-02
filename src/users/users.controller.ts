@@ -18,6 +18,7 @@ import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { CreateManagerDto, CreateUserDto, UpdateUserDto } from './dto/users.dtos';
 import { RequestLoginDto } from 'src/auth/dto/request.login.dto';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
 @ApiTags('User')
@@ -88,10 +89,21 @@ export class UsersController {
   @ApiOperation({ summary: '병원 관계자 회원가입' })
   @ApiBody({
     description: 'post signup',
-    type: CreateUserDto,
+    type: CreateManagerDto,
   })
   @Post('managersignup')
   async managerSignUp(@Body() body: CreateManagerDto) {
     return await this.usersService.managerSignUp(body);
+  }
+
+  //어떤 타입의 유저가 로그인을 했는지 확인하고 그에 맞는 페이지를 호출해주는 API입니다.
+  @ApiOperation({ summary: '유저 등급 분류' })
+  @UseGuards(JwtAuthGuard)
+  @ApiBody({
+    description: 'verify check',
+  })
+  @Get('/check/:id')
+  async verifyCheck(@Param() id: number, @CurrentUser() User) {
+    return await this.usersService.verifyCheck(id, User)
   }
 }

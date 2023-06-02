@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { HospitalModule } from './hospital/hospital.module';
+import { ImageModule } from './image/image.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { HospitalModule } from './hospital/hospital.module';
     AuthModule,
     PrismaModule,
     HospitalModule,
+    ImageModule,
   ],
   controllers: [],
   providers: [],

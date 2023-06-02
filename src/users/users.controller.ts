@@ -45,9 +45,10 @@ export class UsersController {
   @ApiBody({
     description: 'user delete',
   })
-  @Delete('deleteUser/:id')
-  async deleteUser(@Param('id') id: number) {
-    return await this.usersService.deleteUser(id);
+  @UseGuards(JwtAuthGuard)
+  @Delete('')
+  async deleteUser(@CurrentUser() user) {
+    return await this.usersService.deleteUser(user.id);
   }
 
   @ApiOperation({ summary: '로그인' })

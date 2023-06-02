@@ -15,11 +15,15 @@ model User {
   password String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  hospitalId Hospital?
 }
 
 model Hospital {
-  id Int @id @default(autoincrement())
+  id String @id
   dutyAddr String
+  dutyAddr1Depth String
+  dutyAddr2Depth String
+  dutyAddr3Depth String
   dutyDiv String
   dutyDivNam String
   dutyEmcls String?
@@ -31,6 +35,8 @@ model Hospital {
   dutyName String
   dutyTel1 String
   dutyTel3 String?
+  startLunch String?
+  endLunch String?
   dutyTime1c String?
   dutyTime1s String?
   dutyTime2c String?
@@ -47,7 +53,25 @@ model Hospital {
   dutyTime7s String?
   dutyTime8c String?
   dutyTime8s String?
-  hpid String @unique
   wgs84Lat Float
   wgs84Lon Float
+  imageId Int? 
+
+  images Image[]
+  
+  admin User? @relation(fields: [adminId], references: [id])
+  adminId Int? @unique
 }
+
+model Image {
+  id Int @id @default(autoincrement())
+
+  type String
+  imageUrl String
+
+  childId Int?
+  
+  hospital Hospital? @relation(fields: [hospitalId], references: [id])
+  hospitalId String?
+}
+ 

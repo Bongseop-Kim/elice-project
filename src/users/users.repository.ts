@@ -1,7 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { UpdateUserDto } from './dto/users.dtos'
+import { CreateManagerDto, UpdateUserDto } from './dto/users.dtos'
 
 @Injectable()
 export class UsersRepository {
@@ -20,7 +20,7 @@ export class UsersRepository {
     }
   }
   
-  signUp(data: Prisma.UserCreateInput): Promise<User> {
+  clientSignUp(data: Prisma.UserCreateInput): Promise<User> {
     return this.prisma.user.create({
       data,
     });
@@ -60,5 +60,19 @@ export class UsersRepository {
       where: { id: id },
       data: body
     })
+  }
+
+  managerSignUp(body: CreateManagerDto) {
+    const { hospitalId, ...rest } = body
+    return this.prisma.user.create({
+      data: {
+        ...rest,
+        hospital:{
+          connect:{
+            id: hospitalId
+          }
+        }
+      }
+    });
   }
 }

@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { HospitalModule } from './hospital/hospital.module';
+import { ChildModule } from './child/child.module';
 
 @Module({
   imports: [

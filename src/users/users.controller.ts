@@ -15,10 +15,13 @@ import { AuthService } from 'src/auth/auth.service';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
-import { CreateManagerDto, CreateUserDto, UpdateUserDto } from './dto/users.dtos';
+import {
+  CreateManagerDto,
+  CreateUserDto,
+  UpdateUserDto,
+} from './dto/users.dtos';
 import { RequestLoginDto } from 'src/auth/dto/request.login.dto';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
-import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
 @ApiTags('User')
@@ -51,9 +54,10 @@ export class UsersController {
   @ApiBody({
     description: 'user delete',
   })
+  @UseGuards(JwtAuthGuard)
   @Delete('')
-  deleteUser(@CurrentUser() User) {
-    return this.usersService.deleteUser(User.id);
+  async deleteUser(@CurrentUser() user) {
+    return await this.usersService.deleteUser(user.id);
   }
 
   @ApiOperation({ summary: '유저 로그인' })
@@ -66,24 +70,24 @@ export class UsersController {
     return await this.authService.jwtLogIn(data);
   }
 
-  @ApiOperation({ summary: '유저 정보 조회'})
+  @ApiOperation({ summary: '유저 정보 조회' })
   @UseGuards(JwtAuthGuard)
   @ApiBody({
-    description: 'get userInfo'
+    description: 'get userInfo',
   })
   @Get('get')
   getUserInfo(@CurrentUser() User) {
-    return this.usersService.getUserInfo(User.id)
+    return this.usersService.getUserInfo(User.id);
   }
 
-  @ApiOperation({ summary: '유저 정보 수정'})
+  @ApiOperation({ summary: '유저 정보 수정' })
   @UseGuards(JwtAuthGuard)
   @ApiBody({
-    description: 'update userInfo'
+    description: 'update userInfo',
   })
   @Patch('')
-  updateUserInfo(@Body() body: UpdateUserDto, @CurrentUser() User){
-    return this.usersService.updateUserInfo(User.id, body)
+  updateUserInfo(@Body() body: UpdateUserDto, @CurrentUser() User) {
+    return this.usersService.updateUserInfo(User.id, body);
   }
 
   @ApiOperation({ summary: '병원 관계자 회원가입' })
@@ -104,6 +108,6 @@ export class UsersController {
   })
   @Get('/check/:id')
   async verifyCheck(@Param() id: number, @CurrentUser() User) {
-    return await this.usersService.verifyCheck(id, User)
+    return await this.usersService.verifyCheck(id, User);
   }
 }

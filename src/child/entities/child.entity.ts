@@ -2,27 +2,27 @@ import { ApiProperty } from '@nestjs/swagger';
 import { User, Child } from '@prisma/client';
 
 export class ChildEntity implements Child {
-    @ApiProperty()
-    id: number;
+  @ApiProperty()
+  id: number;
 
-    @ApiProperty()
-    name: string;
+  @ApiProperty()
+  name: string;
 
-    @ApiProperty()
-    gender: string;
+  @ApiProperty()
+  gender: string;
 
-    @ApiProperty()
-    birth: string;
+  @ApiProperty()
+  birth: string;
 
-    @ApiProperty()
-    img: string | null;
+  @ApiProperty()
+  img: string | null;
 
-    @ApiProperty()
-    memo: string;
+  @ApiProperty()
+  memo: string;
 
-    @ApiProperty()
-    parent: User;
+  @ApiProperty()
+  parent: User;
 
-    @ApiProperty()
-    parentId: number;
+  @ApiProperty()
+  parentId: number;
 }

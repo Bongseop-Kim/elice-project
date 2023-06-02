@@ -30,19 +30,19 @@ export class UserEntity implements User {
   updatedAt: Date;
 
   @ApiProperty()
-  hospitalId: number;
+  hospitalId: string;
 
   @ApiProperty()
   adminVerified: string;
 
   @ApiProperty()
   favoriteHospitals: string[];
-  
-  @ApiProperty()
-  review: string[]
 
   @ApiProperty()
-  reserved: string[]
+  review: string[];
+
+  @ApiProperty()
+  reserved: string[];
 
   @ApiProperty()
   address: string | null;

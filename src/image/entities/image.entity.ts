@@ -1,18 +1,18 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User, Hospital, Favorate } from '@prisma/client';
+import { Image } from '@prisma/client';
 
-class FavorateEntities implements Favorate {
+export class ImageEntity implements Image {
   @ApiProperty()
   id: number;
 
   @ApiProperty()
-  poster: User;
+  type: string;
 
   @ApiProperty()
-  posterId: number;
+  imageUrl: string;
 
   @ApiProperty()
-  hospital: Hospital;
+  childId: number;
 
   @ApiProperty()
   hospitalId: string;

@@ -29,9 +29,13 @@ let AuthService = class AuthService {
         if (!isPasswordValidated) {
             throw new common_1.UnauthorizedException('비밀번호가 일치하지 않습니다.');
         }
-        const payload = { email: email, sub: user.id, role: user.role };
+        if (user.role === 'manager' && user.adminVerified === false) {
+            throw new common_1.UnauthorizedException('관리자 승인이 되지 않은 계정입니다.');
+        }
+        const payload = { email: email, sub: user.id };
         return {
             token: this.jwtService.sign(payload),
+            id: user.id,
         };
     }
 };

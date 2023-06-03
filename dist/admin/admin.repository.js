@@ -17,7 +17,8 @@ let AdminRepository = class AdminRepository {
         this.prisma = prisma;
     }
     async getAllUserInfo(userType) {
-        if (userType === 'generelUser') {
+        const modifyParam = Object.values(userType).join();
+        if (modifyParam === 'generelclient') {
             const client = await this.prisma.user.findMany({
                 where: {
                     role: 'client',
@@ -25,20 +26,20 @@ let AdminRepository = class AdminRepository {
             });
             return client;
         }
-        else if (userType === 'hospitalClient') {
+        else if (modifyParam === 'hospitalclient') {
             const manager = await this.prisma.user.findMany({
                 where: {
                     role: 'manager',
-                    adminVerified: 'yes'
+                    adminVerified: true
                 }
             });
             return manager;
         }
-        else if (userType === 'notVerifiedHospitalClient') {
+        else if (modifyParam === 'notverifiedhospitalclient') {
             const unVerifiedManager = await this.prisma.user.findMany({
                 where: {
                     role: 'manager',
-                    adminVerified: 'no'
+                    adminVerified: false
                 }
             });
             return unVerifiedManager;
@@ -47,15 +48,17 @@ let AdminRepository = class AdminRepository {
             return new common_1.HttpException('요청 경로를 잘못 지정하였습니다.', 404);
     }
     async adminDeleteUser(id) {
+        const modifyId = Number(Object.values(id));
         const willBeDeletedUser = await this.prisma.user.delete({
-            where: { id }
+            where: { id: modifyId }
         });
         return willBeDeletedUser;
     }
     async adminVerifyManager(id) {
+        const modifyId = Number(Object.values(id));
         const verifyManager = await this.prisma.user.update({
-            where: { id },
-            data: { adminVerified: 'yes' }
+            where: { id: modifyId },
+            data: { adminVerified: true }
         });
         return verifyManager;
     }

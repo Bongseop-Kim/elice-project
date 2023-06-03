@@ -24,7 +24,6 @@ let ChildService = class ChildService {
                 throw new common_1.HttpException('아이의 이름이 중복되지 않았는지 확인해 주세요.', 400);
             }
         });
-        console.log(isChildExist);
         const child = await this.childRepository.registChild({
             name,
             gender,

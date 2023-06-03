@@ -20,8 +20,6 @@ export class ChildService {
       }
     });
 
-    console.log(isChildExist);
-
     const child = await this.childRepository.registChild({
       name,
       gender,

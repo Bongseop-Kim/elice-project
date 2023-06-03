@@ -55,7 +55,7 @@ __decorate([
 ], UserEntity.prototype, "hospitalId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Boolean)
 ], UserEntity.prototype, "adminVerified", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),

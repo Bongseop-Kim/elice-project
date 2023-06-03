@@ -41,7 +41,7 @@ __decorate([
     (0, swagger_1.ApiBody)({
         description: 'get userInfo'
     }),
-    (0, common_1.Get)('/get/:userType'),
+    (0, common_1.Get)('get/:userType'),
     __param(0, (0, common_1.Param)()),
     __param(1, (0, user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
@@ -54,7 +54,7 @@ __decorate([
     (0, swagger_1.ApiBody)({
         description: 'delete user'
     }),
-    (0, common_1.Delete)('/delete/:id'),
+    (0, common_1.Delete)('delete/:id'),
     __param(0, (0, common_1.Param)()),
     __param(1, (0, user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
@@ -67,7 +67,7 @@ __decorate([
     (0, swagger_1.ApiBody)({
         description: 'verify hospital client'
     }),
-    (0, common_1.Patch)('/verify/:id'),
+    (0, common_1.Patch)('verify/:id'),
     __param(0, (0, common_1.Param)()),
     __param(1, (0, user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
@@ -76,7 +76,7 @@ __decorate([
 ], AdminController.prototype, "adminVerifyManager", null);
 AdminController = __decorate([
     (0, common_1.Controller)('admin'),
-    (0, swagger_1.ApiTags)('Abmin'),
+    (0, swagger_1.ApiTags)('Admin'),
     (0, common_1.UseInterceptors)(success_interceptor_1.SuccessInterceptor),
     __metadata("design:paramtypes", [admin_service_1.AdminService,
         auth_service_1.AuthService])

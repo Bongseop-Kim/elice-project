@@ -13,7 +13,7 @@ export declare class UpdateUserDto {
 }
 declare const CreateManagerDto_base: import("@nestjs/common").Type<Pick<CreateUserDto, "name" | "email" | "password" | "phoneNumber">>;
 export declare class CreateManagerDto extends CreateManagerDto_base {
-    adminVerified: string;
+    adminVerified: boolean;
     hospitalId: string;
     role: string;
 }

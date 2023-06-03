@@ -9,11 +9,12 @@ CREATE TABLE `User` (
     `role` VARCHAR(191) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
-    `hospitalId` INTEGER NULL,
-    `adminVerified` VARCHAR(191) NULL,
+    `hospitalId` VARCHAR(191) NULL,
+    `adminVerified` BOOLEAN NULL,
     `address` VARCHAR(191) NULL,
 
     UNIQUE INDEX `User_email_key`(`email`),
+    UNIQUE INDEX `User_hospitalId_key`(`hospitalId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -35,7 +36,7 @@ CREATE TABLE `Reservation` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `whosReservationId` INTEGER NOT NULL,
     `isUsersChildId` INTEGER NOT NULL,
-    `hospitalId` INTEGER NOT NULL,
+    `hospitalId` VARCHAR(191) NOT NULL,
     `time` VARCHAR(191) NOT NULL,
     `memo` VARCHAR(191) NOT NULL,
 
@@ -46,7 +47,7 @@ CREATE TABLE `Reservation` (
 CREATE TABLE `Reviews` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `posterId` INTEGER NOT NULL,
-    `hospitalId` INTEGER NOT NULL,
+    `hospitalId` VARCHAR(191) NOT NULL,
     `vote` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
@@ -56,26 +57,26 @@ CREATE TABLE `Reviews` (
 CREATE TABLE `Favorate` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `posterId` INTEGER NOT NULL,
-    `hospitalId` INTEGER NOT NULL,
+    `hospitalId` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Hospital` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` VARCHAR(191) NOT NULL,
     `dutyAddr` VARCHAR(191) NOT NULL,
-    `dutyDiv` VARCHAR(191) NOT NULL,
-    `dutyDivNam` VARCHAR(191) NOT NULL,
-    `dutyEmcls` VARCHAR(191) NULL,
-    `dutyEmclsName` VARCHAR(191) NULL,
-    `dutyEryn` INTEGER NULL,
+    `dutyAddr1Depth` VARCHAR(191) NOT NULL,
+    `dutyAddr2Depth` VARCHAR(191) NOT NULL,
+    `dutyAddr3Depth` VARCHAR(191) NOT NULL,
     `dutyEtc` VARCHAR(191) NULL,
     `dutyInf` VARCHAR(191) NULL,
     `dutyMapimg` VARCHAR(191) NULL,
     `dutyName` VARCHAR(191) NOT NULL,
     `dutyTel1` VARCHAR(191) NOT NULL,
     `dutyTel3` VARCHAR(191) NULL,
+    `startLunch` VARCHAR(191) NULL,
+    `endLunch` VARCHAR(191) NULL,
     `dutyTime1c` VARCHAR(191) NULL,
     `dutyTime1s` VARCHAR(191) NULL,
     `dutyTime2c` VARCHAR(191) NULL,
@@ -92,11 +93,21 @@ CREATE TABLE `Hospital` (
     `dutyTime7s` VARCHAR(191) NULL,
     `dutyTime8c` VARCHAR(191) NULL,
     `dutyTime8s` VARCHAR(191) NULL,
-    `hpid` VARCHAR(191) NOT NULL,
     `wgs84Lat` DOUBLE NOT NULL,
     `wgs84Lon` DOUBLE NOT NULL,
+    `imageId` INTEGER NULL,
 
-    UNIQUE INDEX `Hospital_hpid_key`(`hpid`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Image` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `type` VARCHAR(191) NOT NULL,
+    `imageUrl` VARCHAR(191) NOT NULL,
+    `childId` INTEGER NOT NULL,
+    `hospitalId` VARCHAR(191) NULL,
+
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -126,3 +137,9 @@ ALTER TABLE `Favorate` ADD CONSTRAINT `Favorate_posterId_fkey` FOREIGN KEY (`pos
 
 -- AddForeignKey
 ALTER TABLE `Favorate` ADD CONSTRAINT `Favorate_hospitalId_fkey` FOREIGN KEY (`hospitalId`) REFERENCES `Hospital`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Image` ADD CONSTRAINT `Image_childId_fkey` FOREIGN KEY (`childId`) REFERENCES `Child`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Image` ADD CONSTRAINT `Image_hospitalId_fkey` FOREIGN KEY (`hospitalId`) REFERENCES `Hospital`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

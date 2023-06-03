@@ -8,14 +8,15 @@ export declare class UsersController {
     constructor(usersService: UsersService, authService: AuthService);
     getCurrentUser(User: any): any;
     clientSignUp(body: CreateUserDto): Promise<import(".prisma/client").User>;
-    deleteUser(user: any): Promise<import(".prisma/client").User>;
+    deleteUser(User: any): Promise<import(".prisma/client").User>;
     logIn(data: RequestLoginDto): Promise<{
         token: string;
+        id: number;
     }>;
     getUserInfo(User: any): Promise<(import(".prisma/client").User & {
         haveChild: import(".prisma/client").Child[];
     })[]>;
-    updateUserInfo(body: UpdateUserDto, User: any): Promise<any>;
+    updateUserInfo(body: UpdateUserDto, User: any): Promise<import(".prisma/client").User>;
     managerSignUp(body: CreateManagerDto): Promise<import(".prisma/client").User>;
     verifyCheck(id: number, User: any): Promise<"type: 1" | "type: 2" | "type: 0">;
 }

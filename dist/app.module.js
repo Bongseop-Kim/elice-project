@@ -15,6 +15,7 @@ const auth_module_1 = require("./auth/auth.module");
 const prisma_module_1 = require("./prisma/prisma.module");
 const hospital_module_1 = require("./hospital/hospital.module");
 const child_module_1 = require("./child/child.module");
+const admin_module_1 = require("./admin/admin.module");
 const image_module_1 = require("./image/image.module");
 let AppModule = class AppModule {
     configure(consumer) {
@@ -30,6 +31,7 @@ AppModule = __decorate([
             prisma_module_1.PrismaModule,
             child_module_1.ChildModule,
             hospital_module_1.HospitalModule,
+            admin_module_1.AdminModule,
             image_module_1.ImageModule,
         ],
         controllers: [],

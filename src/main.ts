@@ -2,34 +2,28 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from './common/exception/http-exception.filter';
-import * as expressBasicAuth from 'express-basic-auth';
-import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
+import * as mysql from 'mysql';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new HttpExceptionFilter());
 
-  app.use(
-    ['/docs', '/docs-json'],
-    expressBasicAuth({
-      challenge: true,
-      users: {
-        [process.env.SWAGGER_USER]: process.env.SWAGGER_PASSWORD,
-      },
-    }),
-  );
+  const connection = mysql.createConnection({
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: '0000',
+    database:'team5'
+  })
+  connection.connect((err)=>{
+    if(err){
+      console.error('MySQL connection failed',err);
+      return;
+    }
+    console.log('Connected to MySQL database');
+  })
 
-  const config = new DocumentBuilder()
-    .setTitle('C.I.C')
-    .setDescription('team05')
-    .setVersion('1.0.0')
-    .addTag('team05')
-    .build();
-  const document: OpenAPIObject = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document);
-
-  const PORT = process.env.PORT;
-  await app.listen(PORT);
+  await app.listen(3000);
 }
 bootstrap();

@@ -42,20 +42,15 @@ let UsersService = class UsersService {
         return user;
     }
     async updateUserInfo(id, body) {
-        try {
-            if (body.email) {
-                throw new common_1.HttpException(console.error, 400);
-            }
-            if (body.password) {
-                const hashedPassedword = await bcrypt.hash(body.password, 10);
-                body.password = hashedPassedword;
-            }
-            const user = await this.usersRepository.updateUserInfo(id, body);
-            return user;
+        if (body.email) {
+            throw new common_1.HttpException('이메일은 변경할 수 없습니다.', 400);
         }
-        catch (error) {
-            return error.message;
+        if (body.password) {
+            const hashedPassedword = await bcrypt.hash(body.password, 10);
+            body.password = hashedPassedword;
         }
+        const user = await this.usersRepository.updateUserInfo(id, body);
+        return user;
     }
     async managerSignUp(body) {
         const { email, name, phoneNumber } = body;
@@ -66,19 +61,19 @@ let UsersService = class UsersService {
             throw new common_1.UnauthorizedException('해당하는 이메일은 이미 존재합니다.');
         }
         const hashedPassedword = await bcrypt.hash(password, 10);
-        const user = Object.assign(Object.assign({}, body), { password: hashedPassedword, hospitalId: body.hospitalId, role: 'manager', adminVerified: 'no' });
+        const user = Object.assign(Object.assign({}, body), { password: hashedPassedword, hospitalId: body.hospitalId, role: 'manager', adminVerified: false });
         const signUp = await this.usersRepository.managerSignUp(user);
         return signUp;
     }
     async verifyCheck(id, User) {
-        const modifyId = Object.values(id);
-        if (Number(modifyId) !== User.id) {
+        const modifyId = Number(Object.values(id));
+        if (modifyId !== User.id) {
             throw new common_1.UnauthorizedException('요청 받은 id값과 현재 유저의 id가 일치하지 않습니다.');
         }
         if (User.role === 'client') {
             return 'type: 1';
         }
-        else if (User.role === 'manager') {
+        else if (User.role === 'manager' && User.adminVerified === true) {
             return 'type: 2';
         }
         else if (User.role === 'admin') {

@@ -33,7 +33,7 @@ export class UserEntity implements User {
   hospitalId: string;
 
   @ApiProperty()
-  adminVerified: string;
+  adminVerified: boolean;
 
   @ApiProperty()
   favoriteHospitals: string[];

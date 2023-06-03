@@ -19,7 +19,6 @@ import { ImageModule } from './image/image.module';
     PrismaModule,
     ChildModule,
     HospitalModule,
-    ChildModule,
     AdminModule,
     ImageModule,
   ],

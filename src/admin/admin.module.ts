@@ -13,4 +13,4 @@ import { AdminRepository } from './admin.repository';
   providers: [AdminService, AdminRepository],
   exports: [AdminService, AdminRepository],
 })
-export class UsersModule {}
+export class AdminModule {}

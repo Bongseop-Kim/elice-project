@@ -7,14 +7,15 @@ export class AdminRepository{
     constructor(private prisma: PrismaService) {}
 
     async getAllUserInfo(userType: string){
-        if(userType === 'generelUser'){
+        const modifyParam = Object.values(userType).join()
+        if(modifyParam === 'generelUser'){
             const client = await this.prisma.user.findMany({
                 where: {
                     role: 'client',
                 }
             }) 
         return client
-        } else if (userType === 'hospitalClient'){
+        } else if (modifyParam === 'hospitalClient'){
             const manager = await this.prisma.user.findMany({
                 where: {
                     role: 'manager',
@@ -22,7 +23,7 @@ export class AdminRepository{
                 }
             })
         return manager
-        } else if (userType === 'notVerifiedHospitalClient'){
+        } else if (modifyParam === 'notVerifiedHospitalClient'){
             const unVerifiedManager = await this.prisma.user.findMany({
                 where: {
                     role: 'manager',
@@ -38,15 +39,17 @@ export class AdminRepository{
     API를 최대한 빨리 마치고 이 부분부터 당장 고치고 싶습니다. */
 
     async adminDeleteUser(id: number){
+        const modifyId = Number(Object.values(id))
         const willBeDeletedUser = await this.prisma.user.delete({
-            where: { id }
+            where: { id: modifyId }
         })
         return willBeDeletedUser
     }
 
     async adminVerifyManager(id: number){
+        const modifyId = Number(Object.values(id))
         const verifyManager = await this.prisma.user.update({
-            where: { id },
+            where: { id: modifyId },
             data: { adminVerified: 'yes' }
         })
         return verifyManager

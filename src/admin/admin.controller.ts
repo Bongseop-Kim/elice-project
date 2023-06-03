@@ -19,7 +19,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { AdminService } from './admin.service';
 
 @Controller('admin')
-@ApiTags('Abmin')
+@ApiTags('Admin')
 @UseInterceptors(SuccessInterceptor)
 export class AdminController {
     constructor(
@@ -32,7 +32,7 @@ export class AdminController {
     @ApiBody({
       description: 'get userInfo'
     })
-    @Get('/get/:userType')
+    @Get('get/:userType')
     getUserInfo(@Param() userType: string, @CurrentUser() User) {
       return this.adminService.getAllUserInfo(userType, User)
     }
@@ -42,7 +42,7 @@ export class AdminController {
     @ApiBody({
       description: 'delete user'
     })
-    @Delete('/delete/:id')
+    @Delete('delete/:id')
     adminDeleteUser(@Param() id: number, @CurrentUser() User){
       return this.adminService.adminDeleteUser(id, User)
     }
@@ -52,7 +52,7 @@ export class AdminController {
     @ApiBody({
       description: 'verify hospital client'
     })
-    @Patch('/verify/:id')
+    @Patch('verify/:id')
     adminVerifyManager(@Param() id: number, @CurrentUser() User){
       return this.adminService.adminVerifyManager(id, User)
     }

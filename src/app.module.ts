@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { HospitalModule } from './hospital/hospital.module';
 import { ChildModule } from './child/child.module';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -16,6 +17,8 @@ import { ChildModule } from './child/child.module';
     AuthModule,
     PrismaModule,
     HospitalModule,
+    ChildModule,
+    AdminModule,
   ],
   controllers: [],
   providers: [],

@@ -10,7 +10,7 @@ export class CreateUserDto {
   @ApiProperty()
   password: string;
 
-  @ApiProperty({ required: false})
+  @ApiProperty({ required: false })
   phoneNumber: string;
 }
 
@@ -26,17 +26,22 @@ export class UpdateUserDto {
 
   @ApiProperty({ required: false })
   password: string;
-  
+
   @ApiProperty({ required: false })
   phoneNumber: string;
 }
 
-export class CreateManagerDto extends PickType(CreateUserDto, ['name', 'email', 'password', 'phoneNumber']) {
+export class CreateManagerDto extends PickType(CreateUserDto, [
+  'name',
+  'email',
+  'password',
+  'phoneNumber',
+]) {
   @ApiProperty()
   adminVerified: string;
 
   @ApiProperty()
-  hospitalId: number;
+  hospitalId: string;
 
   @ApiProperty()
   role: string;

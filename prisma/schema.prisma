@@ -19,7 +19,7 @@ model User {
   updatedAt     DateTime  @updatedAt
 
   hospital   Hospital? @relation(fields: [hospitalId], references: [id])
-  hospitalId Int?
+  hospitalId String? @unique
 
   adminVerified     String?
   address           String?
@@ -39,6 +39,7 @@ model Child {
   img         String?
   memo        String?
   reservation Reservation[]
+  image       Image[]
 }
 
 model Reservation {
@@ -48,7 +49,7 @@ model Reservation {
   isUsersChild      Child?   @relation(fields: [isUsersChildId], references: [id])
   isUsersChildId    Int
   hospital          Hospital @relation(fields: [hospitalId], references: [id])
-  hospitalId        Int
+  hospitalId        String
   time              String
   memo              String
 }
@@ -58,7 +59,7 @@ model Reviews {
   poster     User     @relation(fields: [posterId], references: [id], onDelete: Cascade)
   posterId   Int
   hospital   Hospital @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
-  hospitalId Int
+  hospitalId String
   vote       Int
 }
 
@@ -67,44 +68,64 @@ model Favorate {
   poster     User     @relation(fields: [posterId], references: [id], onDelete: Cascade)
   posterId   Int
   hospital   Hospital @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
-  hospitalId Int
+  hospitalId String
 }
 
 model Hospital {
-  id            Int           @id @default(autoincrement())
-  dutyAddr      String
-  dutyDiv       String
-  dutyDivNam    String
-  dutyEmcls     String?
-  dutyEmclsName String?
-  dutyEryn      Int?
-  dutyEtc       String?
-  dutyInf       String?
-  dutyMapimg    String?
-  dutyName      String
-  dutyTel1      String
-  dutyTel3      String?
-  dutyTime1c    String?
-  dutyTime1s    String?
-  dutyTime2c    String?
-  dutyTime2s    String?
-  dutyTime3c    String?
-  dutyTime3s    String?
-  dutyTime4c    String?
-  dutyTime4s    String?
-  dutyTime5c    String?
-  dutyTime5s    String?
-  dutyTime6c    String?
-  dutyTime6s    String?
-  dutyTime7c    String?
-  dutyTime7s    String?
-  dutyTime8c    String?
-  dutyTime8s    String?
-  hpid          String        @unique
-  wgs84Lat      Float
-  wgs84Lon      Float
+  id String @id
+  dutyAddr String
+  dutyAddr1Depth String
+  dutyAddr2Depth String
+  dutyAddr3Depth String
+  // dutyDiv String
+  // dutyDivNam String
+  // dutyEmcls String?
+  // dutyEmclsName String?
+  // dutyEryn Int?
+  dutyEtc String?
+  dutyInf String?
+  dutyMapimg String?
+  dutyName String
+  dutyTel1 String
+  dutyTel3 String?
+  startLunch String?
+  endLunch String?
+  dutyTime1c String?
+  dutyTime1s String?
+  dutyTime2c String?
+  dutyTime2s String?
+  dutyTime3c String?
+  dutyTime3s String?
+  dutyTime4c String?
+  dutyTime4s String?
+  dutyTime5c String?
+  dutyTime5s String?
+  dutyTime6c String?
+  dutyTime6s String?
+  dutyTime7c String?
+  dutyTime7s String?
+  dutyTime8c String?
+  dutyTime8s String?
+  wgs84Lat Float
+  wgs84Lon Float
+  imageId Int? 
   favorated     Favorate[]
   reviews       Reviews[]
   reservations  Reservation[]
-  manager       User[]
+  admin       User?
+  images Image[]
 }
+
+model Image {
+  id Int @id @default(autoincrement())
+
+  type String
+  imageUrl String
+
+  child Child? @relation(fields: [childId],references: [id])
+  childId Int
+  
+  hospital Hospital? @relation(fields: [hospitalId], references: [id])
+  hospitalId String?
+}
+ 

@@ -5,6 +5,15 @@ export class CreateHospitalDto {
   dutyAddr: string;
 
   @ApiProperty()
+  dutyAddr1Depth: string;
+
+  @ApiProperty()
+  dutyAddr2Depth: string;
+
+  @ApiProperty()
+  dutyAddr3Depth: string;
+
+  @ApiProperty()
   dutyDiv: string;
 
   @ApiProperty()
@@ -17,7 +26,7 @@ export class CreateHospitalDto {
   dutyEmclsName: string;
 
   @ApiProperty()
-  dutyEryn: string;
+  dutyEryn: number;
 
   @ApiProperty()
   dutyEtc: string;
@@ -29,44 +38,65 @@ export class CreateHospitalDto {
   dutyName: string;
 
   @ApiProperty()
-  dutyTel1: string | undefined;
+  dutyTel1: string;
 
   @ApiProperty()
-  dutyTime1c: string | undefined;
+  startLunch: string;
 
   @ApiProperty()
-  dutyTime2c: string | undefined;
+  endLunch: string;
 
   @ApiProperty()
-  dutyTime3c: string | undefined;
+  dutyTime1c: string;
 
   @ApiProperty()
-  dutyTime4c: string | undefined;
+  dutyTime1s: string;
 
   @ApiProperty()
-  dutyTime5c: string | undefined;
+  dutyTime2c: string;
 
   @ApiProperty()
-  dutyTime6c: string | undefined;
+  dutyTime2s: string;
 
   @ApiProperty()
-  dutyTime7c: string | undefined;
+  dutyTime3c: string;
 
   @ApiProperty()
-  dutyTime8c: string | undefined;
+  dutyTime3s: string;
 
   @ApiProperty()
-  hpid: string;
+  dutyTime4c: string;
 
   @ApiProperty()
-  postCdn1: string;
+  dutyTime4s: string;
 
   @ApiProperty()
-  postCdn2: string;
+  dutyTime5c: string;
 
   @ApiProperty()
-  wgs84Lat: string;
+  dutyTime5s: string;
 
   @ApiProperty()
-  wgs84Lon: string;
+  dutyTime6c: string;
+
+  @ApiProperty()
+  dutyTime6s: string;
+
+  @ApiProperty()
+  dutyTime7c: string;
+
+  @ApiProperty()
+  dutyTime7s: string;
+
+  @ApiProperty()
+  dutyTime8c: string;
+
+  @ApiProperty()
+  dutyTime8s: string;
+
+  @ApiProperty()
+  wgs84Lat: number;
+
+  @ApiProperty()
+  wgs84Lon: number;
 }

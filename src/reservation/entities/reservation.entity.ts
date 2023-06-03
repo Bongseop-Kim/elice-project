@@ -2,27 +2,27 @@ import { ApiProperty } from '@nestjs/swagger';
 import { User, Child, Reservation } from '@prisma/client';
 
 export class ReservationtEntity implements Reservation {
-    @ApiProperty()
-    id: number;
+  @ApiProperty()
+  id: number;
 
-    @ApiProperty()
-    whosReservation: User;
+  @ApiProperty()
+  whosReservation: User;
 
-    @ApiProperty()
-    whosReservationId: number;
+  @ApiProperty()
+  whosReservationId: number;
 
-    @ApiProperty()
-    isUsersChild: Child;
+  @ApiProperty()
+  isUsersChild: Child;
 
-    @ApiProperty()
-    isUsersChildId: number;
+  @ApiProperty()
+  isUsersChildId: number;
 
-    @ApiProperty()
-    hospitalId: number;
+  @ApiProperty()
+  hospitalId: string;
 
-    @ApiProperty()
-    time: string;
+  @ApiProperty()
+  time: string;
 
-    @ApiProperty()
-    memo: string;
+  @ApiProperty()
+  memo: string;
 }

@@ -1,7 +1,15 @@
-import { Injectable, UnauthorizedException, HttpException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  HttpException,
+} from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import * as bcrypt from 'bcrypt';
-import { CreateManagerDto, CreateUserDto, UpdateUserDto } from './dto/users.dtos';
+import {
+  CreateManagerDto,
+  CreateUserDto,
+  UpdateUserDto,
+} from './dto/users.dtos';
 
 @Injectable()
 export class UsersService {
@@ -11,7 +19,7 @@ export class UsersService {
   async clientSignUp(body: CreateUserDto) {
     const { email, name, password, phoneNumber } = body;
     const isUserExist = await this.usersRepository.existByEmail(email);
-    
+
     //이메일 중복 검사
     if (isUserExist) {
       throw new UnauthorizedException('해당하는 이메일은 이미 존재합니다.');
@@ -25,7 +33,7 @@ export class UsersService {
       phoneNumber,
       password: hashedPassedword,
       role: 'client',
-      address: null
+      address: null,
     });
     return user;
   }
@@ -42,22 +50,21 @@ export class UsersService {
   }
 
   //유저 정보 수정 API입니다.
-  async updateUserInfo(id: number, body: UpdateUserDto){
-    try{
+  async updateUserInfo(id: number, body: UpdateUserDto) {
+    try {
+      if (body.email) {
+        throw new HttpException(console.error, 400);
+      }
 
-    if(body.email) {
-      throw new HttpException(console.error, 400)
-    }
+      if (body.password) {
+        const hashedPassedword = await bcrypt.hash(body.password, 10);
+        body.password = hashedPassedword;
+      }
 
-    if(body.password) {
-      const hashedPassedword = await bcrypt.hash(body.password, 10)
-      body.password = hashedPassedword
-    }
+      const user = await this.usersRepository.updateUserInfo(id, body);
 
-    const user = await this.usersRepository.updateUserInfo(id, body);
-
-    return user;
-    } catch(error) {
+      return user;
+    } catch (error) {
       //에러 처리는 미들웨어가 완성되면 거기에 맞출 계획입니다.
       return error.message;
     }
@@ -70,7 +77,7 @@ export class UsersService {
     const password = body.password;
 
     const isUserExist = await this.usersRepository.existByEmail(email);
-    
+
     //이메일 중복 검사
     if (isUserExist) {
       throw new UnauthorizedException('해당하는 이메일은 이미 존재합니다.');
@@ -81,17 +88,17 @@ export class UsersService {
     const user = {
       ...body,
       password: hashedPassedword,
-      hospitalId: Number(body.hospitalId),
+      hospitalId: body.hospitalId,
       role: 'manager',
-      adminVerified: 'no'
-    }
-    
-    const signUp = await this.usersRepository.managerSignUp(user)
+      adminVerified: 'no',
+    };
+
+    const signUp = await this.usersRepository.managerSignUp(user);
 
     return signUp;
   }
 
-  async verifyCheck(id: number, User){
+  async verifyCheck(id: number, User) {
     /*이 부분은 구현 방법을 잘 모르겠습니다.
     원래 의도하는 바는 다음과 같습니다.
     
@@ -110,14 +117,16 @@ export class UsersService {
     막는 것을 고려하고 있습니다.
     */
 
-    const modifyId = Object.values(id)
+    const modifyId = Object.values(id);
     /*구현 중에 이해 할 수 없는 부분이 발생했는데,
     @Param() id:number를 이용해 id를 받아왔는데
     console.log('id', id) // 결과값이 왜 id { id : 'id값' } 으로 출력되는지 모르겠습니다.*/
 
     //id 값이 토큰 값과 일치하는지 확인
-    if(Number(modifyId) !== User.id) {
-      throw new UnauthorizedException('요청 받은 id값과 현재 유저의 id가 일치하지 않습니다.')
+    if (Number(modifyId) !== User.id) {
+      throw new UnauthorizedException(
+        '요청 받은 id값과 현재 유저의 id가 일치하지 않습니다.',
+      );
     }
 
     //role 값을 확인하여 프론트에 메인화면 타입을 건네어 줌
@@ -128,7 +137,9 @@ export class UsersService {
     } else if(User.role === 'admin') {
       return 'type: 0'
     } else {
-      throw new UnauthorizedException('로그인 인증 과정에 문제가 발생하였습니다.')
+      throw new UnauthorizedException(
+        '로그인 인증 과정에 문제가 발생하였습니다.',
+      );
     }
   }
 }

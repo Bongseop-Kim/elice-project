@@ -5,8 +5,6 @@ import { FavorateDto } from './dto/favorate.dto';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 
 @Injectable()
-export class FavorateRepository{
-    constructor(private prisma: PrismaService) {}
-
-    
+export class FavorateRepository {
+  constructor(private prisma: PrismaService) {}
 }

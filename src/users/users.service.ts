@@ -123,7 +123,7 @@ export class UsersService {
     //role 값을 확인하여 프론트에 메인화면 타입을 건네어 줌
     if(User.role === 'client') {
       return 'type: 1'
-    } else if(User.role === 'manager') {
+    } else if(User.role === 'manager' && User.adminVerified === 'yes') {
       return 'type: 2'
     } else if(User.role === 'admin') {
       return 'type: 0'

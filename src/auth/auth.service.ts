@@ -30,10 +30,11 @@ export class AuthService {
       throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
     }
 
-    const payload = { email: email, sub: user.id, role: user.role };
+    const payload = { email: email, sub: user.id };
 
     return {
       token: this.jwtService.sign(payload),
+      id: user.id
     };
   }
 }

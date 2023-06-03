@@ -51,7 +51,7 @@ export class UsersController {
   @ApiBody({
     description: 'user delete',
   })
-  @Delete('')
+  @Delete('delete')
   deleteUser(@CurrentUser() User) {
     return this.usersService.deleteUser(User.id);
   }
@@ -81,7 +81,7 @@ export class UsersController {
   @ApiBody({
     description: 'update userInfo'
   })
-  @Patch('')
+  @Patch('update')
   updateUserInfo(@Body() body: UpdateUserDto, @CurrentUser() User){
     return this.usersService.updateUserInfo(User.id, body)
   }

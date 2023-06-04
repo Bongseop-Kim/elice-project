@@ -10,7 +10,7 @@ export declare class UsersRepository {
     findUserByIdWithoutPassword(id: number): Promise<User | null>;
     deleteUser(id: number): Prisma.Prisma__UserClient<User, never>;
     getUserInfo(id: number): Prisma.PrismaPromise<(User & {
-        haveChild: import(".prisma/client").Child[];
+        haveKid: import(".prisma/client").Kid[];
     })[]>;
     updateUserInfo(id: number, body: UpdateUserDto): Prisma.Prisma__UserClient<User, never>;
     managerSignUp(body: CreateManagerDto): Prisma.Prisma__UserClient<User, never>;

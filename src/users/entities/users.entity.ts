@@ -39,11 +39,5 @@ export class UserEntity implements User {
   favoriteHospitals: string[];
 
   @ApiProperty()
-  review: string[];
-
-  @ApiProperty()
-  reserved: string[];
-
-  @ApiProperty()
   address: string | null;
 }

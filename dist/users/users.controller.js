@@ -48,9 +48,6 @@ let UsersController = class UsersController {
     async managerSignUp(body) {
         return await this.usersService.managerSignUp(body);
     }
-    async verifyCheck(id, User) {
-        return await this.usersService.verifyCheck(id, User);
-    }
 };
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: '현재 user 가져오기' }),
@@ -134,19 +131,6 @@ __decorate([
     __metadata("design:paramtypes", [users_dtos_1.CreateManagerDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "managerSignUp", null);
-__decorate([
-    (0, swagger_1.ApiOperation)({ summary: '유저 등급 분류' }),
-    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
-    (0, swagger_1.ApiBody)({
-        description: 'verify check',
-    }),
-    (0, common_1.Get)('/check/:id'),
-    __param(0, (0, common_1.Param)()),
-    __param(1, (0, user_decorator_1.CurrentUser)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Object]),
-    __metadata("design:returntype", Promise)
-], UsersController.prototype, "verifyCheck", null);
 UsersController = __decorate([
     (0, common_1.Controller)('user'),
     (0, swagger_1.ApiTags)('User'),

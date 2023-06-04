@@ -24,19 +24,18 @@ model User {
   adminVerified     Boolean?
   address           String?
   favoriteHospitals Favorate[]
-  haveChild         Child[]
+  haveKid           Kid[]
   review            Reviews[]
   reserved          Reservation[]
 }
 
-model Child {
+model Kid {
   id          Int           @id @default(autoincrement())
   parent      User          @relation(fields: [parentId], references: [id], onDelete: Cascade)
   parentId    Int
   name        String
   gender      String
   birth       String
-  img         String?
   memo        String?
   reservation Reservation[]
   image       Image[]
@@ -46,8 +45,8 @@ model Reservation {
   id                Int      @id @default(autoincrement())
   whosReservation   User     @relation(fields: [whosReservationId], references: [id], onDelete: Cascade)
   whosReservationId Int
-  isUsersChild      Child?   @relation(fields: [isUsersChildId], references: [id])
-  isUsersChildId    Int
+  isUsersKid        Kid?     @relation(fields: [isUsersKidId], references: [id])
+  isUsersKidId      Int
   hospital          Hospital @relation(fields: [hospitalId], references: [id])
   hospitalId        String
   time              String
@@ -122,8 +121,8 @@ model Image {
   type     String
   imageUrl String
 
-  child   Child? @relation(fields: [childId], references: [id])
-  childId Int
+  kid   Kid? @relation(fields: [kidId], references: [id])
+  kidId Int
 
   hospital   Hospital? @relation(fields: [hospitalId], references: [id])
   hospitalId String?

@@ -12,7 +12,7 @@ export class ImageEntity implements Image {
   imageUrl: string;
 
   @ApiProperty()
-  childId: number;
+  kidId: number;
 
   @ApiProperty()
   hospitalId: string;

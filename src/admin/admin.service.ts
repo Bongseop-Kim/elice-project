@@ -1,7 +1,6 @@
 import { Injectable,
         UnauthorizedException,
         HttpException } from '@nestjs/common';
-//import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { AdminRepository } from './admin.repository';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 
@@ -18,12 +17,7 @@ export class AdminService {
         각각의 API 안에다 넣는게 맞는지에 대해서도 잘 모르겠습니다.
     }*/
 
-    getAllUserInfo(userType: string, User){
-        /*관리자 API 단계에서는 토큰으로 받아온 User의 role값을 DB와 대조하여
-        관리자임을 확인하는 코드를 넣어서 API를 실행시킬 의도입니다만
-        현재 아래 한 줄의 코드가 모든 API에 반복되어 사용되어질 것 같습니다.
-         */
-        
+    getAllUserInfo(userType: string, User){       
         //기본적으로 관리자인지를 인증부터 합니다.
         if(User.role !== 'admin') throw new UnauthorizedException('접근 권한이 없습니다.')
         return this.adminRepository.getAllUserInfo(userType)

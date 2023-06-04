@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User, Child, Reservation } from '@prisma/client';
+import { User, Kid, Reservation } from '@prisma/client';
 
 export class ReservationtEntity implements Reservation {
   @ApiProperty()
@@ -12,10 +12,10 @@ export class ReservationtEntity implements Reservation {
   whosReservationId: number;
 
   @ApiProperty()
-  isUsersChild: Child;
+  isUsersKid: Kid;
 
   @ApiProperty()
-  isUsersChildId: number;
+  isUsersKidId: number;
 
   @ApiProperty()
   hospitalId: string;

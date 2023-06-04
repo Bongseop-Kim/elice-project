@@ -14,7 +14,7 @@ const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
 const prisma_module_1 = require("./prisma/prisma.module");
 const hospital_module_1 = require("./hospital/hospital.module");
-const child_module_1 = require("./child/child.module");
+const kid_module_1 = require("./kid/kid.module");
 const admin_module_1 = require("./admin/admin.module");
 const image_module_1 = require("./image/image.module");
 let AppModule = class AppModule {
@@ -29,7 +29,7 @@ AppModule = __decorate([
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
             prisma_module_1.PrismaModule,
-            child_module_1.ChildModule,
+            kid_module_1.KidModule,
             hospital_module_1.HospitalModule,
             admin_module_1.AdminModule,
             image_module_1.ImageModule,

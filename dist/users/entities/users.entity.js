@@ -63,14 +63,6 @@ __decorate([
 ], UserEntity.prototype, "favoriteHospitals", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Array)
-], UserEntity.prototype, "review", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Array)
-], UserEntity.prototype, "reserved", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], UserEntity.prototype, "address", void 0);
 exports.UserEntity = UserEntity;

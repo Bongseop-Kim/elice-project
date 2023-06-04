@@ -25,8 +25,8 @@ let AdminController = class AdminController {
         this.adminService = adminService;
         this.authService = authService;
     }
-    getUserInfo(userType, User) {
-        return this.adminService.getAllUserInfo(userType, User);
+    getUserInfo(param, User) {
+        return this.adminService.getAllUserInfo(param, User);
     }
     adminDeleteUser(id, User) {
         return this.adminService.adminDeleteUser(id, User);

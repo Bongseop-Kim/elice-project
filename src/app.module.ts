@@ -7,7 +7,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { HospitalModule } from './hospital/hospital.module';
-import { ChildModule } from './child/child.module';
+import { KidModule } from './kid/kid.module';
 import { AdminModule } from './admin/admin.module';
 import { ImageModule } from './image/image.module';
 
@@ -17,7 +17,7 @@ import { ImageModule } from './image/image.module';
     UsersModule,
     AuthModule,
     PrismaModule,
-    ChildModule,
+    KidModule,
     HospitalModule,
     AdminModule,
     ImageModule,

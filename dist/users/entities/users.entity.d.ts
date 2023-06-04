@@ -12,7 +12,5 @@ export declare class UserEntity implements User {
     hospitalId: string;
     adminVerified: boolean;
     favoriteHospitals: string[];
-    review: string[];
-    reserved: string[];
     address: string | null;
 }

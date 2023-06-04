@@ -28,7 +28,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], ImageEntity.prototype, "childId", void 0);
+], ImageEntity.prototype, "kidId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)

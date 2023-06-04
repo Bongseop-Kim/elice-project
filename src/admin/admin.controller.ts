@@ -33,8 +33,8 @@ export class AdminController {
       description: 'get userInfo'
     })
     @Get('get/:userType')
-    getUserInfo(@Param() userType: string, @CurrentUser() User) {
-      return this.adminService.getAllUserInfo(userType, User)
+    getUserInfo(@Param() param: string, @CurrentUser() User) {
+      return this.adminService.getAllUserInfo(param, User)
     }
 
     @ApiOperation({ summary: '특정 유저 탈퇴'})

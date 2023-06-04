@@ -32,7 +32,7 @@ let UsersService = class UsersService {
             role: 'client',
             address: null,
         });
-        return user;
+        return user.email;
     }
     async deleteUser(id) {
         return await this.usersRepository.deleteUser(id);
@@ -63,25 +63,7 @@ let UsersService = class UsersService {
         const hashedPassedword = await bcrypt.hash(password, 10);
         const user = Object.assign(Object.assign({}, body), { password: hashedPassedword, hospitalId: body.hospitalId, role: 'manager', adminVerified: false });
         const signUp = await this.usersRepository.managerSignUp(user);
-        return signUp;
-    }
-    async verifyCheck(id, User) {
-        const modifyId = Number(Object.values(id));
-        if (modifyId !== User.id) {
-            throw new common_1.UnauthorizedException('요청 받은 id값과 현재 유저의 id가 일치하지 않습니다.');
-        }
-        if (User.role === 'client') {
-            return 'type: 1';
-        }
-        else if (User.role === 'manager' && User.adminVerified === true) {
-            return 'type: 2';
-        }
-        else if (User.role === 'admin') {
-            return 'type: 0';
-        }
-        else {
-            throw new common_1.UnauthorizedException('로그인 인증 과정에 문제가 발생하였습니다.');
-        }
+        return signUp.email;
     }
 };
 UsersService = __decorate([

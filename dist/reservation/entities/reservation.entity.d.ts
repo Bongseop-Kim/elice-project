@@ -1,10 +1,10 @@
-import { User, Child, Reservation } from '@prisma/client';
+import { User, Kid, Reservation } from '@prisma/client';
 export declare class ReservationtEntity implements Reservation {
     id: number;
     whosReservation: User;
     whosReservationId: number;
-    isUsersChild: Child;
-    isUsersChildId: number;
+    isUsersKid: Kid;
+    isUsersKidId: number;
     hospitalId: string;
     time: string;
     memo: string;

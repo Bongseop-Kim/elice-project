@@ -28,11 +28,11 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Object)
-], ReservationtEntity.prototype, "isUsersChild", void 0);
+], ReservationtEntity.prototype, "isUsersKid", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], ReservationtEntity.prototype, "isUsersChildId", void 0);
+], ReservationtEntity.prototype, "isUsersKidId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)

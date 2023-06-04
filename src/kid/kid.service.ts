@@ -30,6 +30,11 @@ export class KidService {
     return kid;
   }
 
+  async getKids(User){
+    const kids = await this.kidRepository.getKids(User)
+    return kids;
+  }
+
   async updateKid(id: number, body: UpdateKidDto) {
     const kid = await this.kidRepository.updateKid(id, body);
     return kid;

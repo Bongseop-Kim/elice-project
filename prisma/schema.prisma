@@ -27,6 +27,7 @@ model User {
   haveKid           Kid[]
   review            Reviews[]
   reserved          Reservation[]
+  alarm             Alarm[]
 }
 
 model Kid {
@@ -38,7 +39,7 @@ model Kid {
   birth       String
   memo        String?
   reservation Reservation[]
-  image       Image[]
+  image       Image?
 }
 
 model Reservation {
@@ -51,6 +52,7 @@ model Reservation {
   hospitalId        String
   time              String
   memo              String
+  alarm             Alarm?
 }
 
 model Reviews {
@@ -113,6 +115,7 @@ model Hospital {
   reservations   Reservation[]
   admin          User?
   images         Image[]
+  alarm          Alarm[]
 }
 
 model Image {
@@ -122,8 +125,18 @@ model Image {
   imageUrl String
 
   kid   Kid? @relation(fields: [kidId], references: [id])
-  kidId Int
+  kidId Int  @unique
 
   hospital   Hospital? @relation(fields: [hospitalId], references: [id])
   hospitalId String?
+}
+
+model Alarm {
+  id            Int         @id @default(autoincrement())
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        Int
+  reservation   Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+  reservationId Int         @unique
+  hospital      Hospital    @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
+  hospitalId    String
 }

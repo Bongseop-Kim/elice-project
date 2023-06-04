@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 export class RegistKidDto {
   @ApiProperty()
@@ -30,3 +30,5 @@ export class UpdateKidDto {
   @ApiProperty({ required: false })
   memo: string;
 }
+
+export class GetKidsDto extends PartialType(RegistKidDto){}

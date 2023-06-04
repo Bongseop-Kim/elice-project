@@ -110,6 +110,18 @@ CREATE TABLE `Image` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `Alarm` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `userId` INTEGER NOT NULL,
+    `reservationId` INTEGER NOT NULL,
+    `hospitalId` VARCHAR(191) NOT NULL,
+
+    UNIQUE INDEX `Alarm_reservationId_key`(`reservationId`),
+    UNIQUE INDEX `Alarm_hospitalId_key`(`hospitalId`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `User` ADD CONSTRAINT `User_hospitalId_fkey` FOREIGN KEY (`hospitalId`) REFERENCES `Hospital`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
@@ -142,3 +154,12 @@ ALTER TABLE `Image` ADD CONSTRAINT `Image_kidId_fkey` FOREIGN KEY (`kidId`) REFE
 
 -- AddForeignKey
 ALTER TABLE `Image` ADD CONSTRAINT `Image_hospitalId_fkey` FOREIGN KEY (`hospitalId`) REFERENCES `Hospital`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Alarm` ADD CONSTRAINT `Alarm_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Alarm` ADD CONSTRAINT `Alarm_reservationId_fkey` FOREIGN KEY (`reservationId`) REFERENCES `Reservation`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Alarm` ADD CONSTRAINT `Alarm_hospitalId_fkey` FOREIGN KEY (`hospitalId`) REFERENCES `Hospital`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

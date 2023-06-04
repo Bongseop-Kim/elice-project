@@ -36,6 +36,14 @@ export class KidRepository {
     return kid;
   }
 
+  getKids(User){
+    const modifyId = Number(Object.values(User.id))
+    return this.prisma.kid.findMany({
+      where: { id : modifyId },
+      include: { image: true }
+    })
+  }
+
   updateKid(id: number, body: UpdateKidDto) {
     return this.prisma.kid.update({
       where: { id: Number(id) },

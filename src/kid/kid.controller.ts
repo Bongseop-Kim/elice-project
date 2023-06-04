@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Patch,
   Post,
@@ -12,7 +13,7 @@ import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { KidService } from './kid.service';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { RegistKidDto, UpdateKidDto } from './dto/kid.dtos';
+import { GetKidsDto, RegistKidDto, UpdateKidDto } from './dto/kid.dtos';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 
 @Controller('kid')
@@ -30,6 +31,17 @@ export class KidController {
   @Post('regist')
   registKid(@Body() body: RegistKidDto, @CurrentUser() User) {
     return this.kidService.registKid(body, User);
+  }
+
+  @ApiOperation({ summary: '아이들 조회하기' })
+  @UseGuards(JwtAuthGuard)
+  @ApiBody({
+    description: 'get kids',
+    type: GetKidsDto,
+  })
+  @Get('get')
+  getKids(@CurrentUser() User){
+    return this.kidService.getKids(User);
   }
 
   @ApiOperation({ summary: '아이 정보 수정하기' })

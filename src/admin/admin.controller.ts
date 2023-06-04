@@ -17,6 +17,7 @@ import { RequestLoginDto } from 'src/auth/dto/request.login.dto';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 import { AuthGuard } from '@nestjs/passport';
 import { AdminService } from './admin.service';
+import { UserType, Id } from './dto/admin.dtos'
 
 @Controller('admin')
 @ApiTags('Admin')
@@ -33,7 +34,7 @@ export class AdminController {
       description: 'get userInfo'
     })
     @Get('get/:userType')
-    getUserInfo(@Param() param: string, @CurrentUser() User) {
+    getUserInfo(@Param() param: UserType, @CurrentUser() User) {
       return this.adminService.getAllUserInfo(param, User)
     }
 
@@ -43,7 +44,7 @@ export class AdminController {
       description: 'delete user'
     })
     @Delete('delete/:id')
-    adminDeleteUser(@Param() id: number, @CurrentUser() User){
+    adminDeleteUser(@Param() id: Id, @CurrentUser() User){
       return this.adminService.adminDeleteUser(id, User)
     }
 
@@ -53,7 +54,7 @@ export class AdminController {
       description: 'verify hospital client'
     })
     @Patch('verify/:id')
-    adminVerifyManager(@Param() id: number, @CurrentUser() User){
+    adminVerifyManager(@Param() id: Id, @CurrentUser() User){
       return this.adminService.adminVerifyManager(id, User)
     }
 }

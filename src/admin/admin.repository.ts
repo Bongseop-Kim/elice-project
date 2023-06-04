@@ -1,21 +1,22 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { UserType, Id } from './dto/admin.dtos'
 
 @Injectable()
 export class AdminRepository{
     constructor(private prisma: PrismaService) {}
 
-    async getAllUserInfo(userType: string){
-        const modifyParam = Object.values(userType).join()
-        if(modifyParam === 'generelclient'){
+    async getAllUserInfo(userType: UserType){
+        const { type } = userType;
+        if(type === 'generelclient'){
             const client = await this.prisma.user.findMany({
                 where: {
                     role: 'client',
                 }
             }) 
         return client
-        } else if (modifyParam === 'hospitalclient'){
+        } else if (type === 'hospitalclient'){
             const manager = await this.prisma.user.findMany({
                 where: {
                     role: 'manager',
@@ -23,7 +24,7 @@ export class AdminRepository{
                 }
             })
         return manager
-        } else if (modifyParam === 'notverifiedhospitalclient'){
+        } else if (type === 'notverifiedhospitalclient'){
             const unVerifiedManager = await this.prisma.user.findMany({
                 where: {
                     role: 'manager',
@@ -34,18 +35,18 @@ export class AdminRepository{
         } else return new HttpException('요청 경로를 잘못 지정하였습니다.', 404)
     }
 
-    async adminDeleteUser(id: number){
-        const modifyId = Number(Object.values(id))
+    async adminDeleteUser(id: Id){
+        const { userId } = id
         const willBeDeletedUser = await this.prisma.user.delete({
-            where: { id: modifyId }
+            where: { id: userId }
         })
         return willBeDeletedUser
     }
 
-    async adminVerifyManager(id: number){
-        const modifyId = Number(Object.values(id))
+    async adminVerifyManager(id: Id){
+        const { userId } = id
         const verifyManager = await this.prisma.user.update({
-            where: { id: modifyId },
+            where: { id: userId },
             data: { adminVerified: true }
         })
         return verifyManager

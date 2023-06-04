@@ -52,6 +52,9 @@ export class UsersRepository {
     return this.prisma.user.findMany({
       where: { id: id },
       include: {
+        haveKid: {
+          include: { image: true }
+        },
         favoriteHospitals: true,
         reserved: true,
         alarm: true,

@@ -27,6 +27,9 @@ let KidController = class KidController {
     registKid(body, User) {
         return this.kidService.registKid(body, User);
     }
+    getKids(User) {
+        return this.kidService.getKids(User);
+    }
     updateKid(id, body, User) {
         return this.kidService.updateKid(id, body);
     }
@@ -49,6 +52,19 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], KidController.prototype, "registKid", null);
 __decorate([
+    (0, swagger_1.ApiOperation)({ summary: '아이들 조회하기' }),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
+    (0, swagger_1.ApiBody)({
+        description: 'get kids',
+        type: kid_dtos_1.GetKidsDto,
+    }),
+    (0, common_1.Get)('get'),
+    __param(0, (0, user_decorator_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], KidController.prototype, "getKids", null);
+__decorate([
     (0, swagger_1.ApiOperation)({ summary: '아이 정보 수정하기' }),
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBody)({
@@ -60,7 +76,7 @@ __decorate([
     __param(1, (0, common_1.Body)()),
     __param(2, (0, user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, kid_dtos_1.UpdateKidDto, Object]),
+    __metadata("design:paramtypes", [String, kid_dtos_1.UpdateKidDto, Object]),
     __metadata("design:returntype", void 0)
 ], KidController.prototype, "updateKid", null);
 __decorate([
@@ -73,7 +89,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], KidController.prototype, "deleteKid", null);
 KidController = __decorate([

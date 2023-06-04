@@ -11,3 +11,7 @@ export declare class UpdateKidDto {
     birth: string;
     memo: string;
 }
+declare const GetKidsDto_base: import("@nestjs/common").Type<Partial<RegistKidDto>>;
+export declare class GetKidsDto extends GetKidsDto_base {
+}
+export {};

@@ -33,6 +33,10 @@ let KidService = class KidService {
         });
         return kid;
     }
+    async getKids(User) {
+        const kids = await this.kidRepository.getKids(User);
+        return kids;
+    }
     async updateKid(id, body) {
         const kid = await this.kidRepository.updateKid(id, body);
         return kid;

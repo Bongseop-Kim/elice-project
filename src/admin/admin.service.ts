@@ -16,18 +16,18 @@ export class AdminService {
         return true;
     }
 
-    getAllUserInfo(userType: UserType, User){       
+    getAllUserInfo(param: UserType, User){       
         this.isAdmin(User)
-        return this.adminRepository.getAllUserInfo(userType)
+        return this.adminRepository.getAllUserInfo(param)
     }
 
-    adminDeleteUser(id: Id, User){
+    adminDeleteUser(param: Id, User){
         this.isAdmin(User)
-        return this.adminRepository.adminDeleteUser(id)
+        return this.adminRepository.adminDeleteUser(param)
     }
 
-    adminVerifyManager(id: Id, User){
+    adminVerifyManager(param: Id, User){
         this.isAdmin(User)
-        return this.adminRepository.adminVerifyManager(id)
+        return this.adminRepository.adminVerifyManager(param)
     }
 }

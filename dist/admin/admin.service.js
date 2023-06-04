@@ -16,20 +16,23 @@ let AdminService = class AdminService {
     constructor(adminRepository) {
         this.adminRepository = adminRepository;
     }
-    getAllUserInfo(userType, User) {
-        if (User.role !== 'admin')
+    isAdmin(User) {
+        if (User.role !== 'admin') {
             throw new common_1.UnauthorizedException('접근 권한이 없습니다.');
-        return this.adminRepository.getAllUserInfo(userType);
+        }
+        return true;
     }
-    adminDeleteUser(id, User) {
-        if (User.role !== 'admin')
-            throw new common_1.UnauthorizedException('접근 권한이 없습니다.');
-        return this.adminRepository.adminDeleteUser(id);
+    getAllUserInfo(param, User) {
+        this.isAdmin(User);
+        return this.adminRepository.getAllUserInfo(param);
     }
-    adminVerifyManager(id, User) {
-        if (User.role !== 'admin')
-            throw new common_1.UnauthorizedException('접근 권한이 없습니다.');
-        return this.adminRepository.adminVerifyManager(id);
+    adminDeleteUser(param, User) {
+        this.isAdmin(User);
+        return this.adminRepository.adminDeleteUser(param);
+    }
+    adminVerifyManager(param, User) {
+        this.isAdmin(User);
+        return this.adminRepository.adminVerifyManager(param);
     }
 };
 AdminService = __decorate([

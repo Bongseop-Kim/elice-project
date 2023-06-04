@@ -55,6 +55,12 @@ let KidRepository = class KidRepository {
         });
         return kid;
     }
+    getKids(User) {
+        return this.prisma.kid.findMany({
+            where: { parentId: User.id },
+            include: { image: true }
+        });
+    }
     updateKid(id, body) {
         return this.prisma.kid.update({
             where: { id: Number(id) },

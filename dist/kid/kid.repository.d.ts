@@ -6,6 +6,9 @@ export declare class KidRepository {
     constructor(prisma: PrismaService);
     existByParent(User: any): Promise<any>;
     registKid(body: RegistKidDto): Promise<any>;
-    updateKid(id: number, body: UpdateKidDto): Prisma.Prisma__KidClient<Kid, never>;
-    deleteKid(id: number): Prisma.Prisma__KidClient<Kid, never>;
+    getKids(User: any): Prisma.PrismaPromise<(Kid & {
+        image: import(".prisma/client").Image;
+    })[]>;
+    updateKid(id: string, body: UpdateKidDto): Prisma.Prisma__KidClient<Kid, never>;
+    deleteKid(id: string): Prisma.Prisma__KidClient<Kid, never>;
 }

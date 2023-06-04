@@ -7,16 +7,17 @@ import { UserType, Id } from './dto/admin.dtos'
 export class AdminRepository{
     constructor(private prisma: PrismaService) {}
 
-    async getAllUserInfo(userType: UserType){
-        const { type } = userType;
-        if(type === 'generelclient'){
+    async getAllUserInfo(param: UserType){
+        const { userType } = param;
+        console.log(userType)
+        if(userType === 'generelclient'){
             const client = await this.prisma.user.findMany({
                 where: {
                     role: 'client',
                 }
             }) 
         return client
-        } else if (type === 'hospitalclient'){
+        } else if (userType === 'hospitalclient'){
             const manager = await this.prisma.user.findMany({
                 where: {
                     role: 'manager',
@@ -24,7 +25,7 @@ export class AdminRepository{
                 }
             })
         return manager
-        } else if (type === 'notverifiedhospitalclient'){
+        } else if (userType === 'notverifiedhospitalclient'){
             const unVerifiedManager = await this.prisma.user.findMany({
                 where: {
                     role: 'manager',
@@ -35,18 +36,18 @@ export class AdminRepository{
         } else return new HttpException('요청 경로를 잘못 지정하였습니다.', 404)
     }
 
-    async adminDeleteUser(id: Id){
-        const { userId } = id
+    async adminDeleteUser(param: Id){
+        const { userId } = param
         const willBeDeletedUser = await this.prisma.user.delete({
-            where: { id: userId }
+            where: { id: Number(userId) }
         })
         return willBeDeletedUser
     }
 
-    async adminVerifyManager(id: Id){
-        const { userId } = id
+    async adminVerifyManager(param: Id){
+        const { userId } = param
         const verifyManager = await this.prisma.user.update({
-            where: { id: userId },
+            where: { id: Number(userId) },
             data: { adminVerified: true }
         })
         return verifyManager

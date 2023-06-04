@@ -4,6 +4,9 @@ export declare class KidService {
     private readonly kidRepository;
     constructor(kidRepository: KidRepository);
     registKid(body: RegistKidDto, User: any): Promise<any>;
-    updateKid(id: number, body: UpdateKidDto): Promise<import(".prisma/client").Kid>;
-    deleteKid(id: number): Promise<import(".prisma/client").Kid>;
+    getKids(User: any): Promise<(import(".prisma/client").Kid & {
+        image: import(".prisma/client").Image;
+    })[]>;
+    updateKid(id: string, body: UpdateKidDto): Promise<import(".prisma/client").Kid>;
+    deleteKid(id: string): Promise<import(".prisma/client").Kid>;
 }

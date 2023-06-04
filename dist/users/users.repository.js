@@ -67,7 +67,14 @@ let UsersRepository = class UsersRepository {
     getUserInfo(id) {
         return this.prisma.user.findMany({
             where: { id: id },
-            include: { haveKid: true },
+            include: {
+                haveKid: {
+                    include: { image: true }
+                },
+                favoriteHospitals: true,
+                reserved: true,
+                alarm: true,
+            },
         });
     }
     updateUserInfo(id, body) {

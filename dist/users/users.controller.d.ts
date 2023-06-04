@@ -14,7 +14,12 @@ export declare class UsersController {
         role: string;
     }>;
     getUserInfo(User: any): Promise<(import(".prisma/client").User & {
-        haveKid: import(".prisma/client").Kid[];
+        favoriteHospitals: import(".prisma/client").Favorate[];
+        haveKid: (import(".prisma/client").Kid & {
+            image: import(".prisma/client").Image;
+        })[];
+        reserved: import(".prisma/client").Reservation[];
+        alarm: import(".prisma/client").Alarm[];
     })[]>;
     updateUserInfo(body: UpdateUserDto, User: any): Promise<import(".prisma/client").User>;
     managerSignUp(body: CreateManagerDto): Promise<string>;

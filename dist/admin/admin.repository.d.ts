@@ -1,10 +1,11 @@
 import { HttpException } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { UserType, Id } from './dto/admin.dtos';
 export declare class AdminRepository {
     private prisma;
     constructor(prisma: PrismaService);
-    getAllUserInfo(userType: string): Promise<HttpException | User[]>;
-    adminDeleteUser(id: number): Promise<User>;
-    adminVerifyManager(id: number): Promise<User>;
+    getAllUserInfo(param: UserType): Promise<HttpException | User[]>;
+    adminDeleteUser(param: Id): Promise<User>;
+    adminVerifyManager(param: Id): Promise<User>;
 }

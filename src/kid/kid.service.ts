@@ -35,12 +35,12 @@ export class KidService {
     return kids;
   }
 
-  async updateKid(id: number, body: UpdateKidDto) {
+  async updateKid(id: string, body: UpdateKidDto) {
     const kid = await this.kidRepository.updateKid(id, body);
     return kid;
   }
 
-  async deleteKid(id: number) {
+  async deleteKid(id: string) {
     return await this.kidRepository.deleteKid(id);
   }
 }

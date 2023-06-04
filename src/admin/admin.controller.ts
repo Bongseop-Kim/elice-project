@@ -43,9 +43,9 @@ export class AdminController {
     @ApiBody({
       description: 'delete user'
     })
-    @Delete('delete/:id')
-    adminDeleteUser(@Param() id: Id, @CurrentUser() User){
-      return this.adminService.adminDeleteUser(id, User)
+    @Delete('delete/:userId')
+    adminDeleteUser(@Param() param: Id, @CurrentUser() User){
+      return this.adminService.adminDeleteUser(param, User)
     }
 
     @ApiOperation({ summary: '병원 관리자 권한 승인' })
@@ -53,8 +53,8 @@ export class AdminController {
     @ApiBody({
       description: 'verify hospital client'
     })
-    @Patch('verify/:id')
-    adminVerifyManager(@Param() id: Id, @CurrentUser() User){
-      return this.adminService.adminVerifyManager(id, User)
+    @Patch('verify/:userId')
+    adminVerifyManager(@Param() param: Id, @CurrentUser() User){
+      return this.adminService.adminVerifyManager(param, User)
     }
 }

@@ -53,7 +53,7 @@ export class KidController {
   @Patch(':id')
   //@Body() body: Type 를 해주지 않으면 prisma method 실행 단계에서 prisma index 내부 파일에서 에러가 발생한다.
   updateKid(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() body: UpdateKidDto,
     @CurrentUser() User,
   ) {
@@ -66,7 +66,7 @@ export class KidController {
     description: 'delete kid',
   })
   @Delete(':id')
-  deleteKid(@Param('id') id: number, @CurrentUser() User) {
+  deleteKid(@Param('id') id: string, @CurrentUser() User) {
     return this.kidService.deleteKid(id);
   }
 }

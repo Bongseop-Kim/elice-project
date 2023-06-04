@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateKidDto = exports.RegistKidDto = void 0;
+exports.GetKidsDto = exports.UpdateKidDto = exports.RegistKidDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 class RegistKidDto {
 }
@@ -53,4 +53,7 @@ __decorate([
     __metadata("design:type", String)
 ], UpdateKidDto.prototype, "memo", void 0);
 exports.UpdateKidDto = UpdateKidDto;
+class GetKidsDto extends (0, swagger_1.PartialType)(RegistKidDto) {
+}
+exports.GetKidsDto = GetKidsDto;
 //# sourceMappingURL=kid.dtos.js.map

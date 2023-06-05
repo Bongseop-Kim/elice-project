@@ -8,50 +8,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.KidRepository = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
-const user_decorator_1 = require("../common/decorators/user.decorator");
 let KidRepository = class KidRepository {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async existByParent(User) {
-        try {
-            const kids = await this.prisma.kid.findMany({
-                where: {
-                    parentId: User.id,
-                },
-            });
-            return kids;
-        }
-        catch (error) {
-            throw new common_1.HttpException('db error', 400);
-        }
-    }
-    registKid(body) {
-        const { parentId } = body, rest = __rest(body, ["parentId"]);
+    registKid(User) {
+        const { parentId } = User;
         const kid = this.prisma.kid.create({
-            data: Object.assign(Object.assign({}, rest), { parent: {
+            data: {
+                parent: {
                     connect: {
                         id: parentId,
                     },
-                } }),
+                },
+            },
         });
         return kid;
     }
@@ -73,12 +47,6 @@ let KidRepository = class KidRepository {
         });
     }
 };
-__decorate([
-    __param(0, (0, user_decorator_1.CurrentUser)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], KidRepository.prototype, "existByParent", null);
 KidRepository = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService])

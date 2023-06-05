@@ -16,20 +16,9 @@ let KidService = class KidService {
     constructor(kidRepository) {
         this.kidRepository = kidRepository;
     }
-    async registKid(body, User) {
-        const { name, gender, birth, memo } = body;
-        const isKidExist = await this.kidRepository.existByParent(User);
-        isKidExist.map((kid) => {
-            if (kid.name === body.name) {
-                throw new common_1.HttpException('아이의 이름이 중복되지 않았는지 확인해 주세요.', 400);
-            }
-        });
+    async registKid(User) {
         const kid = await this.kidRepository.registKid({
-            name,
-            gender,
-            birth,
-            parentId: User.id,
-            memo,
+            parentId: User.id
         });
         return kid;
     }

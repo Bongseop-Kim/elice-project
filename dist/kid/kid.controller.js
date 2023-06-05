@@ -24,8 +24,8 @@ let KidController = class KidController {
     constructor(kidService) {
         this.kidService = kidService;
     }
-    registKid(body, User) {
-        return this.kidService.registKid(body, User);
+    registKid(User) {
+        return this.kidService.registKid(User);
     }
     getKids(User) {
         return this.kidService.getKids(User);
@@ -45,10 +45,9 @@ __decorate([
         type: kid_dtos_1.RegistKidDto,
     }),
     (0, common_1.Post)('regist'),
-    __param(0, (0, common_1.Body)()),
-    __param(1, (0, user_decorator_1.CurrentUser)()),
+    __param(0, (0, user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [kid_dtos_1.RegistKidDto, Object]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], KidController.prototype, "registKid", null);
 __decorate([

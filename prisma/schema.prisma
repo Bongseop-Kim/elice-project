@@ -34,9 +34,9 @@ model Kid {
   id          Int           @id @default(autoincrement())
   parent      User          @relation(fields: [parentId], references: [id], onDelete: Cascade)
   parentId    Int
-  name        String
-  gender      String
-  birth       String
+  name        String?
+  gender      String?
+  birth       String?
   memo        String?
   reservation Reservation[]
   image       Image?

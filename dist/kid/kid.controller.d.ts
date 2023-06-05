@@ -1,9 +1,9 @@
 import { KidService } from './kid.service';
-import { RegistKidDto, UpdateKidDto } from './dto/kid.dtos';
+import { UpdateKidDto } from './dto/kid.dtos';
 export declare class KidController {
     private readonly kidService;
     constructor(kidService: KidService);
-    registKid(body: RegistKidDto, User: any): Promise<any>;
+    registKid(User: any): Promise<import(".prisma/client").Kid>;
     getKids(User: any): Promise<(import(".prisma/client").Kid & {
         image: import(".prisma/client").Image;
     })[]>;

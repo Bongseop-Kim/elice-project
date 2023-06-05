@@ -22,9 +22,9 @@ CREATE TABLE `User` (
 CREATE TABLE `Kid` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `parentId` INTEGER NOT NULL,
-    `name` VARCHAR(191) NOT NULL,
-    `gender` VARCHAR(191) NOT NULL,
-    `birth` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(191) NULL,
+    `gender` VARCHAR(191) NULL,
+    `birth` VARCHAR(191) NULL,
     `memo` VARCHAR(191) NULL,
 
     PRIMARY KEY (`id`)
@@ -107,6 +107,7 @@ CREATE TABLE `Image` (
     `kidId` INTEGER NOT NULL,
     `hospitalId` VARCHAR(191) NULL,
 
+    UNIQUE INDEX `Image_kidId_key`(`kidId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -118,7 +119,6 @@ CREATE TABLE `Alarm` (
     `hospitalId` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `Alarm_reservationId_key`(`reservationId`),
-    UNIQUE INDEX `Alarm_hospitalId_key`(`hospitalId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

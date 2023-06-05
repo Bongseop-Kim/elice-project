@@ -8,7 +8,7 @@ import { CurrentUser } from 'src/common/decorators/user.decorator';
 export class KidRepository {
   constructor(private prisma: PrismaService) {}
 
-  async existByParent(@CurrentUser() User): Promise<any> {
+  /*async existByParent(@CurrentUser() User): Promise<any> {
     try {
       const kids = await this.prisma.kid.findMany({
         where: {
@@ -19,13 +19,12 @@ export class KidRepository {
     } catch (error) {
       throw new HttpException('db error', 400);
     }
-  }
+  }*/
 
-  registKid(body: RegistKidDto): Promise<any> {
-    const { parentId, ...rest } = body;
+  registKid(User) {
+    const { parentId } = User
     const kid = this.prisma.kid.create({
       data: {
-        ...rest,
         parent: {
           connect: {
             id: parentId,

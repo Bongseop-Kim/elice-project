@@ -29,8 +29,8 @@ export class KidController {
     type: RegistKidDto,
   })
   @Post('regist')
-  registKid(@Body() body: RegistKidDto, @CurrentUser() User) {
-    return this.kidService.registKid(body, User);
+  registKid(@CurrentUser() User) {
+    return this.kidService.registKid(User);
   }
 
   @ApiOperation({ summary: '아이들 조회하기' })

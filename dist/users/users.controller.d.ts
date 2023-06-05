@@ -11,6 +11,7 @@ export declare class UsersController {
     deleteUser(user: any): Promise<import(".prisma/client").User>;
     logIn(data: RequestLoginDto): Promise<{
         token: string;
+        role: string;
     }>;
     getUserInfo(User: any): Promise<(import(".prisma/client").User & {
         haveChild: import(".prisma/client").Child[];

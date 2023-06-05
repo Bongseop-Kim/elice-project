@@ -9,41 +9,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReservationtEntity = void 0;
+exports.ReservationEntity = void 0;
 const swagger_1 = require("@nestjs/swagger");
-class ReservationtEntity {
+class ReservationEntity {
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], ReservationtEntity.prototype, "id", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Object)
-], ReservationtEntity.prototype, "whosReservation", void 0);
+], ReservationEntity.prototype, "id", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], ReservationtEntity.prototype, "whosReservationId", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Object)
-], ReservationtEntity.prototype, "isUsersChild", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Number)
-], ReservationtEntity.prototype, "isUsersChildId", void 0);
+], ReservationEntity.prototype, "userId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], ReservationtEntity.prototype, "hospitalId", void 0);
+], ReservationEntity.prototype, "hospitalId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], ReservationtEntity.prototype, "time", void 0);
+], ReservationEntity.prototype, "memo", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], ReservationtEntity.prototype, "memo", void 0);
-exports.ReservationtEntity = ReservationtEntity;
+    __metadata("design:type", Boolean)
+], ReservationEntity.prototype, "read", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Date)
+], ReservationEntity.prototype, "createdAt", void 0);
+exports.ReservationEntity = ReservationEntity;
 //# sourceMappingURL=reservation.entity.js.map

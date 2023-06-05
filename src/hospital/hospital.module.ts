@@ -5,7 +5,7 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 import { HospitalRepository } from './hospital.repository';
 
 @Module({
-  imports: [PrismaModule, PrismaModule],
+  imports: [PrismaModule],
   controllers: [HospitalController],
   providers: [HospitalService, HospitalRepository],
 })

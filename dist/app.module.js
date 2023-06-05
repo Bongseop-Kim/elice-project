@@ -16,6 +16,7 @@ const prisma_module_1 = require("./prisma/prisma.module");
 const hospital_module_1 = require("./hospital/hospital.module");
 const child_module_1 = require("./child/child.module");
 const image_module_1 = require("./image/image.module");
+const reservation_module_1 = require("./reservation/reservation.module");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(logger_middleware_1.LoggerMiddleware).forRoutes('*');
@@ -31,6 +32,7 @@ AppModule = __decorate([
             child_module_1.ChildModule,
             hospital_module_1.HospitalModule,
             image_module_1.ImageModule,
+            reservation_module_1.ReservationModule,
         ],
         controllers: [],
         providers: [],

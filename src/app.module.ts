@@ -9,6 +9,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { HospitalModule } from './hospital/hospital.module';
 import { ChildModule } from './child/child.module';
 import { ImageModule } from './image/image.module';
+import { ReservationModule } from './reservation/reservation.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ImageModule } from './image/image.module';
     ChildModule,
     HospitalModule,
     ImageModule,
+    ReservationModule,
   ],
   controllers: [],
   providers: [],

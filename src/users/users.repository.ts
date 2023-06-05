@@ -56,8 +56,7 @@ export class UsersRepository {
           include: { image: true }
         },
         favoriteHospitals: true,
-        reserved: true,
-        alarm: true,
+        reserved: true
       },
     });
   }

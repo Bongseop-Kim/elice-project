@@ -33,7 +33,7 @@ CREATE TABLE `Kid` (
 -- CreateTable
 CREATE TABLE `Reservation` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `whosReservationId` INTEGER NOT NULL,
+    `userId` INTEGER NOT NULL,
     `hospitalId` VARCHAR(191) NOT NULL,
     `memo` VARCHAR(191) NULL,
     `read` BOOLEAN NOT NULL DEFAULT false,
@@ -118,7 +118,7 @@ ALTER TABLE `User` ADD CONSTRAINT `User_hospitalId_fkey` FOREIGN KEY (`hospitalI
 ALTER TABLE `Kid` ADD CONSTRAINT `Kid_parentId_fkey` FOREIGN KEY (`parentId`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Reservation` ADD CONSTRAINT `Reservation_whosReservationId_fkey` FOREIGN KEY (`whosReservationId`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Reservation` ADD CONSTRAINT `Reservation_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Reservation` ADD CONSTRAINT `Reservation_hospitalId_fkey` FOREIGN KEY (`hospitalId`) REFERENCES `Hospital`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

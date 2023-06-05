@@ -58,7 +58,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ImageController.prototype, "findByHospitalId", null);
 __decorate([
-    (0, common_1.Get)('child/:id'),
+    (0, common_1.Get)('kid/:id'),
     (0, swagger_1.ApiOperation)({ summary: '모든 아이 이미지' }),
     (0, swagger_1.ApiResponse)({ type: image_entity_1.ImageEntity }),
     __param(0, (0, common_1.Param)('id')),

@@ -41,14 +41,14 @@ model Kid {
 }
 
 model Reservation {
-  id                Int      @id @default(autoincrement())
-  whosReservation   User     @relation(fields: [whosReservationId], references: [id], onDelete: Cascade)
-  whosReservationId Int
-  hospital          Hospital @relation(fields: [hospitalId], references: [id])
-  hospitalId        String
-  memo              String?
-  read              Boolean  @default(false)
-  createdAt         DateTime @default(now())
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  hospital   Hospital @relation(fields: [hospitalId], references: [id])
+  hospitalId String
+  memo       String?
+  read       Boolean  @default(false)
+  createdAt  DateTime @default(now())
 }
 
 model Reviews {

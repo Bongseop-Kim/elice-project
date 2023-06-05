@@ -17,6 +17,7 @@ const hospital_module_1 = require("./hospital/hospital.module");
 const kid_module_1 = require("./kid/kid.module");
 const admin_module_1 = require("./admin/admin.module");
 const image_module_1 = require("./image/image.module");
+const reviews_module_1 = require("./reviews/reviews.module");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(logger_middleware_1.LoggerMiddleware).forRoutes('*');
@@ -33,6 +34,7 @@ AppModule = __decorate([
             hospital_module_1.HospitalModule,
             admin_module_1.AdminModule,
             image_module_1.ImageModule,
+            reviews_module_1.ReviewsModule
         ],
         controllers: [],
         providers: [],

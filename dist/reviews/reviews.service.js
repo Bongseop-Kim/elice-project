@@ -9,23 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const swagger_1 = require("@nestjs/swagger");
-class ReviewsEntities {
-}
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Number)
-], ReviewsEntities.prototype, "id", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Number)
-], ReviewsEntities.prototype, "posterId", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], ReviewsEntities.prototype, "hospitalId", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Number)
-], ReviewsEntities.prototype, "vote", void 0);
-//# sourceMappingURL=reviews.entity.js.map
+exports.ReviewsService = void 0;
+const common_1 = require("@nestjs/common");
+const reviews_repository_1 = require("./reviews.repository");
+let ReviewsService = class ReviewsService {
+    constructor(reviewsRepository) {
+        this.reviewsRepository = reviewsRepository;
+    }
+    async newVote(param, body, User) {
+        return await this.reviewsRepository.newVote(param, body, User);
+    }
+    async checkReviews(param) {
+        return await this.reviewsRepository.checkReviews(param);
+    }
+};
+ReviewsService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [reviews_repository_1.ReviewsRepository])
+], ReviewsService);
+exports.ReviewsService = ReviewsService;
+//# sourceMappingURL=reviews.service.js.map

@@ -6,9 +6,6 @@ class ReviewsEntities implements Reviews {
   id: number;
 
   @ApiProperty()
-  poster: User;
-
-  @ApiProperty()
   posterId: number;
 
   @ApiProperty()

@@ -132,8 +132,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "managerSignUp", null);
 UsersController = __decorate([
-    (0, common_1.Controller)('user'),
-    (0, swagger_1.ApiTags)('User'),
+    (0, common_1.Controller)('users'),
+    (0, swagger_1.ApiTags)('Users'),
     (0, common_1.UseInterceptors)(success_interceptor_1.SuccessInterceptor),
     __metadata("design:paramtypes", [users_service_1.UsersService,
         auth_service_1.AuthService])

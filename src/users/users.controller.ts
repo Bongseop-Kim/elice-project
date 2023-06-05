@@ -23,8 +23,8 @@ import {
 import { RequestLoginDto } from 'src/auth/dto/request.login.dto';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 
-@Controller('user')
-@ApiTags('User')
+@Controller('users')
+@ApiTags('Users')
 @UseInterceptors(SuccessInterceptor)
 export class UsersController {
   constructor(

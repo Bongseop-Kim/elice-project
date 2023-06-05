@@ -9,23 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.VoteTag = void 0;
 const swagger_1 = require("@nestjs/swagger");
-class ReviewsEntities {
+class VoteTag {
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Number)
-], ReviewsEntities.prototype, "id", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Number)
-], ReviewsEntities.prototype, "posterId", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], ReviewsEntities.prototype, "hospitalId", void 0);
+], VoteTag.prototype, "hospitalId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], ReviewsEntities.prototype, "vote", void 0);
-//# sourceMappingURL=reviews.entity.js.map
+], VoteTag.prototype, "vote", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Number)
+], VoteTag.prototype, "posterId", void 0);
+exports.VoteTag = VoteTag;
+//# sourceMappingURL=reviews.dto.js.map

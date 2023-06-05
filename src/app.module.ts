@@ -10,6 +10,7 @@ import { HospitalModule } from './hospital/hospital.module';
 import { KidModule } from './kid/kid.module';
 import { AdminModule } from './admin/admin.module';
 import { ImageModule } from './image/image.module';
+import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ImageModule } from './image/image.module';
     HospitalModule,
     AdminModule,
     ImageModule,
+    ReviewsModule
   ],
   controllers: [],
   providers: [],

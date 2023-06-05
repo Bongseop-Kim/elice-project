@@ -6,20 +6,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HospitalModule = void 0;
+exports.FavoriteModule = void 0;
 const common_1 = require("@nestjs/common");
-const hospital_service_1 = require("./hospital.service");
-const hospital_controller_1 = require("./hospital.controller");
+const favorite_service_1 = require("./favorite.service");
+const favorite_controller_1 = require("./favorite.controller");
 const prisma_module_1 = require("../prisma/prisma.module");
-const hospital_repository_1 = require("./hospital.repository");
-let HospitalModule = class HospitalModule {
+let FavoriteModule = class FavoriteModule {
 };
-HospitalModule = __decorate([
+FavoriteModule = __decorate([
     (0, common_1.Module)({
         imports: [prisma_module_1.PrismaModule],
-        controllers: [hospital_controller_1.HospitalController],
-        providers: [hospital_service_1.HospitalService, hospital_repository_1.HospitalRepository],
+        controllers: [favorite_controller_1.FavoriteController],
+        providers: [favorite_service_1.FavoriteService],
     })
-], HospitalModule);
-exports.HospitalModule = HospitalModule;
-//# sourceMappingURL=hospital.module.js.map
+], FavoriteModule);
+exports.FavoriteModule = FavoriteModule;
+//# sourceMappingURL=favorite.module.js.map

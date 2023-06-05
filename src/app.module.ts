@@ -11,6 +11,8 @@ import { KidModule } from './kid/kid.module';
 import { AdminModule } from './admin/admin.module';
 import { ImageModule } from './image/image.module';
 import { ReviewsModule } from './reviews/reviews.module';
+import { ReservationModule } from './reservation/reservation.module';
+import { FavoriteModule } from './favorite/favorite.module';
 
 @Module({
   imports: [
@@ -22,7 +24,9 @@ import { ReviewsModule } from './reviews/reviews.module';
     HospitalModule,
     AdminModule,
     ImageModule,
-    ReviewsModule
+    ReviewsModule,
+    ReservationModule,
+    FavoriteModule,
   ],
   controllers: [],
   providers: [],

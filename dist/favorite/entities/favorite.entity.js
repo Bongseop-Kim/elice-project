@@ -9,33 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReservationEntity = void 0;
+exports.FavoriteEntity = void 0;
 const swagger_1 = require("@nestjs/swagger");
-class ReservationEntity {
+class FavoriteEntity {
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], ReservationEntity.prototype, "id", void 0);
+], FavoriteEntity.prototype, "id", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], ReservationEntity.prototype, "userId", void 0);
+], FavoriteEntity.prototype, "userId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], ReservationEntity.prototype, "hospitalId", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], ReservationEntity.prototype, "memo", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Boolean)
-], ReservationEntity.prototype, "read", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Date)
-], ReservationEntity.prototype, "createdAt", void 0);
-exports.ReservationEntity = ReservationEntity;
-//# sourceMappingURL=reservation.entity.js.map
+], FavoriteEntity.prototype, "hospitalId", void 0);
+exports.FavoriteEntity = FavoriteEntity;
+//# sourceMappingURL=favorite.entity.js.map

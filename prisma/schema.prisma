@@ -106,7 +106,7 @@ model Hospital {
   wgs84Lat       Float
   wgs84Lon       Float
   imageId        Int?
-  favorated      Favorite[]
+  favorited      Favorite[]
   reviews        Reviews[]
   reservations   Reservation[]
   admin          User?

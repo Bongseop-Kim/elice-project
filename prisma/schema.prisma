@@ -19,7 +19,7 @@ model User {
   updatedAt     DateTime  @updatedAt
 
   hospital   Hospital? @relation(fields: [hospitalId], references: [id])
-  hospitalId String? @unique
+  hospitalId String?   @unique
 
   adminVerified     String?
   address           String?
@@ -72,60 +72,59 @@ model Favorate {
 }
 
 model Hospital {
-  id String @id
-  dutyAddr String
+  id             String        @id
+  dutyAddr       String
   dutyAddr1Depth String
   dutyAddr2Depth String
   dutyAddr3Depth String
-  // dutyDiv String
-  // dutyDivNam String
-  // dutyEmcls String?
-  // dutyEmclsName String?
-  // dutyEryn Int?
-  dutyEtc String?
-  dutyInf String?
-  dutyMapimg String?
-  dutyName String
-  dutyTel1 String
-  dutyTel3 String?
-  startLunch String?
-  endLunch String?
-  dutyTime1c String?
-  dutyTime1s String?
-  dutyTime2c String?
-  dutyTime2s String?
-  dutyTime3c String?
-  dutyTime3s String?
-  dutyTime4c String?
-  dutyTime4s String?
-  dutyTime5c String?
-  dutyTime5s String?
-  dutyTime6c String?
-  dutyTime6s String?
-  dutyTime7c String?
-  dutyTime7s String?
-  dutyTime8c String?
-  dutyTime8s String?
-  wgs84Lat Float
-  wgs84Lon Float
-  imageId Int? 
-  favorated     Favorate[]
-  reviews       Reviews[]
-  reservations  Reservation[]
-  admin       User?
-  images Image[]
+  // dutyDiv        String
+  // dutyDivNam     String
+  // dutyEmcls      String?
+  // dutyEmclsName  String?
+  // dutyEryn       Int?
+  dutyEtc        String?
+  dutyInf        String?
+  dutyMapimg     String?
+  dutyName       String
+  dutyTel1       String
+  dutyTel3       String?
+  startLunch     String?
+  endLunch       String?
+  dutyTime1c     String?
+  dutyTime1s     String?
+  dutyTime2c     String?
+  dutyTime2s     String?
+  dutyTime3c     String?
+  dutyTime3s     String?
+  dutyTime4c     String?
+  dutyTime4s     String?
+  dutyTime5c     String?
+  dutyTime5s     String?
+  dutyTime6c     String?
+  dutyTime6s     String?
+  dutyTime7c     String?
+  dutyTime7s     String?
+  dutyTime8c     String?
+  dutyTime8s     String?
+  wgs84Lat       Float
+  wgs84Lon       Float
+  imageId        Int?
+  favorated      Favorate[]
+  reviews        Reviews[]
+  reservations   Reservation[]
+  admin          User?
+  images         Image[]
 }
 
 model Image {
   id Int @id @default(autoincrement())
 
-  type String
+  type     String
   imageUrl String
 
-  child Child? @relation(fields: [childId],references: [id])
+  child   Child? @relation(fields: [childId], references: [id])
   childId Int
-  
-  hospital Hospital? @relation(fields: [hospitalId], references: [id])
+
+  hospital   Hospital? @relation(fields: [hospitalId], references: [id])
   hospitalId String?
 }
- 

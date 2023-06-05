@@ -18,10 +18,6 @@ __decorate([
 ], ReviewsEntities.prototype, "id", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Object)
-], ReviewsEntities.prototype, "poster", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
 ], ReviewsEntities.prototype, "posterId", void 0);
 __decorate([

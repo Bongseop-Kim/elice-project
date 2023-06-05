@@ -3,6 +3,6 @@ export declare class ImageEntity implements Image {
     id: number;
     type: string;
     imageUrl: string;
-    childId: number;
+    kidId: number;
     hospitalId: string;
 }

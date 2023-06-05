@@ -55,20 +55,12 @@ __decorate([
 ], UserEntity.prototype, "hospitalId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Boolean)
 ], UserEntity.prototype, "adminVerified", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Array)
 ], UserEntity.prototype, "favoriteHospitals", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Array)
-], UserEntity.prototype, "review", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Array)
-], UserEntity.prototype, "reserved", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)

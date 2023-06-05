@@ -38,7 +38,7 @@ export class CreateManagerDto extends PickType(CreateUserDto, [
   'phoneNumber',
 ]) {
   @ApiProperty()
-  adminVerified: string;
+  adminVerified: boolean;
 
   @ApiProperty()
   hospitalId: string;

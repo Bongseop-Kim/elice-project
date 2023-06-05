@@ -7,16 +7,19 @@ export declare class UsersController {
     private readonly authService;
     constructor(usersService: UsersService, authService: AuthService);
     getCurrentUser(User: any): any;
-    clientSignUp(body: CreateUserDto): Promise<import(".prisma/client").User>;
-    deleteUser(user: any): Promise<import(".prisma/client").User>;
+    clientSignUp(body: CreateUserDto): Promise<string>;
+    deleteUser(User: any): Promise<import(".prisma/client").User>;
     logIn(data: RequestLoginDto): Promise<{
         token: string;
         role: string;
     }>;
     getUserInfo(User: any): Promise<(import(".prisma/client").User & {
-        haveChild: import(".prisma/client").Child[];
+        favoriteHospitals: import(".prisma/client").Favorite[];
+        haveKid: (import(".prisma/client").Kid & {
+            image: import(".prisma/client").Image;
+        })[];
+        reserved: import(".prisma/client").Reservation[];
     })[]>;
-    updateUserInfo(body: UpdateUserDto, User: any): Promise<any>;
-    managerSignUp(body: CreateManagerDto): Promise<import(".prisma/client").User>;
-    verifyCheck(id: number, User: any): Promise<"type: 1" | "type: 2" | "type: 0">;
+    updateUserInfo(body: UpdateUserDto, User: any): Promise<import(".prisma/client").User>;
+    managerSignUp(body: CreateManagerDto): Promise<string>;
 }

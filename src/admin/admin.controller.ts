@@ -17,9 +17,10 @@ import { RequestLoginDto } from 'src/auth/dto/request.login.dto';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 import { AuthGuard } from '@nestjs/passport';
 import { AdminService } from './admin.service';
+import { UserType, Id } from './dto/admin.dtos'
 
 @Controller('admin')
-@ApiTags('Abmin')
+@ApiTags('Admin')
 @UseInterceptors(SuccessInterceptor)
 export class AdminController {
     constructor(
@@ -32,9 +33,9 @@ export class AdminController {
     @ApiBody({
       description: 'get userInfo'
     })
-    @Get('/get/:userType')
-    getUserInfo(@Param() userType: string, @CurrentUser() User) {
-      return this.adminService.getAllUserInfo(userType, User)
+    @Get('get/:userType')
+    getUserInfo(@Param() param: UserType, @CurrentUser() User) {
+      return this.adminService.getAllUserInfo(param, User)
     }
 
     @ApiOperation({ summary: '특정 유저 탈퇴'})
@@ -42,9 +43,9 @@ export class AdminController {
     @ApiBody({
       description: 'delete user'
     })
-    @Delete('/delete/:id')
-    adminDeleteUser(@Param() id: number, @CurrentUser() User){
-      return this.adminService.adminDeleteUser(id, User)
+    @Delete('delete/:userId')
+    adminDeleteUser(@Param() param: Id, @CurrentUser() User){
+      return this.adminService.adminDeleteUser(param, User)
     }
 
     @ApiOperation({ summary: '병원 관리자 권한 승인' })
@@ -52,8 +53,8 @@ export class AdminController {
     @ApiBody({
       description: 'verify hospital client'
     })
-    @Patch('/verify/:id')
-    adminVerifyManager(@Param() id: number, @CurrentUser() User){
-      return this.adminService.adminVerifyManager(id, User)
+    @Patch('verify/:userId')
+    adminVerifyManager(@Param() param: Id, @CurrentUser() User){
+      return this.adminService.adminVerifyManager(param, User)
     }
 }

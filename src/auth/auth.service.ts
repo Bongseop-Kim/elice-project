@@ -30,7 +30,11 @@ export class AuthService {
       throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
     }
 
-    const payload = { email: email, sub: user.id, role: user.role };
+    if(user.role === 'manager' && user.adminVerified === false){
+      throw new UnauthorizedException('관리자 승인이 되지 않은 계정입니다.');
+    }
+
+    const payload = { email: email, sub: user.id };
 
     return {
       token: this.jwtService.sign(payload),

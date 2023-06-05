@@ -33,8 +33,8 @@ let UsersController = class UsersController {
     async clientSignUp(body) {
         return await this.usersService.clientSignUp(body);
     }
-    async deleteUser(user) {
-        return await this.usersService.deleteUser(user.id);
+    deleteUser(User) {
+        return this.usersService.deleteUser(User.id);
     }
     async logIn(data) {
         return await this.authService.jwtLogIn(data);
@@ -47,9 +47,6 @@ let UsersController = class UsersController {
     }
     async managerSignUp(body) {
         return await this.usersService.managerSignUp(body);
-    }
-    async verifyCheck(id, User) {
-        return await this.usersService.verifyCheck(id, User);
     }
 };
 __decorate([
@@ -79,12 +76,11 @@ __decorate([
     (0, swagger_1.ApiBody)({
         description: 'user delete',
     }),
-    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
-    (0, common_1.Delete)(''),
+    (0, common_1.Delete)('delete'),
     __param(0, (0, user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], UsersController.prototype, "deleteUser", null);
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: '유저 로그인' }),
@@ -116,7 +112,7 @@ __decorate([
     (0, swagger_1.ApiBody)({
         description: 'update userInfo',
     }),
-    (0, common_1.Patch)(''),
+    (0, common_1.Patch)('update'),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
@@ -135,22 +131,9 @@ __decorate([
     __metadata("design:paramtypes", [users_dtos_1.CreateManagerDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "managerSignUp", null);
-__decorate([
-    (0, swagger_1.ApiOperation)({ summary: '유저 등급 분류' }),
-    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
-    (0, swagger_1.ApiBody)({
-        description: 'verify check',
-    }),
-    (0, common_1.Get)('/check/:id'),
-    __param(0, (0, common_1.Param)()),
-    __param(1, (0, user_decorator_1.CurrentUser)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Object]),
-    __metadata("design:returntype", Promise)
-], UsersController.prototype, "verifyCheck", null);
 UsersController = __decorate([
-    (0, common_1.Controller)('user'),
-    (0, swagger_1.ApiTags)('User'),
+    (0, common_1.Controller)('users'),
+    (0, swagger_1.ApiTags)('Users'),
     (0, common_1.UseInterceptors)(success_interceptor_1.SuccessInterceptor),
     __metadata("design:paramtypes", [users_service_1.UsersService,
         auth_service_1.AuthService])

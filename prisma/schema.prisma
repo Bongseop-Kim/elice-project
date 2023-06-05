@@ -21,31 +21,30 @@ model User {
   hospital   Hospital? @relation(fields: [hospitalId], references: [id])
   hospitalId String?   @unique
 
-  adminVerified     String?
+  adminVerified     Boolean?
   address           String?
   favoriteHospitals Favorite[]
-  haveChild         Child[]
+  haveKid           Kid[]
   review            Reviews[]
   reserved          Reservation[]
 }
 
-model Child {
+model Kid {
   id       Int     @id @default(autoincrement())
   parent   User    @relation(fields: [parentId], references: [id], onDelete: Cascade)
   parentId Int
-  name     String
-  gender   String
-  birth    String
-  img      String?
+  name     String?
+  gender   String?
+  birth    String?
   memo     String?
-  image    Image[]
+  image    Image?
 }
 
 model Reservation {
   id         Int      @id @default(autoincrement())
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     Int
-  hospital   Hospital @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
+  hospital   Hospital @relation(fields: [hospitalId], references: [id])
   hospitalId String
   memo       String?
   read       Boolean  @default(false)
@@ -75,11 +74,11 @@ model Hospital {
   dutyAddr1Depth String
   dutyAddr2Depth String
   dutyAddr3Depth String
-  // dutyDiv        String
-  // dutyDivNam     String
-  // dutyEmcls      String?
-  // dutyEmclsName  String?
-  // dutyEryn       Int?
+  // dutyDiv String
+  // dutyDivNam String
+  // dutyEmcls String?
+  // dutyEmclsName String?
+  // dutyEryn Int?
   dutyEtc        String?
   dutyInf        String?
   dutyMapimg     String?
@@ -107,7 +106,7 @@ model Hospital {
   wgs84Lat       Float
   wgs84Lon       Float
   imageId        Int?
-  favorated      Favorite[]
+  favorited      Favorite[]
   reviews        Reviews[]
   reservations   Reservation[]
   admin          User?
@@ -119,9 +118,8 @@ model Image {
 
   type     String
   imageUrl String
-
-  child   Child? @relation(fields: [childId], references: [id], onDelete: Cascade)
-  childId Int
+  kid      Kid?   @relation(fields: [kidId], references: [id], onDelete: Cascade)
+  kidId    Int    @unique
 
   hospital   Hospital? @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
   hospitalId String?

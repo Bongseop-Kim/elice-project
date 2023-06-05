@@ -6,22 +6,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersModule = void 0;
+exports.AdminModule = void 0;
 const common_1 = require("@nestjs/common");
 const auth_module_1 = require("../auth/auth.module");
 const prisma_module_1 = require("../prisma/prisma.module");
 const admin_controller_1 = require("./admin.controller");
 const admin_service_1 = require("./admin.service");
 const admin_repository_1 = require("./admin.repository");
-let UsersModule = class UsersModule {
+let AdminModule = class AdminModule {
 };
-UsersModule = __decorate([
+AdminModule = __decorate([
     (0, common_1.Module)({
         imports: [(0, common_1.forwardRef)(() => auth_module_1.AuthModule), prisma_module_1.PrismaModule],
         controllers: [admin_controller_1.AdminController],
         providers: [admin_service_1.AdminService, admin_repository_1.AdminRepository],
         exports: [admin_service_1.AdminService, admin_repository_1.AdminRepository],
     })
-], UsersModule);
-exports.UsersModule = UsersModule;
+], AdminModule);
+exports.AdminModule = AdminModule;
 //# sourceMappingURL=admin.module.js.map

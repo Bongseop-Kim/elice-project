@@ -23,8 +23,8 @@ import {
 import { RequestLoginDto } from 'src/auth/dto/request.login.dto';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 
-@Controller('user')
-@ApiTags('User')
+@Controller('users')
+@ApiTags('Users')
 @UseInterceptors(SuccessInterceptor)
 export class UsersController {
   constructor(
@@ -54,10 +54,9 @@ export class UsersController {
   @ApiBody({
     description: 'user delete',
   })
-  @UseGuards(JwtAuthGuard)
-  @Delete('')
-  async deleteUser(@CurrentUser() user) {
-    return await this.usersService.deleteUser(user.id);
+  @Delete('delete')
+  deleteUser(@CurrentUser() User) {
+    return this.usersService.deleteUser(User.id);
   }
 
   @ApiOperation({ summary: '유저 로그인' })
@@ -85,9 +84,9 @@ export class UsersController {
   @ApiBody({
     description: 'update userInfo',
   })
-  @Patch('')
-  updateUserInfo(@Body() body: UpdateUserDto, @CurrentUser() User) {
-    return this.usersService.updateUserInfo(User.id, body);
+  @Patch('update')
+  updateUserInfo(@Body() body: UpdateUserDto, @CurrentUser() User){
+    return this.usersService.updateUserInfo(User.id, body)
   }
 
   @ApiOperation({ summary: '병원 관계자 회원가입' })
@@ -100,14 +99,4 @@ export class UsersController {
     return await this.usersService.managerSignUp(body);
   }
 
-  //어떤 타입의 유저가 로그인을 했는지 확인하고 그에 맞는 페이지를 호출해주는 API입니다.
-  @ApiOperation({ summary: '유저 등급 분류' })
-  @UseGuards(JwtAuthGuard)
-  @ApiBody({
-    description: 'verify check',
-  })
-  @Get('/check/:id')
-  async verifyCheck(@Param() id: number, @CurrentUser() User) {
-    return await this.usersService.verifyCheck(id, User);
-  }
 }

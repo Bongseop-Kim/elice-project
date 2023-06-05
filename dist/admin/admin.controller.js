@@ -20,19 +20,20 @@ const jwt_guard_1 = require("../auth/jwt/jwt.guard");
 const user_decorator_1 = require("../common/decorators/user.decorator");
 const success_interceptor_1 = require("../common/interceptor/success.interceptor");
 const admin_service_1 = require("./admin.service");
+const admin_dtos_1 = require("./dto/admin.dtos");
 let AdminController = class AdminController {
     constructor(adminService, authService) {
         this.adminService = adminService;
         this.authService = authService;
     }
-    getUserInfo(userType, User) {
-        return this.adminService.getAllUserInfo(userType, User);
+    getUserInfo(param, User) {
+        return this.adminService.getAllUserInfo(param, User);
     }
-    adminDeleteUser(id, User) {
-        return this.adminService.adminDeleteUser(id, User);
+    adminDeleteUser(param, User) {
+        return this.adminService.adminDeleteUser(param, User);
     }
-    adminVerifyManager(id, User) {
-        return this.adminService.adminVerifyManager(id, User);
+    adminVerifyManager(param, User) {
+        return this.adminService.adminVerifyManager(param, User);
     }
 };
 __decorate([
@@ -41,11 +42,11 @@ __decorate([
     (0, swagger_1.ApiBody)({
         description: 'get userInfo'
     }),
-    (0, common_1.Get)('/get/:userType'),
+    (0, common_1.Get)('get/:userType'),
     __param(0, (0, common_1.Param)()),
     __param(1, (0, user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [admin_dtos_1.UserType, Object]),
     __metadata("design:returntype", void 0)
 ], AdminController.prototype, "getUserInfo", null);
 __decorate([
@@ -54,11 +55,11 @@ __decorate([
     (0, swagger_1.ApiBody)({
         description: 'delete user'
     }),
-    (0, common_1.Delete)('/delete/:id'),
+    (0, common_1.Delete)('delete/:userId'),
     __param(0, (0, common_1.Param)()),
     __param(1, (0, user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:paramtypes", [admin_dtos_1.Id, Object]),
     __metadata("design:returntype", void 0)
 ], AdminController.prototype, "adminDeleteUser", null);
 __decorate([
@@ -67,16 +68,16 @@ __decorate([
     (0, swagger_1.ApiBody)({
         description: 'verify hospital client'
     }),
-    (0, common_1.Patch)('/verify/:id'),
+    (0, common_1.Patch)('verify/:userId'),
     __param(0, (0, common_1.Param)()),
     __param(1, (0, user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:paramtypes", [admin_dtos_1.Id, Object]),
     __metadata("design:returntype", void 0)
 ], AdminController.prototype, "adminVerifyManager", null);
 AdminController = __decorate([
     (0, common_1.Controller)('admin'),
-    (0, swagger_1.ApiTags)('Abmin'),
+    (0, swagger_1.ApiTags)('Admin'),
     (0, common_1.UseInterceptors)(success_interceptor_1.SuccessInterceptor),
     __metadata("design:paramtypes", [admin_service_1.AdminService,
         auth_service_1.AuthService])

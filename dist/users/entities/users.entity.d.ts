@@ -10,9 +10,7 @@ export declare class UserEntity implements User {
     createdAt: Date;
     updatedAt: Date;
     hospitalId: string;
-    adminVerified: string;
+    adminVerified: boolean;
     favoriteHospitals: string[];
-    review: string[];
-    reserved: string[];
     address: string | null;
 }

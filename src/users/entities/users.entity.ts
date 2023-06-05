@@ -33,16 +33,10 @@ export class UserEntity implements User {
   hospitalId: string;
 
   @ApiProperty()
-  adminVerified: string;
+  adminVerified: boolean;
 
   @ApiProperty()
   favoriteHospitals: string[];
-
-  @ApiProperty()
-  review: string[];
-
-  @ApiProperty()
-  reserved: string[];
 
   @ApiProperty()
   address: string | null;

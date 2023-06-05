@@ -35,7 +35,7 @@ export class ImageController {
     return this.imageService.findByHospitalId(id);
   }
 
-  @Get('child/:id')
+  @Get('kid/:id')
   @ApiOperation({ summary: '모든 아이 이미지' })
   @ApiResponse({ type: ImageEntity })
   findByChildId(@Param('id') id: string) {

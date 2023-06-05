@@ -16,8 +16,10 @@ let AdminRepository = class AdminRepository {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async getAllUserInfo(userType) {
-        if (userType === 'generelUser') {
+    async getAllUserInfo(param) {
+        const { userType } = param;
+        console.log(userType);
+        if (userType === 'generelclient') {
             const client = await this.prisma.user.findMany({
                 where: {
                     role: 'client',
@@ -25,20 +27,20 @@ let AdminRepository = class AdminRepository {
             });
             return client;
         }
-        else if (userType === 'hospitalClient') {
+        else if (userType === 'hospitalclient') {
             const manager = await this.prisma.user.findMany({
                 where: {
                     role: 'manager',
-                    adminVerified: 'yes'
+                    adminVerified: true
                 }
             });
             return manager;
         }
-        else if (userType === 'notVerifiedHospitalClient') {
+        else if (userType === 'notverifiedhospitalclient') {
             const unVerifiedManager = await this.prisma.user.findMany({
                 where: {
                     role: 'manager',
-                    adminVerified: 'no'
+                    adminVerified: false
                 }
             });
             return unVerifiedManager;
@@ -46,16 +48,18 @@ let AdminRepository = class AdminRepository {
         else
             return new common_1.HttpException('요청 경로를 잘못 지정하였습니다.', 404);
     }
-    async adminDeleteUser(id) {
+    async adminDeleteUser(param) {
+        const { userId } = param;
         const willBeDeletedUser = await this.prisma.user.delete({
-            where: { id }
+            where: { id: Number(userId) }
         });
         return willBeDeletedUser;
     }
-    async adminVerifyManager(id) {
+    async adminVerifyManager(param) {
+        const { userId } = param;
         const verifyManager = await this.prisma.user.update({
-            where: { id },
-            data: { adminVerified: 'yes' }
+            where: { id: Number(userId) },
+            data: { adminVerified: true }
         });
         return verifyManager;
     }

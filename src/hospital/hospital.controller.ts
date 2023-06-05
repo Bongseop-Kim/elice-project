@@ -36,8 +36,8 @@ export class HospitalController {
   @Get(':id')
   @ApiOperation({ summary: '특정 병원 찾기' })
   @ApiCreatedResponse({ type: HospitalEntity })
-  findOne(@Param('id') id: string) {
-    return this.hospitalService.findOne(id);
+  findById(@Param('id') id: string) {
+    return this.hospitalService.findById(id);
   }
 
   @Put(':id')

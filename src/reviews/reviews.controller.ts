@@ -43,7 +43,6 @@ export class ReviewsController {
     })
     @Get(':hospitalId')
     async checkReviews(@Param() param: VoteTag){
-        //@ts-ignore
         return await this.reviewsService.checkReviews(param)
     }
 }

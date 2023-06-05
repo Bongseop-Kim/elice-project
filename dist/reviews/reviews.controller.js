@@ -32,6 +32,9 @@ let ReviewsController = class ReviewsController {
     async checkReviews(param) {
         return await this.reviewsService.checkReviews(param);
     }
+    async isUserReviewed(param, User) {
+        return await this.reviewsService.isUserReviewed(param, User);
+    }
 };
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: '리뷰 등록, 수정 및 취소하기' }),
@@ -58,6 +61,19 @@ __decorate([
     __metadata("design:paramtypes", [reviews_dto_1.VoteTag]),
     __metadata("design:returntype", Promise)
 ], ReviewsController.prototype, "checkReviews", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: '로그인 유저 리뷰 확인하기' }),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
+    (0, swagger_1.ApiBody)({
+        description: 'user review check'
+    }),
+    (0, common_1.Get)('user/:hospitalId'),
+    __param(0, (0, common_1.Param)()),
+    __param(1, (0, user_decorator_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [reviews_dto_1.VoteTag, Object]),
+    __metadata("design:returntype", Promise)
+], ReviewsController.prototype, "isUserReviewed", null);
 ReviewsController = __decorate([
     (0, common_1.Controller)('reviews'),
     (0, swagger_1.ApiTags)('Reviews'),

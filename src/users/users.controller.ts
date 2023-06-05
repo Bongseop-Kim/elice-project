@@ -98,5 +98,4 @@ export class UsersController {
   async managerSignUp(@Body() body: CreateManagerDto) {
     return await this.usersService.managerSignUp(body);
   }
-
 }

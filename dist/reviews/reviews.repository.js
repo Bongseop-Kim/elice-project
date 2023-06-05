@@ -47,7 +47,13 @@ let ReviewsRepository = class ReviewsRepository {
                 }
             });
         }
-        return check;
+        const isCheckChanged = await this.prisma.reviews.findMany({
+            where: {
+                posterId: User.id,
+                hospitalId: hospitalId
+            }
+        });
+        return isCheckChanged;
     }
     async checkReviews(param) {
         const { hospitalId } = param;
@@ -62,6 +68,16 @@ let ReviewsRepository = class ReviewsRepository {
             result.push(reviews.length);
         }
         return result;
+    }
+    async isUserReviewed(param, User) {
+        const { hospitalId } = param;
+        const check = await this.prisma.reviews.findMany({
+            where: {
+                posterId: User.id,
+                hospitalId: hospitalId
+            }
+        });
+        return check;
     }
 };
 ReviewsRepository = __decorate([

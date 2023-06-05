@@ -17,4 +17,8 @@ export class ReviewsService{
     async checkReviews(param: VoteTag){
         return await this.reviewsRepository.checkReviews(param)
     }
+
+    async isUserReviewed(param: VoteTag, User){
+        return await this.reviewsRepository.isUserReviewed(param, User)
+    }
 }

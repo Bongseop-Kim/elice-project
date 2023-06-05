@@ -22,6 +22,9 @@ let ReviewsService = class ReviewsService {
     async checkReviews(param) {
         return await this.reviewsRepository.checkReviews(param);
     }
+    async isUserReviewed(param, User) {
+        return await this.reviewsRepository.isUserReviewed(param, User);
+    }
 };
 ReviewsService = __decorate([
     (0, common_1.Injectable)(),

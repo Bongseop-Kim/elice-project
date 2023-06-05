@@ -5,4 +5,5 @@ export declare class ReviewsService {
     constructor(reviewsRepository: ReviewsRepository);
     newVote(param: VoteTag, body: VoteTag, User: any): Promise<import(".prisma/client").Reviews[]>;
     checkReviews(param: VoteTag): Promise<any[]>;
+    isUserReviewed(param: VoteTag, User: any): Promise<import(".prisma/client").Reviews[]>;
 }

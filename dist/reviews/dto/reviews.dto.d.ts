@@ -1,5 +1,5 @@
 export declare class VoteTag {
     hospitalId: string;
     vote: number;
-    posterId: number;
+    posterId: number | undefined;
 }

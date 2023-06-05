@@ -36,7 +36,14 @@ export class ReviewsRepository{
                 }
             })
         }
-        return check
+
+        const isCheckChanged = await this.prisma.reviews.findMany({
+            where: {
+                posterId: User.id,
+                hospitalId: hospitalId
+            }
+        })
+        return isCheckChanged
     }
 
     async checkReviews(param: VoteTag){
@@ -52,5 +59,16 @@ export class ReviewsRepository{
                 result.push(reviews.length)
             }
             return result;
+    }
+
+    async isUserReviewed(param: VoteTag, User){
+        const { hospitalId } = param
+        const check = await this.prisma.reviews.findMany({
+            where: {
+                posterId: User.id,
+                hospitalId: hospitalId
+            }
+        })
+        return check;
     }
 }

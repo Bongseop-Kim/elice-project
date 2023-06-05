@@ -10,6 +10,7 @@ import { HospitalModule } from './hospital/hospital.module';
 import { ChildModule } from './child/child.module';
 import { ImageModule } from './image/image.module';
 import { ReservationModule } from './reservation/reservation.module';
+import { FavoriteModule } from './favorite/favorite.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ReservationModule } from './reservation/reservation.module';
     HospitalModule,
     ImageModule,
     ReservationModule,
+    FavoriteModule,
   ],
   controllers: [],
   providers: [],

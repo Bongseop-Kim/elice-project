@@ -23,7 +23,7 @@ model User {
 
   adminVerified     String?
   address           String?
-  favoriteHospitals Favorate[]
+  favoriteHospitals Favorite[]
   haveChild         Child[]
   review            Reviews[]
   reserved          Reservation[]
@@ -61,10 +61,10 @@ model Reviews {
   vote       Int
 }
 
-model Favorate {
+model Favorite {
   id         Int      @id @default(autoincrement())
-  poster     User     @relation(fields: [posterId], references: [id], onDelete: Cascade)
-  posterId   Int
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
   hospital   Hospital @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
   hospitalId String
 }
@@ -107,7 +107,7 @@ model Hospital {
   wgs84Lat       Float
   wgs84Lon       Float
   imageId        Int?
-  favorated      Favorate[]
+  favorated      Favorite[]
   reviews        Reviews[]
   reservations   Reservation[]
   admin          User?

@@ -9,17 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FavorateRepository = void 0;
-const common_1 = require("@nestjs/common");
-const prisma_service_1 = require("../prisma/prisma.service");
-let FavorateRepository = class FavorateRepository {
-    constructor(prisma) {
-        this.prisma = prisma;
-    }
-};
-FavorateRepository = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
-], FavorateRepository);
-exports.FavorateRepository = FavorateRepository;
-//# sourceMappingURL=favorate.repository.js.map
+exports.FavoriteEntity = void 0;
+const swagger_1 = require("@nestjs/swagger");
+class FavoriteEntity {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Number)
+], FavoriteEntity.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Number)
+], FavoriteEntity.prototype, "userId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], FavoriteEntity.prototype, "hospitalId", void 0);
+exports.FavoriteEntity = FavoriteEntity;
+//# sourceMappingURL=favorite.entity.js.map

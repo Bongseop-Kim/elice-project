@@ -57,7 +57,7 @@ export class KidController {
     @Body() body: UpdateKidDto,
     @CurrentUser() User,
   ) {
-    return this.kidService.updateKid(id, body);
+    return this.kidService.updateKid(id, body, User);
   }
 
   @ApiOperation({ summary: '아이 정보 삭제하기' })
@@ -67,6 +67,6 @@ export class KidController {
   })
   @Delete(':id')
   deleteKid(@Param('id') id: string, @CurrentUser() User) {
-    return this.kidService.deleteKid(id);
+    return this.kidService.deleteKid(id, User);
   }
 }

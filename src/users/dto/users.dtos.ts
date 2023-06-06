@@ -1,4 +1,4 @@
-import { ApiProperty, PartialType, PickType } from '@nestjs/swagger';
+import { ApiProperty, PickType } from '@nestjs/swagger';
 
 export class CreateUserDto {
   @ApiProperty({ required: false })
@@ -29,20 +29,20 @@ export class UpdateUserDto {
 
   @ApiProperty({ required: false })
   phoneNumber: string;
+
+  @ApiProperty({ required: false })
+  role: string;
 }
 
 export class CreateManagerDto extends PickType(CreateUserDto, [
   'name',
   'email',
   'password',
-  'phoneNumber',
+  'phoneNumber'
 ]) {
   @ApiProperty()
   adminVerified: boolean;
 
   @ApiProperty()
   hospitalId: string;
-
-  @ApiProperty()
-  role: string;
 }

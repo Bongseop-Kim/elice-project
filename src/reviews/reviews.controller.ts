@@ -45,4 +45,14 @@ export class ReviewsController {
     async checkReviews(@Param() param: VoteTag){
         return await this.reviewsService.checkReviews(param)
     }
+
+    @ApiOperation({ summary: '로그인 유저 리뷰 확인하기'})
+    @UseGuards(JwtAuthGuard)
+    @ApiBody({
+        description: 'user review check'
+    })
+    @Get('user/:hospitalId')
+    async isUserReviewed(@Param() param: VoteTag, @CurrentUser() User){
+        return await this.reviewsService.isUserReviewed(param, User)
+    }
 }

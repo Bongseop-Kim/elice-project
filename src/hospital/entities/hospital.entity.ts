@@ -105,14 +105,8 @@ export class HospitalEntity implements Hospital {
   wgs84Lon: number;
 
   @ApiProperty()
-  adminId: number;
-
-  @ApiProperty()
   startLunch: string;
 
   @ApiProperty()
   endLunch: string;
-
-  @ApiProperty()
-  imageId: number;
 }

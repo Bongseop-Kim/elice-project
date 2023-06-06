@@ -31,7 +31,7 @@ let KidService = class KidService {
     async getKids(User) {
         const kids = await this.prisma.kid.findMany({
             where: { parentId: User.id },
-            include: { image: true }
+            include: { image: true },
         });
         return kids;
     }
@@ -39,16 +39,16 @@ let KidService = class KidService {
         await this.prisma.kid.updateMany({
             where: {
                 id: Number(id),
-                parentId: User.id
+                parentId: User.id,
             },
             data: body,
         });
         const kidInfo = await this.prisma.kid.findMany({
             where: {
                 id: Number(id),
-                parentId: User.id
+                parentId: User.id,
             },
-            include: { image: true }
+            include: { image: true },
         });
         return kidInfo;
     }
@@ -56,15 +56,15 @@ let KidService = class KidService {
         await this.prisma.kid.deleteMany({
             where: {
                 id: Number(id),
-                parentId: User.id
+                parentId: User.id,
             },
         });
         const kidInfo = await this.prisma.kid.findMany({
             where: {
                 id: Number(id),
-                parentId: User.id
+                parentId: User.id,
             },
-            include: { image: true }
+            include: { image: true },
         });
         return kidInfo;
     }

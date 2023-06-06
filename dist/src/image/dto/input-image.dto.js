@@ -9,42 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ImageEntity = void 0;
+exports.InputImageDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
+const image_entity_1 = require("../entities/image.entity");
 const class_validator_1 = require("class-validator");
-class ImageEntity {
+class InputImageDto extends (0, swagger_1.OmitType)(image_entity_1.ImageEntity, [
+    'id',
+    'imageUrl',
+    'kidId',
+]) {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({
-        example: 1,
-    }),
-    (0, class_validator_1.IsNumber)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Number)
-], ImageEntity.prototype, "id", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        example: 'https://devtie.s3.ap-northeast-2.amazonaws.com/1686060931807KakaoTalk_Photo_2023-03-14-13-39-36%20001.jpeg',
-    }),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], ImageEntity.prototype, "imageUrl", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        example: 1,
-    }),
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsNumber)(),
-    __metadata("design:type", Number)
-], ImageEntity.prototype, "kidId", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        example: 'A2105649',
-    }),
+    (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], ImageEntity.prototype, "hospitalId", void 0);
-exports.ImageEntity = ImageEntity;
-//# sourceMappingURL=image.entity.js.map
+], InputImageDto.prototype, "kidId", void 0);
+exports.InputImageDto = InputImageDto;
+//# sourceMappingURL=input-image.dto.js.map

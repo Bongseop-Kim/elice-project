@@ -40,7 +40,7 @@ export class KidController {
     type: GetKidsDto,
   })
   @Get('get')
-  getKids(@CurrentUser() User){
+  getKids(@CurrentUser() User) {
     return this.kidService.getKids(User);
   }
 

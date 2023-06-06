@@ -12,11 +12,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ImageService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
+const client_s3_1 = require("@aws-sdk/client-s3");
 let ImageService = class ImageService {
     constructor(prisma) {
         this.prisma = prisma;
+        this.s3Client = new client_s3_1.S3Client({
+            region: process.env.S3_UPLOAD_REGION,
+            credentials: {
+                accessKeyId: process.env.S3_UPLOAD_KEY,
+                secretAccessKey: process.env.S3_UPLOAD_SECRET,
+            },
+        });
     }
-    create(data) {
+    async upload(fileName, file, hospitalId, kidId) {
+        await this.s3Client.send(new client_s3_1.PutObjectCommand({
+            Bucket: process.env.S3_UPLOAD_BUCKET,
+            Key: Date.now() + fileName,
+            Body: file,
+        }));
+        const data = {
+            hospitalId,
+            kidId,
+            imageUrl: `https://devtie.s3.ap-northeast-2.amazonaws.com/${encodeURIComponent(Date.now() + fileName)}`,
+        };
         return this.prisma.image.create({
             data,
         });
@@ -25,6 +43,13 @@ let ImageService = class ImageService {
         return this.prisma.image.findMany({
             where: {
                 hospitalId: id,
+            },
+        });
+    }
+    findByKidId(id) {
+        return this.prisma.image.findUnique({
+            where: {
+                kidId: id,
             },
         });
     }

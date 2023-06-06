@@ -8,5 +8,5 @@ export class VoteTag {
     vote: number;
 
     @ApiProperty()
-    posterId: number;
+    posterId: number | undefined;
 }

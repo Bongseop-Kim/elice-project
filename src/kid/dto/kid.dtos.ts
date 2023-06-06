@@ -29,6 +29,9 @@ export class UpdateKidDto {
 
   @ApiProperty({ required: false })
   memo: string;
+
+  @ApiProperty({ required: false })
+  parentId: number;
 }
 
 export class GetKidsDto extends PartialType(RegistKidDto){}

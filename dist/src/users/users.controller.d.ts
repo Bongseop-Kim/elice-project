@@ -13,13 +13,23 @@ export declare class UsersController {
         token: string;
         role: string;
     }>;
-    getUserInfo(User: any): Promise<(import(".prisma/client").User & {
+    getUserInfo(User: any): Promise<{
+        name: string;
+        email: string;
+        phoneNumber: string;
+        address: string;
+        createdAt: Date;
         favoriteHospitals: import(".prisma/client").Favorite[];
-        haveKid: (import(".prisma/client").Kid & {
-            image: import(".prisma/client").Image;
-        })[];
+        haveKid: import(".prisma/client").Kid[];
         reserved: import(".prisma/client").Reservation[];
-    })[]>;
-    updateUserInfo(body: UpdateUserDto, User: any): Promise<import(".prisma/client").User>;
+        id: number;
+    }[]>;
+    updateUserInfo(body: UpdateUserDto, User: any): Promise<{
+        name: string;
+        email: string;
+        phoneNumber: string;
+        address: string;
+        id: number;
+    }>;
     managerSignUp(body: CreateManagerDto): Promise<string>;
 }

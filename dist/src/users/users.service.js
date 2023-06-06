@@ -53,13 +53,17 @@ let UsersService = class UsersService {
     async getUserInfo(id) {
         const user = await this.prisma.user.findMany({
             where: { id: id },
-            include: {
-                haveKid: {
-                    include: { image: true }
-                },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                phoneNumber: true,
+                address: true,
+                createdAt: true,
+                haveKid: true,
                 favoriteHospitals: true,
                 reserved: true
-            },
+            }
         });
         return user;
     }
@@ -74,9 +78,19 @@ let UsersService = class UsersService {
             const hashedPassedword = await bcrypt.hash(body.password, 10);
             body.password = hashedPassedword;
         }
-        const user = await this.prisma.user.update({
+        await this.prisma.user.update({
             where: { id: id },
             data: body,
+        });
+        const user = await this.prisma.user.findUnique({
+            where: { id },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                phoneNumber: true,
+                address: true,
+            }
         });
         return user;
     }

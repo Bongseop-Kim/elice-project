@@ -7,14 +7,24 @@ export declare class UsersService {
     existByEmail(email: string): Promise<any>;
     clientSignUp(body: CreateUserDto): Promise<string>;
     deleteUser(id: number): Promise<User>;
-    getUserInfo(id: number): Promise<(User & {
+    getUserInfo(id: number): Promise<{
+        name: string;
+        email: string;
+        phoneNumber: string;
+        address: string;
+        createdAt: Date;
         favoriteHospitals: import(".prisma/client").Favorite[];
-        haveKid: (import(".prisma/client").Kid & {
-            image: import(".prisma/client").Image;
-        })[];
+        haveKid: import(".prisma/client").Kid[];
         reserved: import(".prisma/client").Reservation[];
-    })[]>;
-    updateUserInfo(id: number, body: UpdateUserDto): Promise<User>;
+        id: number;
+    }[]>;
+    updateUserInfo(id: number, body: UpdateUserDto): Promise<{
+        name: string;
+        email: string;
+        phoneNumber: string;
+        address: string;
+        id: number;
+    }>;
     managerSignUp(body: CreateManagerDto): Promise<string>;
     findUserByEmail(email: string): Promise<User | null>;
     findUserByIdWithoutPassword(id: number): Promise<User | null>;

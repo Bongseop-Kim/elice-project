@@ -64,13 +64,17 @@ export class UsersService {
   async getUserInfo(id: number) {
     const user = await this.prisma.user.findMany({
       where: { id: id },
-      include: {
-        haveKid: {
-          include: { image: true }
-        },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phoneNumber: true,
+        address: true,
+        createdAt: true,
         favoriteHospitals: true,
-        reserved: true
-      },
+        reserved: true,
+        updatedAt: true
+      }
     });
     return user;
   }
@@ -90,11 +94,22 @@ export class UsersService {
         body.password = hashedPassedword;
       }
 
-      const user = await this.prisma.user.update({
+      await this.prisma.user.update({
         where: { id: id },
         data: body,
       });
 
+      const user = await this.prisma.user.findUnique({
+        where: { id },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          phoneNumber: true,
+          address: true,
+          updatedAt: true
+        }
+      })
       return user;
   }
 

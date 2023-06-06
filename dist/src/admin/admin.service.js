@@ -29,6 +29,13 @@ let AdminService = class AdminService {
             const client = await this.prisma.user.findMany({
                 where: {
                     role: 'client',
+                },
+                select: {
+                    id: true,
+                    email: true,
+                    name: true,
+                    phoneNumber: true,
+                    createdAt: true
                 }
             });
             return client;
@@ -38,6 +45,14 @@ let AdminService = class AdminService {
                 where: {
                     role: 'manager',
                     adminVerified: true
+                },
+                select: {
+                    id: true,
+                    email: true,
+                    name: true,
+                    phoneNumber: true,
+                    createdAt: true,
+                    hospitalId: true
                 }
             });
             return manager;
@@ -47,6 +62,14 @@ let AdminService = class AdminService {
                 where: {
                     role: 'manager',
                     adminVerified: false
+                },
+                select: {
+                    id: true,
+                    email: true,
+                    name: true,
+                    phoneNumber: true,
+                    createdAt: true,
+                    hospitalId: true
                 }
             });
             return unVerifiedManager;
@@ -65,11 +88,18 @@ let AdminService = class AdminService {
     async adminVerifyManager(param, User) {
         this.isAdmin(User);
         const { userId } = param;
-        const verifyManager = await this.prisma.user.update({
+        await this.prisma.user.update({
             where: { id: Number(userId) },
             data: { adminVerified: true }
         });
-        return verifyManager;
+        const user = await this.prisma.user.findUnique({
+            where: { id: Number(userId) },
+            select: {
+                id: true,
+                adminVerified: true
+            }
+        });
+        return user;
     }
 };
 AdminService = __decorate([

@@ -25,6 +25,14 @@ export class AdminService {
             const client = await this.prisma.user.findMany({
                 where: {
                     role: 'client',
+                },
+                select: {
+                    id: true,
+                    email: true,
+                    name: true,
+                    phoneNumber: true,
+                    createdAt: true,
+                    updatedAt: true
                 }
             })
         return client
@@ -33,6 +41,15 @@ export class AdminService {
                 where: {
                     role: 'manager',
                     adminVerified: true
+                },
+                select: {
+                    id: true,
+                    email: true,
+                    name: true,
+                    phoneNumber: true,
+                    createdAt: true,
+                    hospitalId: true,
+                    updatedAt: true
                 }
             })
         return manager
@@ -41,6 +58,15 @@ export class AdminService {
                 where: {
                     role: 'manager',
                     adminVerified: false
+                },
+                select: {
+                    id: true,
+                    email: true,
+                    name: true,
+                    phoneNumber: true,
+                    createdAt: true,
+                    hospitalId: true,
+                    updatedAt: true
                 }
             })
         return unVerifiedManager
@@ -59,10 +85,17 @@ export class AdminService {
     async adminVerifyManager(param: Id, User){
         this.isAdmin(User)
         const { userId } = param
-        const verifyManager = await this.prisma.user.update({
+        /*const verifyManager = */await this.prisma.user.update({
             where: { id: Number(userId) },
             data: { adminVerified: true }
         })
-        return verifyManager
+        const user = await this.prisma.user.findUnique({
+            where: { id: Number(userId) },
+            select: {
+                id: true,
+                adminVerified: true
+            }
+        })
+        return user
     }
 }

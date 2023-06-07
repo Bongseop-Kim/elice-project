@@ -1,13 +1,26 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Favorite } from '@prisma/client';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class FavoriteEntity implements Favorite {
-  @ApiProperty()
+  @ApiProperty({
+    example: 1,
+  })
+  @IsNumber()
+  @IsNotEmpty()
   id: number;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 1,
+  })
+  @IsNumber()
+  @IsNotEmpty()
   userId: number;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'A2105649',
+  })
+  @IsOptional()
+  @IsString()
   hospitalId: string;
 }

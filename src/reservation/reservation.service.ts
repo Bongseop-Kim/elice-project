@@ -19,10 +19,6 @@ export class ReservationService {
     });
   }
 
-  findAll() {
-    return `This action returns all reservation`;
-  }
-
   findOne(id: number) {
     return this.prisma.reservation.findUnique({
       where: {

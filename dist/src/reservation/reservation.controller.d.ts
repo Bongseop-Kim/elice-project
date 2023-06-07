@@ -5,7 +5,6 @@ export declare class ReservationController {
     private readonly reservationService;
     constructor(reservationService: ReservationService);
     create(user: any, data: CreateReservationDto): import(".prisma/client").Prisma.Prisma__ReservationClient<import(".prisma/client").Reservation, never>;
-    findAll(): string;
     findOne(id: string): import(".prisma/client").Prisma.Prisma__ReservationClient<import(".prisma/client").Reservation, never>;
     findByUser(user: any): import(".prisma/client").Prisma.PrismaPromise<import(".prisma/client").Reservation[]>;
     findByHospital(hospitalId: string): import(".prisma/client").Prisma.PrismaPromise<import(".prisma/client").Reservation[]>;

@@ -59,13 +59,6 @@ export class ImageService {
     });
   }
 
-  update(id: number, data: UpdateImageDto) {
-    return this.prisma.image.update({
-      where: { id },
-      data,
-    });
-  }
-
   remove(id: number) {
     return this.prisma.image.delete({
       where: { id },

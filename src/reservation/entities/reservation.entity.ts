@@ -1,22 +1,54 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Reservation } from '@prisma/client';
+import {
+  IsBoolean,
+  IsDate,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class ReservationEntity implements Reservation {
-  @ApiProperty()
+  @ApiProperty({
+    example: 1,
+  })
+  @IsNumber()
+  @IsNotEmpty()
   id: number;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 1,
+  })
+  @IsNumber()
+  @IsNotEmpty()
   userId: number;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'A2105649',
+  })
+  @IsString()
+  @IsNotEmpty()
   hospitalId: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: '메모 내용입니다.',
+  })
+  @IsString()
+  @IsOptional()
   memo: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: false,
+  })
+  @IsBoolean()
+  @IsNotEmpty()
   read: boolean;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: '20230607',
+  })
+  @IsDate()
+  @IsNotEmpty()
   createdAt: Date;
 }

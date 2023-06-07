@@ -41,7 +41,7 @@ let UsersService = class UsersService {
             address: null,
         };
         const signUp = await this.prisma.user.create({
-            data: Object.assign({}, user)
+            data: Object.assign({}, user),
         });
         return signUp.email;
     }
@@ -55,10 +55,10 @@ let UsersService = class UsersService {
             where: { id: id },
             include: {
                 haveKid: {
-                    include: { image: true }
+                    include: { image: true },
                 },
                 favoriteHospitals: true,
-                reserved: true
+                reserved: true,
             },
         });
         return user;
@@ -94,8 +94,8 @@ let UsersService = class UsersService {
         };
         const hospitalDuplicateCheck = await this.prisma.user.findUnique({
             where: {
-                hospitalId: hospitalId
-            }
+                hospitalId: hospitalId,
+            },
         });
         if (hospitalDuplicateCheck) {
             throw new common_1.UnauthorizedException('해당 병원은 이미 등록된 관리자가 존재합니다.');

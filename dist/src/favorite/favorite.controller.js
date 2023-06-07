@@ -20,6 +20,8 @@ const swagger_1 = require("@nestjs/swagger");
 const jwt_guard_1 = require("../auth/jwt/jwt.guard");
 const success_interceptor_1 = require("../common/interceptor/success.interceptor");
 const user_decorator_1 = require("../common/decorators/user.decorator");
+const favorite_entity_1 = require("./entities/favorite.entity");
+const users_entity_1 = require("../users/entities/users.entity");
 let FavoriteController = class FavoriteController {
     constructor(favoriteService) {
         this.favoriteService = favoriteService;
@@ -37,24 +39,27 @@ let FavoriteController = class FavoriteController {
 __decorate([
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: '즐겨찾기' }),
+    (0, swagger_1.ApiResponse)({ type: favorite_entity_1.FavoriteEntity }),
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_favorite_dto_1.CreateFavoriteDto, Object]),
+    __metadata("design:paramtypes", [create_favorite_dto_1.CreateFavoriteDto, users_entity_1.UserEntity]),
     __metadata("design:returntype", void 0)
 ], FavoriteController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)('user'),
     (0, swagger_1.ApiOperation)({ summary: '유저ID로 즐겨찾기정보 가져오기' }),
+    (0, swagger_1.ApiResponse)({ type: [favorite_entity_1.FavoriteEntity] }),
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     __param(0, (0, user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [users_entity_1.UserEntity]),
     __metadata("design:returntype", void 0)
 ], FavoriteController.prototype, "findByUser", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, swagger_1.ApiResponse)({ type: favorite_entity_1.FavoriteEntity }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

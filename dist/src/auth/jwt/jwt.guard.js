@@ -10,6 +10,12 @@ exports.JwtAuthGuard = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
+    handleRequest(err, user, info) {
+        if (err || !user) {
+            throw new common_1.UnauthorizedException('일치하는 회원 정보가 없습니다.');
+        }
+        return user;
+    }
 };
 JwtAuthGuard = __decorate([
     (0, common_1.Injectable)()

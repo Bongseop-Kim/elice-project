@@ -29,7 +29,7 @@ let AdminService = class AdminService {
             const client = await this.prisma.user.findMany({
                 where: {
                     role: 'client',
-                }
+                },
             });
             return client;
         }
@@ -37,8 +37,8 @@ let AdminService = class AdminService {
             const manager = await this.prisma.user.findMany({
                 where: {
                     role: 'manager',
-                    adminVerified: true
-                }
+                    adminVerified: true,
+                },
             });
             return manager;
         }
@@ -46,8 +46,8 @@ let AdminService = class AdminService {
             const unVerifiedManager = await this.prisma.user.findMany({
                 where: {
                     role: 'manager',
-                    adminVerified: false
-                }
+                    adminVerified: false,
+                },
             });
             return unVerifiedManager;
         }
@@ -58,7 +58,7 @@ let AdminService = class AdminService {
         this.isAdmin(User);
         const { userId } = param;
         const willBeDeletedUser = await this.prisma.user.delete({
-            where: { id: Number(userId) }
+            where: { id: Number(userId) },
         });
         return willBeDeletedUser;
     }
@@ -67,7 +67,7 @@ let AdminService = class AdminService {
         const { userId } = param;
         const verifyManager = await this.prisma.user.update({
             where: { id: Number(userId) },
-            data: { adminVerified: true }
+            data: { adminVerified: true },
         });
         return verifyManager;
     }

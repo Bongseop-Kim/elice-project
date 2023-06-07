@@ -53,12 +53,6 @@ let ImageService = class ImageService {
             },
         });
     }
-    update(id, data) {
-        return this.prisma.image.update({
-            where: { id },
-            data,
-        });
-    }
     remove(id) {
         return this.prisma.image.delete({
             where: { id },

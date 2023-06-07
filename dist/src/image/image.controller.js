@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ImageController = void 0;
 const common_1 = require("@nestjs/common");
 const image_service_1 = require("./image.service");
-const update_image_dto_1 = require("./dto/update-image.dto");
 const swagger_1 = require("@nestjs/swagger");
 const success_interceptor_1 = require("../common/interceptor/success.interceptor");
 const image_entity_1 = require("./entities/image.entity");
@@ -34,9 +33,6 @@ let ImageController = class ImageController {
     }
     findByKidId(id) {
         return this.imageService.findByKidId(+id);
-    }
-    update(id, body) {
-        return this.imageService.update(+id, body);
     }
     remove(id) {
         return this.imageService.remove(+id);
@@ -58,7 +54,7 @@ __decorate([
 __decorate([
     (0, common_1.Get)('hospital/:id'),
     (0, swagger_1.ApiOperation)({ summary: '병원의 모든 이미지' }),
-    (0, swagger_1.ApiResponse)({ type: image_entity_1.ImageEntity }),
+    (0, swagger_1.ApiResponse)({ type: [image_entity_1.ImageEntity] }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -73,16 +69,6 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ImageController.prototype, "findByKidId", null);
-__decorate([
-    (0, common_1.Patch)(':id'),
-    (0, swagger_1.ApiOperation)({ summary: '이미지 변경' }),
-    (0, swagger_1.ApiResponse)({ type: image_entity_1.ImageEntity }),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_image_dto_1.UpdateImageDto]),
-    __metadata("design:returntype", void 0)
-], ImageController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     (0, swagger_1.ApiOperation)({ summary: '이미지 삭제하기' }),

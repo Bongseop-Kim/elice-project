@@ -22,15 +22,13 @@ const success_interceptor_1 = require("../common/interceptor/success.interceptor
 const reservation_entity_1 = require("./entities/reservation.entity");
 const jwt_guard_1 = require("../auth/jwt/jwt.guard");
 const user_decorator_1 = require("../common/decorators/user.decorator");
+const hospital_decorator_1 = require("../common/decorators/hospital.decorator");
 let ReservationController = class ReservationController {
     constructor(reservationService) {
         this.reservationService = reservationService;
     }
     create(user, data) {
         return this.reservationService.create(data, user.id);
-    }
-    findAll() {
-        return this.reservationService.findAll();
     }
     findOne(id) {
         return this.reservationService.findOne(+id);
@@ -52,6 +50,7 @@ __decorate([
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: '예약하기' }),
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
+    (0, swagger_1.ApiResponse)({ type: reservation_entity_1.ReservationEntity }),
     __param(0, (0, user_decorator_1.CurrentUser)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -59,16 +58,9 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ReservationController.prototype, "create", null);
 __decorate([
-    (0, common_1.Get)(),
-    (0, swagger_1.ApiOperation)({ summary: '모든 예약 정보 가져오기' }),
-    (0, swagger_1.ApiResponse)({ type: reservation_entity_1.ReservationEntity }),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], ReservationController.prototype, "findAll", null);
-__decorate([
     (0, common_1.Get)(':id'),
-    (0, swagger_1.ApiOperation)({ summary: '예약ID로 예약정보 가져오기' }),
+    (0, swagger_1.ApiOperation)({ summary: '예약ID로 예약정보 하나 가져오기' }),
+    (0, swagger_1.ApiResponse)({ type: reservation_entity_1.ReservationEntity }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -76,7 +68,8 @@ __decorate([
 ], ReservationController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Get)('user'),
-    (0, swagger_1.ApiOperation)({ summary: '유저ID로 예약정보 가져오기' }),
+    (0, swagger_1.ApiOperation)({ summary: '유저ID로 모든 예약정보 가져오기' }),
+    (0, swagger_1.ApiResponse)({ type: [reservation_entity_1.ReservationEntity] }),
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     __param(0, (0, user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
@@ -85,8 +78,9 @@ __decorate([
 ], ReservationController.prototype, "findByUser", null);
 __decorate([
     (0, common_1.Get)('hospital/:hospitalId'),
-    (0, swagger_1.ApiOperation)({ summary: '병원ID로 예약정보 가져오기' }),
-    __param(0, (0, common_1.Param)('hospitalId')),
+    (0, swagger_1.ApiOperation)({ summary: '병원ID로 모든 예약정보 가져오기' }),
+    (0, swagger_1.ApiResponse)({ type: [reservation_entity_1.ReservationEntity] }),
+    __param(0, (0, hospital_decorator_1.CurrentHospital)('hospitalId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
@@ -94,6 +88,7 @@ __decorate([
 __decorate([
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiOperation)({ summary: '예약ID로 에약 memo, read 수정' }),
+    (0, swagger_1.ApiResponse)({ type: reservation_entity_1.ReservationEntity }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -103,6 +98,7 @@ __decorate([
 __decorate([
     (0, common_1.Delete)(':id'),
     (0, swagger_1.ApiOperation)({ summary: '예약ID로 예약 삭제' }),
+    (0, swagger_1.ApiResponse)({ type: reservation_entity_1.ReservationEntity }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

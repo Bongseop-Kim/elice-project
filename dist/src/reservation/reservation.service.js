@@ -26,9 +26,6 @@ let ReservationService = class ReservationService {
             },
         });
     }
-    findAll() {
-        return `This action returns all reservation`;
-    }
     findOne(id) {
         return this.prisma.reservation.findUnique({
             where: {

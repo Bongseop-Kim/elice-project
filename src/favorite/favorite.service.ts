@@ -6,8 +6,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class FavoriteService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateFavoriteDto, userId: number) {
-    const { hospitalId } = data;
+  create(hospitalId: string, userId: number) {
     return this.prisma.favorite.create({
       data: {
         hospitalId,

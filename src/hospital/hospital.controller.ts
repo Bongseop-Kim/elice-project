@@ -9,7 +9,12 @@ import {
   Put,
 } from '@nestjs/common';
 import { HospitalService } from './hospital.service';
-import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiOperation,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 import { HospitalEntity } from './entities/hospital.entity';
 import { PutHospitalDto } from './dto/put-hospital.dto';
@@ -22,6 +27,9 @@ export class HospitalController {
 
   @Get()
   @ApiOperation({ summary: '지역 별 병원 찾기' })
+  @ApiQuery({ name: 'depth1', required: false })
+  @ApiQuery({ name: 'depth2', required: false })
+  @ApiQuery({ name: 'sort', required: false })
   @ApiCreatedResponse({ type: HospitalEntity })
   findAll(
     @Query('depth1') depth1: string,

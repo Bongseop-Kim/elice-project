@@ -10,7 +10,7 @@ import {
   } from '@nestjs/common';
 
 import { AuthService } from 'src/auth/auth.service';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { RequestLoginDto } from 'src/auth/dto/request.login.dto';
@@ -29,6 +29,7 @@ export class AdminController {
     ) {}
     
     @ApiOperation({ summary: '타입별 유저 정보 조회'})
+    @ApiBearerAuth('access-token')
     @UseGuards(JwtAuthGuard)
     @ApiBody({
       description: 'get userInfo'
@@ -39,6 +40,7 @@ export class AdminController {
     }
 
     @ApiOperation({ summary: '특정 유저 탈퇴'})
+    @ApiBearerAuth('access-token')
     @UseGuards(JwtAuthGuard)
     @ApiBody({
       description: 'delete user'
@@ -49,6 +51,7 @@ export class AdminController {
     }
 
     @ApiOperation({ summary: '병원 관리자 권한 승인' })
+    @ApiBearerAuth('access-token')
     @UseGuards(JwtAuthGuard)
     @ApiBody({
       description: 'verify hospital client'

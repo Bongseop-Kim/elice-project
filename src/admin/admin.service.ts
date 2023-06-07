@@ -19,34 +19,71 @@ export class AdminService {
     return true;
   }
 
-  async getAllUserInfo(param: UserType, User) {
-    this.isAdmin(User);
-    const { userType } = param;
-    if (userType === 'generelclient') {
-      const client = await this.prisma.user.findMany({
-        where: {
-          role: 'client',
-        },
-      });
-      return client;
-    } else if (userType === 'hospitalclient') {
-      const manager = await this.prisma.user.findMany({
-        where: {
-          role: 'manager',
-          adminVerified: true,
-        },
-      });
-      return manager;
-    } else if (userType === 'notverifiedhospitalclient') {
-      const unVerifiedManager = await this.prisma.user.findMany({
-        where: {
-          role: 'manager',
-          adminVerified: false,
-        },
-      });
-      return unVerifiedManager;
-    } else return new HttpException('요청 경로를 잘못 지정하였습니다.', 404);
-  }
+    async getAllUserInfo(param: UserType, User){       
+        this.isAdmin(User)
+        const { userType } = param;
+        if(userType === 'generelclient'){
+            const client = await this.prisma.user.findMany({
+                where: {
+                    role: 'client',
+                },
+                select: {
+                    id: true,
+                    email: true,
+                    name: true,
+                    phoneNumber: true,
+                    createdAt: true,
+                    updatedAt: true
+                }
+            })
+        return client
+        } else if (userType === 'hospitalclient'){
+            const manager = await this.prisma.user.findMany({
+                where: {
+                    role: 'manager',
+                    adminVerified: true
+                },
+                select: {
+                    id: true,
+                    email: true,
+                    name: true,
+                    phoneNumber: true,
+                    createdAt: true,
+                    hospitalId: true,
+                    hospital: {
+                        select: {
+                            dutyName: true
+                        }
+                    },
+                    updatedAt: true
+                }
+            })
+        return manager
+        } else if (userType === 'notverifiedhospitalclient'){
+            const unVerifiedManager = await this.prisma.user.findMany({
+                where: {
+                    role: 'manager',
+                    adminVerified: false
+                },
+                select: {
+                    id: true,
+                    email: true,
+                    name: true,
+                    phoneNumber: true,
+                    createdAt: true,
+                    hospitalId: true,
+                    hospital: {
+                        select: {
+                            dutyName: true,
+                            dutyAddr: true
+                        }
+                    },
+                    updatedAt: true
+                }
+            })
+        return unVerifiedManager
+        } else return new HttpException('요청 경로를 잘못 지정하였습니다.', 404)
+    }
 
   async adminDeleteUser(param: Id, User) {
     this.isAdmin(User);
@@ -57,13 +94,20 @@ export class AdminService {
     return willBeDeletedUser;
   }
 
-  async adminVerifyManager(param: Id, User) {
-    this.isAdmin(User);
-    const { userId } = param;
-    const verifyManager = await this.prisma.user.update({
-      where: { id: Number(userId) },
-      data: { adminVerified: true },
-    });
-    return verifyManager;
-  }
+    async adminVerifyManager(param: Id, User){
+        this.isAdmin(User)
+        const { userId } = param
+        /*const verifyManager = */await this.prisma.user.update({
+            where: { id: Number(userId) },
+            data: { adminVerified: true }
+        })
+        const user = await this.prisma.user.findUnique({
+            where: { id: Number(userId) },
+            select: {
+                id: true,
+                adminVerified: true
+            }
+        })
+        return user
+    }
 }

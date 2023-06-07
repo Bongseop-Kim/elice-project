@@ -64,13 +64,17 @@ export class UsersService {
   async getUserInfo(id: number) {
     const user = await this.prisma.user.findMany({
       where: { id: id },
-      include: {
-        haveKid: {
-          include: { image: true },
-        },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phoneNumber: true,
+        address: true,
+        createdAt: true,
         favoriteHospitals: true,
         reserved: true,
-      },
+        updatedAt: true
+      }
     });
     return user;
   }
@@ -90,12 +94,23 @@ export class UsersService {
       body.password = hashedPassedword;
     }
 
-    const user = await this.prisma.user.update({
-      where: { id: id },
-      data: body,
-    });
+      await this.prisma.user.update({
+        where: { id: id },
+        data: body,
+      });
 
-    return user;
+      const user = await this.prisma.user.findUnique({
+        where: { id },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          phoneNumber: true,
+          address: true,
+          updatedAt: true
+        }
+      })
+      return user;
   }
 
   //병원 유저 회원 가입 API 입니다.

@@ -12,7 +12,7 @@ import {
 
 import { UsersService } from './users.service';
 import { AuthService } from 'src/auth/auth.service';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import {
@@ -33,6 +33,7 @@ export class UsersController {
   ) {}
 
   @ApiOperation({ summary: '현재 user 가져오기' })
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @Get()
   getCurrentUser(@CurrentUser() User) {
@@ -50,6 +51,7 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: '회원 탈퇴' })
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @ApiBody({
     description: 'user delete',
@@ -70,6 +72,7 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: '유저 정보 조회' })
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @ApiBody({
     description: 'get userInfo',
@@ -80,6 +83,7 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: '유저 정보 수정' })
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @ApiBody({
     description: 'update userInfo',

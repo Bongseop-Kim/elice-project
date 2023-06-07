@@ -12,12 +12,18 @@ import {
 import { ReservationService } from './reservation.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 import { ReservationEntity } from './entities/reservation.entity';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { CurrentHospital } from 'src/common/decorators/hospital.decorator';
+import { UserEntity } from 'src/users/entities/users.entity';
 
 @ApiTags('Reservation')
 @UseInterceptors(SuccessInterceptor)
@@ -26,10 +32,14 @@ export class ReservationController {
   constructor(private readonly reservationService: ReservationService) {}
 
   @Post()
+  @ApiBearerAuth('access-token')
   @ApiOperation({ summary: '예약하기' })
   @UseGuards(JwtAuthGuard)
   @ApiResponse({ type: ReservationEntity })
-  create(@CurrentUser() user, @Body() data: CreateReservationDto) {
+  create(
+    @CurrentUser() user: UserEntity,
+    @CurrentHospital() data: CreateReservationDto,
+  ) {
     return this.reservationService.create(data, user.id);
   }
 
@@ -43,15 +53,16 @@ export class ReservationController {
   @Get('user')
   @ApiOperation({ summary: '유저ID로 모든 예약정보 가져오기' })
   @ApiResponse({ type: [ReservationEntity] })
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
-  findByUser(@CurrentUser() user) {
+  findByUser(@CurrentUser() user: UserEntity) {
     return this.reservationService.findByUser(user.id);
   }
 
   @Get('hospital/:hospitalId')
   @ApiOperation({ summary: '병원ID로 모든 예약정보 가져오기' })
   @ApiResponse({ type: [ReservationEntity] })
-  findByHospital(@CurrentHospital('hospitalId') hospitalId: string) {
+  findByHospital(@CurrentHospital() hospitalId: string) {
     return this.reservationService.findByHospital(hospitalId);
   }
 

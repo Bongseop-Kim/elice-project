@@ -20,7 +20,7 @@ export class FavoriteEntity implements Favorite {
   @ApiProperty({
     example: 'A2105649',
   })
-  @IsOptional()
   @IsString()
+  @IsNotEmpty()
   hospitalId: string;
 }

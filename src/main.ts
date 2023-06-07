@@ -25,6 +25,15 @@ async function bootstrap() {
     .setDescription('team05')
     .setVersion('1.0.0')
     .addTag('team05')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        name: 'JWT',
+        in: 'header',
+      },
+      'access-token',
+    )
     .build();
   const document: OpenAPIObject = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

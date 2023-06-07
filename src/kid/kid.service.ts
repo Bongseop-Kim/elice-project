@@ -11,11 +11,7 @@ export class KidService {
   async registKid(User) {
     const kid = await this.prisma.kid.create({
       data: {
-        parent: {
-          connect: {
-            id: User.id,
-          },
-        },
+        parentId: User.id
       },
     });
     return kid;

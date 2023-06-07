@@ -49,6 +49,11 @@ export class AdminService {
                     phoneNumber: true,
                     createdAt: true,
                     hospitalId: true,
+                    hospital: {
+                        select: {
+                            dutyName: true
+                        }
+                    },
                     updatedAt: true
                 }
             })
@@ -66,6 +71,12 @@ export class AdminService {
                     phoneNumber: true,
                     createdAt: true,
                     hospitalId: true,
+                    hospital: {
+                        select: {
+                            dutyName: true,
+                            dutyAddr: true
+                        }
+                    },
                     updatedAt: true
                 }
             })

@@ -12,7 +12,7 @@ import {
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { KidService } from './kid.service';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { GetKidsDto, RegistKidDto, UpdateKidDto } from './dto/kid.dtos';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 
@@ -23,6 +23,7 @@ export class KidController {
   constructor(private readonly kidService: KidService) {}
 
   @ApiOperation({ summary: '아이 등록하기' })
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @ApiBody({
     description: 'post registKid',
@@ -34,6 +35,7 @@ export class KidController {
   }
 
   @ApiOperation({ summary: '아이들 조회하기' })
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @ApiBody({
     description: 'get kids',
@@ -45,6 +47,7 @@ export class KidController {
   }
 
   @ApiOperation({ summary: '아이 정보 수정하기' })
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @ApiBody({
     description: 'update kid',
@@ -61,6 +64,7 @@ export class KidController {
   }
 
   @ApiOperation({ summary: '아이 정보 삭제하기' })
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @ApiBody({
     description: 'delete kid',

@@ -9,7 +9,7 @@ import {
     UseGuards,
     UseInterceptors,
   } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 
   import { AuthService } from 'src/auth/auth.service';
   import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
@@ -28,6 +28,7 @@ export class ReviewsController {
 ) {}
 
     @ApiOperation({ summary: '리뷰 등록, 수정 및 취소하기'})
+    @ApiBearerAuth('access-token')
     @UseGuards(JwtAuthGuard)
     @ApiBody({
         description: 'post new review',
@@ -47,6 +48,7 @@ export class ReviewsController {
     }
 
     @ApiOperation({ summary: '로그인 유저 리뷰 확인하기'})
+    @ApiBearerAuth('access-token')
     @UseGuards(JwtAuthGuard)
     @ApiBody({
         description: 'user review check'

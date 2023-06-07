@@ -11,6 +11,7 @@ export declare class AdminService {
         email: string;
         phoneNumber: string;
         createdAt: Date;
+        updatedAt: Date;
         id: number;
     }[]>;
     adminDeleteUser(param: Id, User: any): Promise<User>;

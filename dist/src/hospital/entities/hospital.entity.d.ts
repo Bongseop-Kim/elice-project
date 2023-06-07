@@ -34,8 +34,6 @@ export declare class HospitalEntity implements Hospital {
     dutyTime8s: string;
     wgs84Lat: number;
     wgs84Lon: number;
-    adminId: number;
     startLunch: string;
     endLunch: string;
-    imageId: number;
 }

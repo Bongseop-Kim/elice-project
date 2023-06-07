@@ -9,35 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VoteTag = void 0;
+exports.InputImageDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
+const image_entity_1 = require("../entities/image.entity");
 const class_validator_1 = require("class-validator");
-class VoteTag {
+class InputImageDto extends (0, swagger_1.OmitType)(image_entity_1.ImageEntity, [
+    'id',
+    'imageUrl',
+    'kidId',
+]) {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({
-        example: 'A1100401'
-    }),
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
-], VoteTag.prototype, "hospitalId", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        example: 1
-    }),
-    (0, class_validator_1.IsNumber)(),
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", Number)
-], VoteTag.prototype, "vote", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        required: false,
-        example: 1
-    }),
-    (0, class_validator_1.IsNumber)(),
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", Number)
-], VoteTag.prototype, "posterId", void 0);
-exports.VoteTag = VoteTag;
-//# sourceMappingURL=reviews.dto.js.map
+], InputImageDto.prototype, "kidId", void 0);
+exports.InputImageDto = InputImageDto;
+//# sourceMappingURL=input-image.dto.js.map

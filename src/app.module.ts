@@ -16,7 +16,7 @@ import { FavoriteModule } from './favorite/favorite.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     UsersModule,
     AuthModule,
     PrismaModule,

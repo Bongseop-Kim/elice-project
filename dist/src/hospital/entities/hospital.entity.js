@@ -151,19 +151,11 @@ __decorate([
 ], HospitalEntity.prototype, "wgs84Lon", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Number)
-], HospitalEntity.prototype, "adminId", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], HospitalEntity.prototype, "startLunch", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], HospitalEntity.prototype, "endLunch", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Number)
-], HospitalEntity.prototype, "imageId", void 0);
 exports.HospitalEntity = HospitalEntity;
 //# sourceMappingURL=hospital.entity.js.map

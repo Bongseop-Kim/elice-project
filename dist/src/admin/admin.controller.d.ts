@@ -10,6 +10,7 @@ export declare class AdminController {
         email: string;
         phoneNumber: string;
         createdAt: Date;
+        updatedAt: Date;
         id: number;
     }[]>;
     adminDeleteUser(param: Id, User: any): Promise<import(".prisma/client").User>;

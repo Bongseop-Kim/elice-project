@@ -35,7 +35,8 @@ let AdminService = class AdminService {
                     email: true,
                     name: true,
                     phoneNumber: true,
-                    createdAt: true
+                    createdAt: true,
+                    updatedAt: true
                 }
             });
             return client;
@@ -52,7 +53,13 @@ let AdminService = class AdminService {
                     name: true,
                     phoneNumber: true,
                     createdAt: true,
-                    hospitalId: true
+                    hospitalId: true,
+                    hospital: {
+                        select: {
+                            dutyName: true
+                        }
+                    },
+                    updatedAt: true
                 }
             });
             return manager;
@@ -69,7 +76,14 @@ let AdminService = class AdminService {
                     name: true,
                     phoneNumber: true,
                     createdAt: true,
-                    hospitalId: true
+                    hospitalId: true,
+                    hospital: {
+                        select: {
+                            dutyName: true,
+                            dutyAddr: true
+                        }
+                    },
+                    updatedAt: true
                 }
             });
             return unVerifiedManager;

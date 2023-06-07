@@ -94,7 +94,6 @@ CREATE TABLE `Hospital` (
     `dutyTime8s` VARCHAR(191) NULL,
     `wgs84Lat` DOUBLE NOT NULL,
     `wgs84Lon` DOUBLE NOT NULL,
-    `imageId` INTEGER NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -102,9 +101,8 @@ CREATE TABLE `Hospital` (
 -- CreateTable
 CREATE TABLE `Image` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `type` VARCHAR(191) NOT NULL,
     `imageUrl` VARCHAR(191) NOT NULL,
-    `kidId` INTEGER NOT NULL,
+    `kidId` INTEGER NULL,
     `hospitalId` VARCHAR(191) NULL,
 
     UNIQUE INDEX `Image_kidId_key`(`kidId`),

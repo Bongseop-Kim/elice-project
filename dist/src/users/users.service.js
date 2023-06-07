@@ -60,9 +60,9 @@ let UsersService = class UsersService {
                 phoneNumber: true,
                 address: true,
                 createdAt: true,
-                haveKid: true,
                 favoriteHospitals: true,
-                reserved: true
+                reserved: true,
+                updatedAt: true
             }
         });
         return user;
@@ -90,6 +90,7 @@ let UsersService = class UsersService {
                 email: true,
                 phoneNumber: true,
                 address: true,
+                updatedAt: true
             }
         });
         return user;

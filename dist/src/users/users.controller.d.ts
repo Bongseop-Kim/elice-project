@@ -19,8 +19,8 @@ export declare class UsersController {
         phoneNumber: string;
         address: string;
         createdAt: Date;
+        updatedAt: Date;
         favoriteHospitals: import(".prisma/client").Favorite[];
-        haveKid: import(".prisma/client").Kid[];
         reserved: import(".prisma/client").Reservation[];
         id: number;
     }[]>;
@@ -29,6 +29,7 @@ export declare class UsersController {
         email: string;
         phoneNumber: string;
         address: string;
+        updatedAt: Date;
         id: number;
     }>;
     managerSignUp(body: CreateManagerDto): Promise<string>;

@@ -105,21 +105,19 @@ model Hospital {
   dutyTime8s     String?
   wgs84Lat       Float
   wgs84Lon       Float
-  imageId        Int?
   favorited      Favorite[]
   reviews        Reviews[]
   reservations   Reservation[]
   admin          User?
-  images         Image[]
+  image          Image[]
 }
 
 model Image {
   id Int @id @default(autoincrement())
 
-  type     String
   imageUrl String
   kid      Kid?   @relation(fields: [kidId], references: [id], onDelete: Cascade)
-  kidId    Int    @unique
+  kidId    Int?   @unique
 
   hospital   Hospital? @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
   hospitalId String?

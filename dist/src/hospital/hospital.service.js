@@ -51,7 +51,7 @@ let HospitalService = class HospitalService {
     findById(id) {
         return this.prisma.hospital.findUnique({
             where: { id },
-            include: { images: true },
+            include: { image: true },
         });
     }
     put(id, data) {

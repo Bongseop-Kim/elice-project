@@ -1,6 +1,6 @@
 # compiled output
 /node_modules
-/src/main.ts
+/dist
 
 # Logs
 logs

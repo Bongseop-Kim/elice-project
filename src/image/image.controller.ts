@@ -52,7 +52,7 @@ export class ImageController {
 
   @Get('hospital/:id')
   @ApiOperation({ summary: '병원의 모든 이미지' })
-  @ApiResponse({ type: ImageEntity })
+  @ApiResponse({ type: [ImageEntity] })
   findByHospitalId(@Param('id') id: string) {
     return this.imageService.findByHospitalId(id);
   }
@@ -62,13 +62,6 @@ export class ImageController {
   @ApiResponse({ type: ImageEntity })
   findByKidId(@Param('id') id: string) {
     return this.imageService.findByKidId(+id);
-  }
-
-  @Patch(':id')
-  @ApiOperation({ summary: '이미지 변경' })
-  @ApiResponse({ type: ImageEntity })
-  update(@Param('id') id: string, @Body() body: UpdateImageDto) {
-    return this.imageService.update(+id, body);
   }
 
   @Delete(':id')

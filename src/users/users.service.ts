@@ -18,17 +18,17 @@ export class UsersService {
 
   //이메일 중복 검사
   async existByEmail(email: string): Promise<any> {
-      const user = await this.prisma.user.findUnique({
-          where: {
-            email: email,
-          },
-      });
-      if (user) {
-        throw new UnauthorizedException('해당하는 이메일은 이미 존재합니다.');
-      }
-      return user;
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+    if (user) {
+      throw new UnauthorizedException('해당하는 이메일은 이미 존재합니다.');
+    }
+    return user;
   }
-  
+
   //유저 회원 가입 API 입니다.
   async clientSignUp(body: CreateUserDto) {
     const { email, name, password, phoneNumber } = body;
@@ -46,10 +46,10 @@ export class UsersService {
     };
 
     const signUp = await this.prisma.user.create({
-      data:{
-        ...user
-      }
-    })
+      data: {
+        ...user,
+      },
+    });
     return signUp.email;
   }
 
@@ -81,18 +81,18 @@ export class UsersService {
 
   //유저 정보 수정 API입니다.
   async updateUserInfo(id: number, body: UpdateUserDto) {
-      if (body.email) {
-        throw new HttpException('이메일은 변경할 수 없습니다.', 400);
-      }
+    if (body.email) {
+      throw new HttpException('이메일은 변경할 수 없습니다.', 400);
+    }
 
-      if(body.role) {
-        throw new UnauthorizedException('권한은 임의로 변경할 수 없습니다.');
-      }
+    if (body.role) {
+      throw new UnauthorizedException('권한은 임의로 변경할 수 없습니다.');
+    }
 
-      if (body.password) {
-        const hashedPassedword = await bcrypt.hash(body.password, 10);
-        body.password = hashedPassedword;
-      }
+    if (body.password) {
+      const hashedPassedword = await bcrypt.hash(body.password, 10);
+      body.password = hashedPassedword;
+    }
 
       await this.prisma.user.update({
         where: { id: id },
@@ -130,13 +130,15 @@ export class UsersService {
     };
 
     const hospitalDuplicateCheck = await this.prisma.user.findUnique({
-      where:{
-        hospitalId: hospitalId
-      }
-    })
+      where: {
+        hospitalId: hospitalId,
+      },
+    });
 
-    if(hospitalDuplicateCheck){
-      throw new UnauthorizedException('해당 병원은 이미 등록된 관리자가 존재합니다.')
+    if (hospitalDuplicateCheck) {
+      throw new UnauthorizedException(
+        '해당 병원은 이미 등록된 관리자가 존재합니다.',
+      );
     }
 
     const signUp = await this.prisma.user.create({

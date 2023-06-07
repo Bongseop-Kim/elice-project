@@ -1,12 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Image } from '@prisma/client';
-import {
-  IsEmpty,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class ImageEntity implements Image {
   @ApiProperty({

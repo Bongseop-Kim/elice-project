@@ -1,5 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
-export class JwtAuthGuard extends AuthGuard('jwt') {}
+export class JwtAuthGuard extends AuthGuard('jwt') {
+  handleRequest(err, user, info) {
+    if (err || !user) {
+      throw new UnauthorizedException('일치하는 회원 정보가 없습니다.');
+    }
+    return user;
+  }
+}

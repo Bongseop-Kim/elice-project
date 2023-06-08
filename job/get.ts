@@ -22,7 +22,7 @@ axios
         // dutyEmclsName: hospital.dutyEmclsName,
         // dutyEryn: hospital.dutyEryn,
         dutyEtc: hospital.dutyEtc,
-        dutyMapimg: hospital.dutyMapimg,
+        // dutyMapimg: hospital.dutyMapimg,
         dutyName: hospital.dutyName,
         dutyTel1: hospital.dutyTel1,
         dutyTime1c: hospital.dutyTime1c?.toString(),

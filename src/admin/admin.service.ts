@@ -94,20 +94,36 @@ export class AdminService {
     return willBeDeletedUser;
   }
 
-    async adminVerifyManager(param: Id, User){
-        this.isAdmin(User)
-        const { userId } = param
-        /*const verifyManager = */await this.prisma.user.update({
-            where: { id: Number(userId) },
-            data: { adminVerified: true }
-        })
-        const user = await this.prisma.user.findUnique({
-            where: { id: Number(userId) },
-            select: {
-                id: true,
-                adminVerified: true
+  async adminDeleteAllUsers(body: object, User){
+    this.isAdmin(User);
+    const deletedUsersId = Object.values(body)[0]
+    if(deletedUsersId.length === 0){
+        throw new HttpException('선택된 유저가 없습니다.', 400)
+    }
+    for (const value of deletedUsersId) {
+        await this.prisma.user.delete({
+            where: {
+                id: value
             }
         })
-        return user
     }
+    return deletedUsersId
+  }
+
+  async adminVerifyManager(param: Id, User){
+    this.isAdmin(User)
+    const { userId } = param
+    await this.prisma.user.update({
+        where: { id: Number(userId) },
+        data: { adminVerified: true }
+    })
+    const user = await this.prisma.user.findUnique({
+        where: { id: Number(userId) },
+        select: {
+            id: true,
+            adminVerified: true
+        }
+    })
+    return user
+  }
 }

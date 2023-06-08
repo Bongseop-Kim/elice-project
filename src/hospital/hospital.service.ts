@@ -81,7 +81,7 @@ export class HospitalService {
         Hospital
     ORDER BY 
         distance
-    LIMIT 3
+    LIMIT 9
 `;
   }
 

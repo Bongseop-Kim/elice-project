@@ -17,7 +17,13 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { ImageService } from './image.service';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 import { ImageEntity } from './entities/image.entity';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
@@ -47,9 +53,29 @@ export class ImageController {
   ) {}
 
   @Post()
-  @ApiOperation({ summary: '이미지 업로드' })
+  @ApiOperation({
+    summary: '이미지 업로드 hospitalId, kidId는 둘 중에 하나만 들어와야합니다.',
+  })
   @ApiResponse({ type: ImageEntity })
+  @ApiConsumes('multipart/form-data')
   @UseInterceptors(FilesInterceptor('files', 10))
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        hospitalId: {
+          type: 'string',
+        },
+        kidId: {
+          type: 'string',
+        },
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   async upload(
     @UploadedFiles(
       new ParseFilePipe({

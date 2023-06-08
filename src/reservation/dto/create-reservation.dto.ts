@@ -4,4 +4,5 @@ import { ReservationEntity } from '../entities/reservation.entity';
 export class CreateReservationDto extends PickType(ReservationEntity, [
   'hospitalId',
   'memo',
+  'reservedTime',
 ]) {}

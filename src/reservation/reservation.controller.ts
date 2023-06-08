@@ -8,7 +8,7 @@ import {
   Delete,
   UseInterceptors,
   UseGuards,
-  HttpException,
+  NotFoundException,
 } from '@nestjs/common';
 import { ReservationService } from './reservation.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
@@ -25,6 +25,18 @@ import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { UserEntity } from 'src/users/entities/users.entity';
 import { HospitalService } from 'src/hospital/hospital.service';
+
+async function checkHospitalExistence(
+  hospitalService: HospitalService,
+  hospitalId: string,
+): Promise<void> {
+  const existHospital = await hospitalService.existHospital(hospitalId);
+  if (!existHospital) {
+    throw new NotFoundException(
+      '일치하는 병원이 없습니다. HospitalId를 확인해주세요.',
+    );
+  }
+}
 
 @ApiTags('Reservation')
 @UseInterceptors(SuccessInterceptor)
@@ -44,15 +56,7 @@ export class ReservationController {
     @CurrentUser() user: UserEntity,
     @Body() data: CreateReservationDto,
   ) {
-    const existHospital = await this.hospitalService.existHospital(
-      data.hospitalId,
-    );
-    if (!existHospital) {
-      throw new HttpException(
-        '일치하는 병원이 없습니다. HospitalId를 확인해주세요.',
-        404,
-      );
-    }
+    await checkHospitalExistence(this.hospitalService, data.hospitalId);
     return this.reservationService.create(data, user.id);
   }
 
@@ -75,7 +79,8 @@ export class ReservationController {
   @Get('hospital/:hospitalId')
   @ApiOperation({ summary: '병원ID로 모든 예약정보 가져오기' })
   @ApiResponse({ type: [ReservationEntity] })
-  findByHospital(@Param() hospitalId: string) {
+  async findByHospital(@Param('hospitalId') hospitalId: string) {
+    await checkHospitalExistence(this.hospitalService, hospitalId);
     return this.reservationService.findByHospital(hospitalId);
   }
 

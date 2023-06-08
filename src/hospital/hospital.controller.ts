@@ -72,7 +72,7 @@ export class HospitalController {
 
   @Get('near')
   @ApiOperation({
-    summary: '가까운 병원 3개 찾기, 유저의 경도위도를 넣어주세요.',
+    summary: '가까운 병원 9개 찾기, 유저의 경도위도를 넣어주세요.',
   })
   @ApiCreatedResponse({ type: HospitalEntity })
   findByDistance(

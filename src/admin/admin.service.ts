@@ -4,7 +4,7 @@ import {
   HttpException,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
-import { UserType, Id } from './dto/admin.dtos';
+import { UserType, Id, Ids } from './dto/admin.dtos';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -94,20 +94,37 @@ export class AdminService {
     return willBeDeletedUser;
   }
 
-    async adminVerifyManager(param: Id, User){
-        this.isAdmin(User)
-        const { userId } = param
-        /*const verifyManager = */await this.prisma.user.update({
-            where: { id: Number(userId) },
-            data: { adminVerified: true }
-        })
-        const user = await this.prisma.user.findUnique({
-            where: { id: Number(userId) },
-            select: {
-                id: true,
-                adminVerified: true
+  async adminDeleteAllUsers(body: Ids, User){
+    this.isAdmin(User);
+    const { usersId } = body;
+    console.log(usersId)
+    if(usersId.length === 0){
+        throw new HttpException('선택된 유저가 없습니다.', 400)
+    }
+    for (const value of usersId) {
+        await this.prisma.user.delete({
+            where: {
+                id: value
             }
         })
-        return user
     }
+    return usersId
+  }
+
+  async adminVerifyManager(param: Id, User){
+    this.isAdmin(User)
+    const { userId } = param
+    await this.prisma.user.update({
+        where: { id: Number(userId) },
+        data: { adminVerified: true }
+    })
+    const user = await this.prisma.user.findUnique({
+        where: { id: Number(userId) },
+        select: {
+            id: true,
+            adminVerified: true
+        }
+    })
+    return user
+  }
 }

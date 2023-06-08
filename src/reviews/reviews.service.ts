@@ -34,13 +34,12 @@ export class ReviewsService{
             })
         } else if (check.length !== 0 && check[0].vote !== vote){
             await this.prisma.reviews.update({
-                where: { id: check[0].id},
+                where: { id: check[0].id },
                 data: {
                     vote: vote
                 }
             })
         }
-
         const isCheckChanged = await this.prisma.reviews.findMany({
             where: {
                 posterId: User.id,

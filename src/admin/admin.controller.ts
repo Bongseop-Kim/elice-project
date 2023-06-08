@@ -17,7 +17,7 @@ import { RequestLoginDto } from 'src/auth/dto/request.login.dto';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 import { AuthGuard } from '@nestjs/passport';
 import { AdminService } from './admin.service';
-import { UserType, Id } from './dto/admin.dtos'
+import { UserType, Id, Ids } from './dto/admin.dtos'
 
 @Controller('admin')
 @ApiTags('Admin')
@@ -39,7 +39,7 @@ export class AdminController {
       return this.adminService.getAllUserInfo(param, User)
     }
 
-    @ApiOperation({ summary: '특정 유저 탈퇴'})
+    @ApiOperation({ summary: '특정 유저 탈퇴' })
     @ApiBearerAuth('access-token')
     @UseGuards(JwtAuthGuard)
     @ApiBody({
@@ -48,6 +48,17 @@ export class AdminController {
     @Delete('delete/:userId')
     adminDeleteUser(@Param() param: Id, @CurrentUser() User){
       return this.adminService.adminDeleteUser(param, User)
+    }
+
+    @ApiOperation({ summary: '선택된 전체 유저 삭제' })
+    @ApiBearerAuth('access-token')
+    @UseGuards(JwtAuthGuard)
+    @ApiBody({
+      description: 'delete select users'
+    })
+    @Delete('deleteall')
+    adminDeleteAllUsers(@Body() body: Ids, @CurrentUser() User){
+      return this.adminService.adminDeleteAllUsers(body, User)
     }
 
     @ApiOperation({ summary: '병원 관리자 권한 승인' })

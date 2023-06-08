@@ -7,3 +7,7 @@ export class UserType {
 export class Id {
     userId: string;
 }
+
+export class Ids {
+    usersId: [];
+}

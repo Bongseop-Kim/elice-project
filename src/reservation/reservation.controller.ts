@@ -53,7 +53,7 @@ export class ReservationController {
         404,
       );
     }
-    // return this.reservationService.create(data, user.id);
+    return this.reservationService.create(data, user.id);
   }
 
   @Get('reservation/:id')

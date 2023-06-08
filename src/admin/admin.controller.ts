@@ -17,7 +17,7 @@ import { RequestLoginDto } from 'src/auth/dto/request.login.dto';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 import { AuthGuard } from '@nestjs/passport';
 import { AdminService } from './admin.service';
-import { UserType, Id } from './dto/admin.dtos'
+import { UserType, Id, Ids } from './dto/admin.dtos'
 
 @Controller('admin')
 @ApiTags('Admin')
@@ -57,7 +57,7 @@ export class AdminController {
       description: 'delete select users'
     })
     @Delete('deleteall')
-    adminDeleteAllUsers(@Body() body: object, @CurrentUser() User){
+    adminDeleteAllUsers(@Body() body: Ids, @CurrentUser() User){
       return this.adminService.adminDeleteAllUsers(body, User)
     }
 

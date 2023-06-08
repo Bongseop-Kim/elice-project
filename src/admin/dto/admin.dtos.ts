@@ -9,5 +9,5 @@ export class Id {
 }
 
 export class Ids {
-    usersId: [];
+    userIds: number[]
 }

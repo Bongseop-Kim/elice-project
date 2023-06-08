@@ -96,19 +96,18 @@ export class AdminService {
 
   async adminDeleteAllUsers(body: Ids, User){
     this.isAdmin(User);
-    const { usersId } = body;
-    console.log(usersId)
-    if(usersId.length === 0){
+    const { userIds } = body;
+    if(userIds.length === 0){
         throw new HttpException('선택된 유저가 없습니다.', 400)
     }
-    for (const value of usersId) {
-        await this.prisma.user.delete({
-            where: {
-                id: value
+    await this.prisma.user.deleteMany({
+        where:{
+            id: {
+                in: userIds
             }
-        })
-    }
-    return usersId
+        }
+    })
+    return userIds
   }
 
   async adminVerifyManager(param: Id, User){

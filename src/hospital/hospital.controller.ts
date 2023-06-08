@@ -7,6 +7,8 @@ import {
   UseInterceptors,
   Query,
   Put,
+  Post,
+  NotFoundException,
 } from '@nestjs/common';
 import { HospitalService } from './hospital.service';
 import {
@@ -18,12 +20,32 @@ import {
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 import { HospitalEntity } from './entities/hospital.entity';
 import { PutHospitalDto } from './dto/put-hospital.dto';
+import { CreateHospitalDto } from './dto/create-hospital.dto';
+
+async function checkHospitalExistence(
+  hospitalService: HospitalService,
+  hospitalId: string,
+): Promise<void> {
+  const existHospital = await hospitalService.existHospital(hospitalId);
+  if (!existHospital) {
+    throw new NotFoundException(
+      '일치하는 병원이 없습니다. HospitalId를 확인해주세요.',
+    );
+  }
+}
 
 @Controller('hospital')
 @ApiTags('Hospital')
 @UseInterceptors(SuccessInterceptor)
 export class HospitalController {
   constructor(private readonly hospitalService: HospitalService) {}
+
+  @Post()
+  @ApiOperation({ summary: '신규 병원 등록' })
+  @ApiCreatedResponse({ type: HospitalEntity })
+  create(@Body() data: CreateHospitalDto) {
+    return this.hospitalService.create(data);
+  }
 
   @Get()
   @ApiOperation({ summary: '지역 별 병원 찾기' })
@@ -41,24 +63,30 @@ export class HospitalController {
     return this.hospitalService.findAll(depth1, depth2, +size, +page, sort);
   }
 
-  @Get(':id')
+  @Get(':hospitalId')
   @ApiOperation({ summary: '특정 병원 찾기' })
   @ApiCreatedResponse({ type: HospitalEntity })
-  findById(@Param('id') id: string) {
-    return this.hospitalService.findById(id);
+  async findById(@Param('hospitalId') hospitalId: string) {
+    await checkHospitalExistence(this.hospitalService, hospitalId);
+    return this.hospitalService.findById(hospitalId);
   }
 
-  @Put(':id')
+  @Put(':hospitalId')
   @ApiOperation({ summary: '병원 수정' })
   @ApiCreatedResponse({ type: HospitalEntity })
-  update(@Param('id') id: string, @Body() data: PutHospitalDto) {
-    return this.hospitalService.put(id, data);
+  async update(
+    @Param('hospitalId') hospitalId: string,
+    @Body() data: PutHospitalDto,
+  ) {
+    await checkHospitalExistence(this.hospitalService, hospitalId);
+    return this.hospitalService.put(hospitalId, data);
   }
 
-  @Delete(':id')
+  @Delete(':hospitalId')
   @ApiOperation({ summary: '병원 삭제' })
   @ApiCreatedResponse({ type: HospitalEntity })
-  remove(@Param('id') id: string) {
-    return this.hospitalService.remove(id);
+  async remove(@Param('hospitalId') hospitalId: string) {
+    await checkHospitalExistence(this.hospitalService, hospitalId);
+    return this.hospitalService.remove(hospitalId);
   }
 }

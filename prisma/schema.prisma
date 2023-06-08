@@ -37,7 +37,7 @@ model Kid {
   gender   String?
   birth    String?
   memo     String?
-  image    Image?
+  image    Image[]
 }
 
 model Reservation {
@@ -80,11 +80,11 @@ model Hospital {
   // dutyEmclsName String?
   // dutyEryn Int?
   dutyEtc        String?
-  dutyInf        String?
-  dutyMapimg     String?
+  // dutyInf        String?
+  // dutyMapimg     String?
   dutyName       String
   dutyTel1       String
-  dutyTel3       String?
+  // dutyTel3       String?
   startLunch     String?
   endLunch       String?
   dutyTime1c     String?
@@ -117,7 +117,7 @@ model Image {
 
   imageUrl String
   kid      Kid?   @relation(fields: [kidId], references: [id], onDelete: Cascade)
-  kidId    Int?   @unique
+  kidId    Int?
 
   hospital   Hospital? @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
   hospitalId String?

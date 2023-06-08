@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { UpdateImageDto } from './dto/update-image.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { CreateImageDto } from './dto/create-image.dto';
+import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class ImageService {
@@ -15,27 +15,21 @@ export class ImageService {
     },
   });
 
-  async upload(
-    fileName: string,
-    file: Buffer,
-    hospitalId: string,
-    kidId: number,
-  ) {
+  async upload(file: Buffer, hospitalId: string, kidId: number) {
+    const fileKey = uuid() + '.jpg';
     await this.s3Client.send(
       new PutObjectCommand({
         Bucket: process.env.S3_UPLOAD_BUCKET,
-        Key: Date.now() + fileName,
+        Key: fileKey,
         Body: file,
       }),
     );
-    //fileName을 꼭 key 값에 넣어줘야지 이미지 업로드가 정상적으로 작동하는 이유가 궁굼합니다...
+    //key 값의 파일의 값이 jpg인지 png인지 jpeg인지 꼭 알려줘야한다.
 
     const data: CreateImageDto = {
       hospitalId,
       kidId,
-      imageUrl: `https://devtie.s3.ap-northeast-2.amazonaws.com/${encodeURIComponent(
-        Date.now() + fileName,
-      )}`,
+      imageUrl: `https://devtie.s3.ap-northeast-2.amazonaws.com/${fileKey}`,
     };
 
     return this.prisma.image.create({
@@ -52,7 +46,7 @@ export class ImageService {
   }
 
   findByKidId(id: number) {
-    return this.prisma.image.findUnique({
+    return this.prisma.image.findMany({
       where: {
         kidId: id,
       },

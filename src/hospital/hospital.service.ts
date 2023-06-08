@@ -1,10 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { PutHospitalDto } from './dto/put-hospital.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateHospitalDto } from './dto/create-hospital.dto';
 
 @Injectable()
 export class HospitalService {
   constructor(private prisma: PrismaService) {}
+
+  create(data: CreateHospitalDto) {
+    const id = 'new' + new Date().getTime().toString();
+    return this.prisma.hospital.create({
+      data: { ...data, id },
+    });
+  }
+
+  existHospital(id: string) {
+    return this.prisma.hospital.findUnique({
+      where: { id },
+    });
+  }
 
   findAll(
     depth1: string,
@@ -29,9 +43,9 @@ export class HospitalService {
     }
 
     if (sort === 'name') {
-      orderBy = { name: 'asc' };
-    } else if (sort === 'post') {
-      orderBy = { posts: { _count: 'desc' } };
+      orderBy = { dutyName: 'asc' };
+    } else if (sort === 'review') {
+      orderBy = { reviews: { _count: 'desc' } };
     } else {
       orderBy = {}; // 기본적으로 정렬하지 않음
     }
@@ -41,6 +55,8 @@ export class HospitalService {
       orderBy,
       skip: size * page,
       take: size,
+      include: { reviews: true },
+      //확인용 나중에 include review는 필요 없을 듯
     });
   }
 

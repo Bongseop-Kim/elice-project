@@ -11,57 +11,76 @@ import {
   ParseFilePipe,
   FileTypeValidator,
   UseFilters,
+  NotFoundException,
+  UploadedFiles,
 } from '@nestjs/common';
 import { ImageService } from './image.service';
-import { UpdateImageDto } from './dto/update-image.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
-import { CreateImageDto } from './dto/create-image.dto';
 import { ImageEntity } from './entities/image.entity';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter';
 import { InputImageDto } from './dto/input-image.dto';
+import { HospitalService } from 'src/hospital/hospital.service';
+
+async function checkHospitalExistence(
+  hospitalService: HospitalService,
+  hospitalId: string,
+): Promise<void> {
+  const existHospital = await hospitalService.existHospital(hospitalId);
+  if (!existHospital) {
+    throw new NotFoundException(
+      '일치하는 병원이 없습니다. HospitalId를 확인해주세요.',
+    );
+  }
+}
 
 @Controller('image')
 @ApiTags('Image')
 @UseInterceptors(SuccessInterceptor)
 @UseFilters(HttpExceptionFilter)
 export class ImageController {
-  constructor(private readonly imageService: ImageService) {}
+  constructor(
+    private readonly imageService: ImageService,
+    private readonly hospitalService: HospitalService,
+  ) {}
 
   @Post()
   @ApiOperation({ summary: '이미지 업로드' })
   @ApiResponse({ type: ImageEntity })
-  @UseInterceptors(FileInterceptor('file'))
-  upload(
-    @UploadedFile(
+  @UseInterceptors(FilesInterceptor('files', 10))
+  async upload(
+    @UploadedFiles(
       new ParseFilePipe({
-        validators: [new FileTypeValidator({ fileType: 'image/jpeg' })],
+        validators: [new FileTypeValidator({ fileType: 'image' })],
       }),
     )
-    file: Express.Multer.File,
+    files: [Express.Multer.File],
     @Body() data: InputImageDto,
   ) {
-    return this.imageService.upload(
-      file.originalname,
-      file.buffer,
-      data.hospitalId,
-      +data.kidId,
-    );
+    await checkHospitalExistence(this.hospitalService, data.hospitalId);
+    files.map(async (file) => {
+      return await this.imageService.upload(
+        file.buffer,
+        data.hospitalId,
+        +data.kidId,
+      );
+    });
   }
 
-  @Get('hospital/:id')
+  @Get('hospital/:hospitalId')
   @ApiOperation({ summary: '병원의 모든 이미지' })
   @ApiResponse({ type: [ImageEntity] })
-  findByHospitalId(@Param('id') id: string) {
-    return this.imageService.findByHospitalId(id);
+  async findByHospitalId(@Param('hospitalId') hospitalId: string) {
+    await checkHospitalExistence(this.hospitalService, hospitalId);
+    return this.imageService.findByHospitalId(hospitalId);
   }
 
-  @Get('kid/:id')
+  @Get('kid/:kidId')
   @ApiOperation({ summary: '아이 이미지 하나' })
   @ApiResponse({ type: ImageEntity })
-  findByKidId(@Param('id') id: string) {
-    return this.imageService.findByKidId(+id);
+  findByKidId(@Param('kidId') kidId: string) {
+    return this.imageService.findByKidId(+kidId);
   }
 
   @Delete(':id')

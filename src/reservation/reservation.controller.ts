@@ -8,6 +8,7 @@ import {
   Delete,
   UseInterceptors,
   UseGuards,
+  NotFoundException,
 } from '@nestjs/common';
 import { ReservationService } from './reservation.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
@@ -22,28 +23,44 @@ import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 import { ReservationEntity } from './entities/reservation.entity';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
-import { CurrentHospital } from 'src/common/decorators/hospital.decorator';
 import { UserEntity } from 'src/users/entities/users.entity';
+import { HospitalService } from 'src/hospital/hospital.service';
+
+async function checkHospitalExistence(
+  hospitalService: HospitalService,
+  hospitalId: string,
+): Promise<void> {
+  const existHospital = await hospitalService.existHospital(hospitalId);
+  if (!existHospital) {
+    throw new NotFoundException(
+      '일치하는 병원이 없습니다. HospitalId를 확인해주세요.',
+    );
+  }
+}
 
 @ApiTags('Reservation')
 @UseInterceptors(SuccessInterceptor)
 @Controller('reservation')
 export class ReservationController {
-  constructor(private readonly reservationService: ReservationService) {}
+  constructor(
+    private readonly reservationService: ReservationService,
+    private readonly hospitalService: HospitalService,
+  ) {}
 
   @Post()
   @ApiBearerAuth('access-token')
   @ApiOperation({ summary: '예약하기' })
   @UseGuards(JwtAuthGuard)
   @ApiResponse({ type: ReservationEntity })
-  create(
+  async create(
     @CurrentUser() user: UserEntity,
-    @CurrentHospital() data: CreateReservationDto,
+    @Body() data: CreateReservationDto,
   ) {
+    await checkHospitalExistence(this.hospitalService, data.hospitalId);
     return this.reservationService.create(data, user.id);
   }
 
-  @Get(':id')
+  @Get('reservation/:id')
   @ApiOperation({ summary: '예약ID로 예약정보 하나 가져오기' })
   @ApiResponse({ type: ReservationEntity })
   findOne(@Param('id') id: string) {
@@ -62,7 +79,8 @@ export class ReservationController {
   @Get('hospital/:hospitalId')
   @ApiOperation({ summary: '병원ID로 모든 예약정보 가져오기' })
   @ApiResponse({ type: [ReservationEntity] })
-  findByHospital(@CurrentHospital() hospitalId: string) {
+  async findByHospital(@Param('hospitalId') hospitalId: string) {
+    await checkHospitalExistence(this.hospitalService, hospitalId);
     return this.reservationService.findByHospital(hospitalId);
   }
 

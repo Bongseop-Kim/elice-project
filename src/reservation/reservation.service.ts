@@ -30,6 +30,13 @@ export class ReservationService {
   findByUser(userId: number) {
     return this.prisma.reservation.findMany({
       where: { userId },
+      include: {
+        hospital: {
+          select: {
+            dutyName: true,
+          },
+        },
+      },
     });
   }
 

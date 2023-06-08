@@ -63,6 +63,13 @@ export class HospitalController {
     return this.hospitalService.findAll(depth1, depth2, +size, +page, sort);
   }
 
+  @Get('/hospitalName/:hospitalName')
+  @ApiOperation({ summary: '이름으로 병원 찾기' })
+  @ApiCreatedResponse({ type: HospitalEntity })
+  findByName(@Param('hospitalName') hospitalName: string) {
+    return this.hospitalService.findByName(hospitalName);
+  }
+
   @Get(':hospitalId')
   @ApiOperation({ summary: '특정 병원 찾기' })
   @ApiCreatedResponse({ type: HospitalEntity })

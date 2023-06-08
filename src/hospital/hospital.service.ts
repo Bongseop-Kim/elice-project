@@ -20,6 +20,17 @@ export class HospitalService {
     });
   }
 
+  findByName(hospitalName: string) {
+    return this.prisma.hospital.findMany({
+      where: {
+        dutyName: {
+          contains: hospitalName,
+        },
+      },
+      take: 10,
+    });
+  }
+
   findAll(
     depth1: string,
     depth2: string,

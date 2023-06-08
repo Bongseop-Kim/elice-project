@@ -13,10 +13,8 @@ import {
   UseFilters,
 } from '@nestjs/common';
 import { ImageService } from './image.service';
-import { UpdateImageDto } from './dto/update-image.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
-import { CreateImageDto } from './dto/create-image.dto';
 import { ImageEntity } from './entities/image.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter';

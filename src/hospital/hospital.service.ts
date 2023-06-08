@@ -6,6 +6,12 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class HospitalService {
   constructor(private prisma: PrismaService) {}
 
+  existHospital(id: string) {
+    return this.prisma.hospital.findUnique({
+      where: { id },
+    });
+  }
+
   findAll(
     depth1: string,
     depth2: string,
@@ -30,8 +36,8 @@ export class HospitalService {
 
     if (sort === 'name') {
       orderBy = { name: 'asc' };
-    } else if (sort === 'post') {
-      orderBy = { posts: { _count: 'desc' } };
+    } else if (sort === 'review') {
+      orderBy = { reviews: { _count: 'desc' } };
     } else {
       orderBy = {}; // 기본적으로 정렬하지 않음
     }

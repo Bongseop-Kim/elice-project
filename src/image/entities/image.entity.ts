@@ -23,12 +23,12 @@ export class ImageEntity implements Image {
   })
   @IsOptional()
   @IsNumber()
-  kidId: number | undefined;
+  kidId: number;
 
   @ApiProperty({
     example: 'A2105649',
   })
   @IsOptional()
   @IsString()
-  hospitalId: string | undefined;
+  hospitalId: string;
 }

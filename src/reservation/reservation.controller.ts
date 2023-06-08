@@ -8,6 +8,7 @@ import {
   Delete,
   UseInterceptors,
   UseGuards,
+  HttpException,
 } from '@nestjs/common';
 import { ReservationService } from './reservation.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
@@ -22,28 +23,40 @@ import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 import { ReservationEntity } from './entities/reservation.entity';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
-import { CurrentHospital } from 'src/common/decorators/hospital.decorator';
 import { UserEntity } from 'src/users/entities/users.entity';
+import { HospitalService } from 'src/hospital/hospital.service';
 
 @ApiTags('Reservation')
 @UseInterceptors(SuccessInterceptor)
 @Controller('reservation')
 export class ReservationController {
-  constructor(private readonly reservationService: ReservationService) {}
+  constructor(
+    private readonly reservationService: ReservationService,
+    private readonly hospitalService: HospitalService,
+  ) {}
 
   @Post()
   @ApiBearerAuth('access-token')
   @ApiOperation({ summary: '예약하기' })
   @UseGuards(JwtAuthGuard)
   @ApiResponse({ type: ReservationEntity })
-  create(
+  async create(
     @CurrentUser() user: UserEntity,
-    @CurrentHospital() data: CreateReservationDto,
+    @Body() data: CreateReservationDto,
   ) {
-    return this.reservationService.create(data, user.id);
+    const existHospital = await this.hospitalService.existHospital(
+      data.hospitalId,
+    );
+    if (!existHospital) {
+      throw new HttpException(
+        '일치하는 병원이 없습니다. HospitalId를 확인해주세요.',
+        404,
+      );
+    }
+    // return this.reservationService.create(data, user.id);
   }
 
-  @Get(':id')
+  @Get('reservation/:id')
   @ApiOperation({ summary: '예약ID로 예약정보 하나 가져오기' })
   @ApiResponse({ type: ReservationEntity })
   findOne(@Param('id') id: string) {
@@ -62,7 +75,7 @@ export class ReservationController {
   @Get('hospital/:hospitalId')
   @ApiOperation({ summary: '병원ID로 모든 예약정보 가져오기' })
   @ApiResponse({ type: [ReservationEntity] })
-  findByHospital(@CurrentHospital() hospitalId: string) {
+  findByHospital(@Param() hospitalId: string) {
     return this.reservationService.findByHospital(hospitalId);
   }
 

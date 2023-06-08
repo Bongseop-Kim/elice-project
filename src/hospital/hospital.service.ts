@@ -71,6 +71,20 @@ export class HospitalService {
     });
   }
 
+  async findByDistance(userLat: number, userLon: number) {
+    return await this.prisma.$queryRaw`
+    SELECT 
+        id,
+        (6371 * acos(cos(radians(${userLat})) * cos(radians(wgs84Lat)) * cos(radians(wgs84Lon) - radians(${userLon})) + sin(radians(${userLat})) * sin(radians(wgs84Lat))))
+        AS distance
+    FROM 
+        Hospital
+    ORDER BY 
+        distance
+    LIMIT 3
+`;
+  }
+
   findById(id: string) {
     return this.prisma.hospital.findUnique({
       where: { id },

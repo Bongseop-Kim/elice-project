@@ -20,6 +20,7 @@ export class ImageEntity implements Image {
 
   @ApiProperty({
     example: 1,
+    required: false,
   })
   @IsOptional()
   @IsNumber()

@@ -116,8 +116,9 @@ model Image {
   id Int @id @default(autoincrement())
 
   imageUrl String
-  kid      Kid?   @relation(fields: [kidId], references: [id], onDelete: Cascade)
-  kidId    Int?
+
+  kid   Kid? @relation(fields: [kidId], references: [id], onDelete: Cascade)
+  kidId Int?
 
   hospital   Hospital? @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
   hospitalId String?

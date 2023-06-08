@@ -63,6 +63,25 @@ export class HospitalController {
     return this.hospitalService.findAll(depth1, depth2, +size, +page, sort);
   }
 
+  @Get('hospitalName/:hospitalName')
+  @ApiOperation({ summary: '이름으로 병원 찾기' })
+  @ApiCreatedResponse({ type: HospitalEntity })
+  findByName(@Param('hospitalName') hospitalName: string) {
+    return this.hospitalService.findByName(hospitalName);
+  }
+
+  @Get('near')
+  @ApiOperation({
+    summary: '가까운 병원 3개 찾기, 유저의 경도위도를 넣어주세요.',
+  })
+  @ApiCreatedResponse({ type: HospitalEntity })
+  findByDistance(
+    @Query('userLat') userLat: number,
+    @Query('userLon') userLon: number,
+  ) {
+    return this.hospitalService.findByDistance(userLat, userLon);
+  }
+
   @Get(':hospitalId')
   @ApiOperation({ summary: '특정 병원 찾기' })
   @ApiCreatedResponse({ type: HospitalEntity })

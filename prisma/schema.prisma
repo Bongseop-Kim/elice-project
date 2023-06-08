@@ -85,8 +85,6 @@ model Hospital {
   dutyName       String
   dutyTel1       String
   // dutyTel3       String?
-  startLunch     String?
-  endLunch       String?
   dutyTime1c     String?
   dutyTime1s     String?
   dutyTime2c     String?
@@ -103,6 +101,9 @@ model Hospital {
   dutyTime7s     String?
   dutyTime8c     String?
   dutyTime8s     String?
+  dutyTime9c     String?
+  dutyTime9s     String?
+  notice         String?
   wgs84Lat       Float
   wgs84Lon       Float
   favorited      Favorite[]

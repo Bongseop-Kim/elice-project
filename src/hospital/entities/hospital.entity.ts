@@ -187,6 +187,27 @@ export class HospitalEntity implements Hospital {
   dutyTime8s: string;
 
   @ApiProperty({
+    example: '1900',
+  })
+  @IsOptional()
+  @IsString()
+  dutyTime9c: string;
+
+  @ApiProperty({
+    example: '1900',
+  })
+  @IsOptional()
+  @IsString()
+  dutyTime9s: string;
+
+  @ApiProperty({
+    example: '7월 1일 휴무입니다.',
+  })
+  @IsOptional()
+  @IsString()
+  notice: string;
+
+  @ApiProperty({
     example: 37.5007795003494,
   })
   @IsOptional()

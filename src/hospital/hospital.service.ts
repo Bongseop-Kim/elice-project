@@ -20,6 +20,17 @@ export class HospitalService {
     });
   }
 
+  findByName(hospitalName: string) {
+    return this.prisma.hospital.findMany({
+      where: {
+        dutyName: {
+          contains: hospitalName,
+        },
+      },
+      take: 10,
+    });
+  }
+
   findAll(
     depth1: string,
     depth2: string,
@@ -58,6 +69,20 @@ export class HospitalService {
       include: { reviews: true },
       //확인용 나중에 include review는 필요 없을 듯
     });
+  }
+
+  async findByDistance(userLat: number, userLon: number) {
+    return await this.prisma.$queryRaw`
+    SELECT 
+        id,
+        (6371 * acos(cos(radians(${userLat})) * cos(radians(wgs84Lat)) * cos(radians(wgs84Lon) - radians(${userLon})) + sin(radians(${userLat})) * sin(radians(wgs84Lat))))
+        AS distance
+    FROM 
+        Hospital
+    ORDER BY 
+        distance
+    LIMIT 3
+`;
   }
 
   findById(id: string) {

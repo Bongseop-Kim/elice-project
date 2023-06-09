@@ -74,11 +74,22 @@ export class HospitalService {
   async findByDistance(userLat: number, userLon: number) {
     return await this.prisma.$queryRaw`
     SELECT 
-        id,
+        H.id,
         (6371 * acos(cos(radians(${userLat})) * cos(radians(wgs84Lat)) * cos(radians(wgs84Lon) - radians(${userLon})) + sin(radians(${userLat})) * sin(radians(wgs84Lat))))
-        AS distance
+        AS distance,
+        H.dutyName,
+        H.dutyAddr,
+        JSON_ARRAYAGG(I.imageUrl) AS images
     FROM 
-        Hospital
+        Hospital H
+    LEFT JOIN 
+        Image I
+    ON H.id = I.hospitalId
+    GROUP BY
+        H.id,
+        distance,
+        dutyName,
+        dutyAddr
     ORDER BY 
         distance
     LIMIT 9

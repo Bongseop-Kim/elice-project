@@ -3,17 +3,13 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UseInterceptors,
-  UploadedFile,
   ParseFilePipe,
   FileTypeValidator,
-  UseFilters,
   NotFoundException,
   UploadedFiles,
-  HttpException,
   BadRequestException,
 } from '@nestjs/common';
 import { ImageService } from './image.service';
@@ -26,8 +22,7 @@ import {
 } from '@nestjs/swagger';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 import { ImageEntity } from './entities/image.entity';
-import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { InputImageDto } from './dto/input-image.dto';
 import { HospitalService } from 'src/hospital/hospital.service';
 

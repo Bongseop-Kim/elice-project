@@ -8,8 +8,12 @@ const jsonFile = fs.readFileSync('./hospital.json', 'utf-8');
 const hospital = JSON.parse(jsonFile);
 
 async function upload() {
-  await prisma.hospital.createMany({
-    data: hospital,
-  });
+  const batchSize = 1000;
+  for (let i = 0; i < hospital.length; i += batchSize) {
+    const batch = hospital.slice(i, i + batchSize);
+    await prisma.hospital.createMany({
+      data: batch,
+    });
+  }
 }
 upload();

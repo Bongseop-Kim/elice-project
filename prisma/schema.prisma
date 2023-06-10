@@ -84,7 +84,7 @@ model Hospital {
   // dutyInf        String?
   // dutyMapimg     String?
   dutyName       String
-  dutyTel1       String
+  dutyTel1       String?
   // dutyTel3       String?
   dutyTime1c     String?
   dutyTime1s     String?
@@ -105,8 +105,8 @@ model Hospital {
   dutyTime9c     String?
   dutyTime9s     String?
   notice         String?
-  wgs84Lat       Float
-  wgs84Lon       Float
+  wgs84Lat       Float?
+  wgs84Lon       Float?
   favorited      Favorite[]
   reviews        Reviews[]
   reservations   Reservation[]

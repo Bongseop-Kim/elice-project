@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { writeFile } from 'fs/promises';
 
-const url = `https://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey=aQFwyyURxZPboOkpSx1uUEC9mvyECY1ClICrCdzJ9lNT9JZC0oGtU%2BKwiY7dSTrZm3wodyTWqkdltlLRwKFafQ%3D%3D&QD=D002&pageNo=1&numOfRows=10`;
+const url = `https://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey=aQFwyyURxZPboOkpSx1uUEC9mvyECY1ClICrCdzJ9lNT9JZC0oGtU%2BKwiY7dSTrZm3wodyTWqkdltlLRwKFafQ%3D%3D&QD=D002&pageNo=1&numOfRows=15258`;
 
 axios
   .get(url)
   .then((response) => {
     const hospitals = response.data.response.body.items.item;
+    console.log(hospitals.length);
     const jsonData = hospitals.map((hospital) => {
       const address = hospital.dutyAddr.split(' ');
 
@@ -21,10 +22,13 @@ axios
         // dutyEmcls: hospital.dutyEmcls,
         // dutyEmclsName: hospital.dutyEmclsName,
         // dutyEryn: hospital.dutyEryn,
-        dutyEtc: hospital.dutyEtc,
+        dutyEtc: hospital.dutyEtc
+          ?.toString()
+          .replace(/\r|\n|\r\n/g, '')
+          .slice(0, 100),
         // dutyMapimg: hospital.dutyMapimg,
         dutyName: hospital.dutyName,
-        dutyTel1: hospital.dutyTel1,
+        dutyTel1: hospital.dutyTel1.toString(),
         dutyTime1c: hospital.dutyTime1c?.toString(),
         dutyTime1s: hospital.dutyTime1s?.toString(),
         dutyTime2c: hospital.dutyTime2c?.toString(),

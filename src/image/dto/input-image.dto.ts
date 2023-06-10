@@ -8,7 +8,7 @@ export class InputImageDto extends OmitType(ImageEntity, [
   'kidId',
 ]) {
   //폼 데이터의 경우 문자열만 받을 수 있기 때문에 따로 인풋이티오를 만들었습니다.
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
   kidId: string | null;

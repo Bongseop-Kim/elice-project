@@ -39,6 +39,13 @@ export class ReservationEntity implements Reservation {
   memo: string;
 
   @ApiProperty({
+    example: '10:00',
+  })
+  @IsString()
+  @IsNotEmpty()
+  reservedTime: string;
+
+  @ApiProperty({
     example: false,
   })
   @IsBoolean()

@@ -44,6 +44,7 @@ async function bootstrap() {
     credentials: true,
   });
 
+  // app.setGlobalPrefix('api');
   const PORT = process.env.PORT;
   await app.listen(PORT);
 }

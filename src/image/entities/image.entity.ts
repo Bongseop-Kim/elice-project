@@ -28,6 +28,7 @@ export class ImageEntity implements Image {
 
   @ApiProperty({
     example: 'A2105649',
+    required: false,
   })
   @IsOptional()
   @IsString()

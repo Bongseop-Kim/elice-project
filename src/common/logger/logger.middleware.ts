@@ -8,6 +8,7 @@ export class LoggerMiddleware implements NestMiddleware {
   //실무에서는 nest morgan을 사용하자
   use(req: Request, res: Response, next: NextFunction) {
     res.on('finish', () => {
+      req['startTime'] = Date.now();
       this.logger.log(
         `${req.ip}, ${req.method}, ${res.statusCode}, ${req.originalUrl} `,
       );

@@ -67,22 +67,68 @@ export class HospitalService {
       skip: size * page,
       take: size,
       include: { reviews: true },
-      //확인용 나중에 include review는 필요 없을 듯
     });
   }
 
-  async findByDistance(userLat: number, userLon: number) {
+  //아래 쿼리문은 이미지가 없으면 [null]이 반환된다....
+  //null은 값이 아닌데 배열안에 담기는게 정상인가...?
+  async before(userLat: number, userLon: number) {
     return await this.prisma.$queryRaw`
     SELECT 
-        id,
+        H.id,
         (6371 * acos(cos(radians(${userLat})) * cos(radians(wgs84Lat)) * cos(radians(wgs84Lon) - radians(${userLon})) + sin(radians(${userLat})) * sin(radians(wgs84Lat))))
-        AS distance
+        AS distance,
+        H.dutyName,
+        H.dutyAddr,
+        JSON_ARRAYAGG(I.imageUrl) AS images
     FROM 
-        Hospital
+        Hospital H
+    LEFT JOIN 
+        Image I
+    ON H.id = I.hospitalId
+    GROUP BY
+        H.id,
+        distance,
+        dutyName,
+        dutyAddr
     ORDER BY 
         distance
-    LIMIT 3
+    LIMIT 9
 `;
+  }
+  //또한 위의 쿼리문은 모든 병원의 좌표와 사용자의 좌표를 비교하여 거리 레코드를 만들기 때문에
+  //비효율적이다 이를 개선한 것이 아래의 쿼리문이다.
+
+  async findByDistance(userLat: number, userLon: number) {
+    const query = await this.prisma.$queryRaw<{ id: string }[]>`
+  SELECT id,ST_Distance_Sphere(
+    POINT(wgs84Lon, wgs84Lat),
+    POINT(${userLon}, ${userLat})
+  ) AS dist
+  FROM Hospital
+  WHERE ST_Distance_Sphere(
+    POINT(wgs84Lon, wgs84Lat),
+    POINT(${userLon}, ${userLat})
+  ) <= 5 * 1000
+  ORDER BY dist
+  LIMIT 9;
+`; //반경 5km의 병원을 찾습니다.
+
+    //프리즈마의 작동 방식
+    //query를 orderby 해서 보내줘도 prisma쿼리문에서 정렬하지 않으면 기본적으로 id로 정렬된다.
+    return await this.prisma.hospital.findMany({
+      where: {
+        id: {
+          in: query.map(({ id }) => id),
+        },
+      },
+      select: {
+        id: true,
+        dutyName: true,
+        dutyAddr: true,
+        image: { select: { imageUrl: true } },
+      },
+    });
   }
 
   findById(id: string) {

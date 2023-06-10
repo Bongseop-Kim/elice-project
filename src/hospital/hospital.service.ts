@@ -38,8 +38,8 @@ export class HospitalService {
     page: number,
     sort: string,
   ) {
-    let where: any;
-    let orderBy: any;
+    let where: Record<string, string>;
+    let orderBy: Record<string, string | Record<string, string>>;
 
     if (depth1 && depth2) {
       where = {
@@ -50,21 +50,18 @@ export class HospitalService {
       where = {
         dutyAddr1Depth: depth1,
       };
-    } else {
     }
 
     if (sort === 'name') {
       orderBy = { dutyName: 'asc' };
     } else if (sort === 'review') {
       orderBy = { reviews: { _count: 'desc' } };
-    } else {
-      orderBy = {}; // 기본적으로 정렬하지 않음
     }
 
     return this.prisma.hospital.findMany({
       where,
       orderBy,
-      skip: size * page,
+      skip: size * (page - 1),
       take: size,
       include: { reviews: true },
     });

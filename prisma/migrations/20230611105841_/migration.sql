@@ -36,6 +36,7 @@ CREATE TABLE `Reservation` (
     `userId` INTEGER NOT NULL,
     `hospitalId` VARCHAR(191) NOT NULL,
     `memo` VARCHAR(191) NULL,
+    `reservedTime` VARCHAR(191) NOT NULL,
     `read` BOOLEAN NOT NULL DEFAULT false,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
@@ -69,13 +70,8 @@ CREATE TABLE `Hospital` (
     `dutyAddr2Depth` VARCHAR(191) NOT NULL,
     `dutyAddr3Depth` VARCHAR(191) NOT NULL,
     `dutyEtc` VARCHAR(191) NULL,
-    `dutyInf` VARCHAR(191) NULL,
-    `dutyMapimg` VARCHAR(191) NULL,
     `dutyName` VARCHAR(191) NOT NULL,
-    `dutyTel1` VARCHAR(191) NOT NULL,
-    `dutyTel3` VARCHAR(191) NULL,
-    `startLunch` VARCHAR(191) NULL,
-    `endLunch` VARCHAR(191) NULL,
+    `dutyTel1` VARCHAR(191) NULL,
     `dutyTime1c` VARCHAR(191) NULL,
     `dutyTime1s` VARCHAR(191) NULL,
     `dutyTime2c` VARCHAR(191) NULL,
@@ -92,8 +88,11 @@ CREATE TABLE `Hospital` (
     `dutyTime7s` VARCHAR(191) NULL,
     `dutyTime8c` VARCHAR(191) NULL,
     `dutyTime8s` VARCHAR(191) NULL,
-    `wgs84Lat` DOUBLE NOT NULL,
-    `wgs84Lon` DOUBLE NOT NULL,
+    `dutyTime9c` VARCHAR(191) NULL,
+    `dutyTime9s` VARCHAR(191) NULL,
+    `notice` VARCHAR(191) NULL,
+    `wgs84Lat` DOUBLE NULL,
+    `wgs84Lon` DOUBLE NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -105,7 +104,6 @@ CREATE TABLE `Image` (
     `kidId` INTEGER NULL,
     `hospitalId` VARCHAR(191) NULL,
 
-    UNIQUE INDEX `Image_kidId_key`(`kidId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

@@ -126,4 +126,21 @@ export class AdminService {
     })
     return user
   }
+
+  async adminVerfyAllManagers(body: Ids, User){
+    this.isAdmin(User);
+    const { userIds } = body;
+    if(userIds.length === 0){
+        throw new HttpException('선택된 유저가 없습니다.', 400)
+    }
+    await this.prisma.user.updateMany({
+        where: {
+            id: {
+                in: userIds
+            }
+        },
+        data: { adminVerified: true }
+    })
+    return userIds
+  }
 }

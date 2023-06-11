@@ -79,7 +79,7 @@ export class AdminController {
       description: 'verify select users'
     })
     @Patch('verifyall')
-    adminVerifyAllUsers(@Body() body: Ids, @CurrentUser() User){
-      return this.adminService.adminDeleteAllUsers(body, User)
+    adminVerfyAllManagers(@Body() body: Ids, @CurrentUser() User){
+      return this.adminService.adminVerfyAllManagers(body, User)
     }
 }

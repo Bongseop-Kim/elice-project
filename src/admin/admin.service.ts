@@ -127,7 +127,7 @@ export class AdminService {
     return user
   }
 
-  async adminVerfyAllUsers(body: Ids, User){
+  async adminVerfyAllManagers(body: Ids, User){
     this.isAdmin(User);
     const { userIds } = body;
     if(userIds.length === 0){

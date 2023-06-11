@@ -31,6 +31,15 @@ export class HospitalService {
     });
   }
 
+  async findByNames(hospitalName: string) {
+    const query = `%${'hospitalName'}%`;
+    return await this.prisma.$queryRaw`
+      SELECT *
+      FROM Hospital
+      WHERE dutyName LIKE '${query}';
+    `;
+  }
+
   findAll(
     depth1: string,
     depth2: string,
@@ -96,7 +105,7 @@ export class HospitalService {
   //또한 위의 쿼리문은 모든 병원의 좌표와 사용자의 좌표를 비교하여 거리 레코드를 만들기 때문에
   //비효율적이다 이를 개선한 것이 아래의 쿼리문이다.
 
-  async findByDistance(userLat: number, userLon: number) {
+  async findByDistance(userLat: number, userLon: number, r: number) {
     const query = await this.prisma.$queryRaw<{ id: string }[]>`
   SELECT id,ST_Distance_Sphere(
     POINT(wgs84Lon, wgs84Lat),
@@ -106,7 +115,7 @@ export class HospitalService {
   WHERE ST_Distance_Sphere(
     POINT(wgs84Lon, wgs84Lat),
     POINT(${userLon}, ${userLat})
-  ) <= 5 * 1000
+  ) <= ${r} * 1000
   ORDER BY dist
   LIMIT 9;
 `; //반경 5km의 병원을 찾습니다.

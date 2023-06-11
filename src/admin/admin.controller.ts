@@ -71,4 +71,15 @@ export class AdminController {
     adminVerifyManager(@Param() param: Id, @CurrentUser() User){
       return this.adminService.adminVerifyManager(param, User)
     }
+
+    @ApiOperation({ summary: '선택된 전체 유저 승인' })
+    @ApiBearerAuth('access-token')
+    @UseGuards(JwtAuthGuard)
+    @ApiBody({
+      description: 'verify select users'
+    })
+    @Patch('verifyall')
+    adminVerifyAllUsers(@Body() body: Ids, @CurrentUser() User){
+      return this.adminService.adminDeleteAllUsers(body, User)
+    }
 }

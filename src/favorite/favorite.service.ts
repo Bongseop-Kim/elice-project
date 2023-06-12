@@ -6,7 +6,9 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class FavoriteService {
   constructor(private prisma: PrismaService) {}
 
-  async toggle(hospitalId: string, userId: number) {
+  async toggle(body: CreateFavoriteDto, userId: number) {
+    const { hospitalId } = body;
+
     const bookMark = await this.prisma.favorite.findMany({
       where: {
         hospitalId,

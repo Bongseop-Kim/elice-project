@@ -20,6 +20,7 @@ import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { FavoriteEntity } from './entities/favorite.entity';
 import { UserEntity } from 'src/users/entities/users.entity';
+import { CreateFavoriteDto } from './dto/create-favorite.dto';
 
 @ApiTags('Favorite')
 @UseInterceptors(SuccessInterceptor)
@@ -32,11 +33,8 @@ export class FavoriteController {
   @ApiResponse({ type: FavoriteEntity })
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
-  toggle(
-    @Body('hospitalId') hospitalId: string,
-    @CurrentUser() user: UserEntity,
-  ) {
-    return this.favoriteService.toggle(hospitalId, user.id);
+  toggle(@Body() body: CreateFavoriteDto, @CurrentUser() user: UserEntity) {
+    return this.favoriteService.toggle(body, user.id);
   }
 
   @Get()

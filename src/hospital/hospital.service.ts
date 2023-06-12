@@ -2,14 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { PutHospitalDto } from './dto/put-hospital.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateHospitalDto } from './dto/create-hospital.dto';
+import { HospitalEntity } from './entities/hospital.entity';
 
 @Injectable()
 export class HospitalService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateHospitalDto) {
+  async create(data: CreateHospitalDto) {
     const id = 'new' + new Date().getTime().toString();
-    return this.prisma.hospital.create({
+    return await this.prisma.hospital.create({
       data: { ...data, id },
     });
   }
@@ -46,25 +47,31 @@ export class HospitalService {
     size: number,
     page: number,
     sort: string,
+    dutyName: string,
   ) {
-    let where: Record<string, string>;
-    let orderBy: Record<string, string | Record<string, string>>;
+    let where: Record<string, string | Record<string, string>> = {};
+    let orderBy: Record<string, string | Record<string, string>> = {};
 
-    if (depth1 && depth2) {
-      where = {
-        dutyAddr1Depth: depth1,
-        dutyAddr2Depth: depth2,
-      };
-    } else if (depth1) {
-      where = {
-        dutyAddr1Depth: depth1,
-      };
+    if (depth1 || depth2 || dutyName) {
+      if (depth1) {
+        where.dutyAddr1Depth = depth1;
+      }
+
+      if (depth2) {
+        where.dutyAddr2Depth = depth2;
+      }
+
+      if (dutyName) {
+        where.dutyName = {
+          contains: dutyName,
+        };
+      }
     }
 
     if (sort === 'name') {
-      orderBy = { dutyName: 'asc' };
+      orderBy.dutyName = 'asc';
     } else if (sort === 'review') {
-      orderBy = { reviews: { _count: 'desc' } };
+      orderBy.reviews = { _count: 'desc' };
     }
 
     return this.prisma.hospital.findMany({

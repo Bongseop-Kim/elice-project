@@ -1,5 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { writeFile } from 'fs/promises';
+import * as fs from 'fs';
 
 const firstName = [
   '김',
@@ -318,25 +319,63 @@ const nameWord = [
   '울',
   '련',
 ];
-const userRole = ['admin', 'clinet', 'manager'];
+
+const jsonFile = fs.readFileSync('./hospital.json', 'utf-8');
+
+const hospital = JSON.parse(jsonFile);
 
 const getRandomIndex = (array: string[]) => {
   return Math.floor(Math.random() * array.length);
 };
 
-// password, phoneNumber, hospitalId
+enum Role {
+  client = 'client',
+  manager = 'manager',
+  admin = 'admin',
+}
 
 const jsonData = [];
+jsonData.push({
+  name: 'admin',
+  email: 'admin@test.com',
+  password: 'password',
+  phoneNumber: '010-0000-0000',
+  role: Role.manager,
+});
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 1000; i++) {
   const userName =
     firstName[getRandomIndex(firstName)] +
     nameWord[getRandomIndex(nameWord)] +
     nameWord[getRandomIndex(nameWord)];
   const userEmail = uuid() + '@test.com';
+
   jsonData.push({
     name: userName,
+    email: userEmail,
+    password: 'password',
+    phoneNumber: '010-0000-0000',
+    role: Role.manager,
+    hospitalId: hospital[i].id,
   });
 }
+
+for (let i = 0; i < 1000; i++) {
+  const userName =
+    firstName[getRandomIndex(firstName)] +
+    nameWord[getRandomIndex(nameWord)] +
+    nameWord[getRandomIndex(nameWord)];
+  const userEmail = uuid() + '@test.com';
+
+  jsonData.push({
+    name: userName,
+    email: userEmail,
+    password: 'password',
+    phoneNumber: '010-0000-0000',
+    role: Role.client,
+  });
+}
+
+// console.log(jsonData);
 
 writeFile('user.json', JSON.stringify(jsonData));

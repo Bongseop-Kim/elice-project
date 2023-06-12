@@ -4,10 +4,8 @@ import * as fs from 'fs';
 const prisma = new PrismaClient();
 
 const hospitalJsonFile = fs.readFileSync('./hospital.json', 'utf-8');
-const userJsonFile = fs.readFileSync('./user.json', 'utf-8');
 
 const hospitals = JSON.parse(hospitalJsonFile);
-const users = JSON.parse(userJsonFile);
 
 async function uploadHospital() {
   const batchSize = 1000;

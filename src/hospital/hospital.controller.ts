@@ -31,13 +31,14 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 async function checkHospitalExistence(
   hospitalService: HospitalService,
   hospitalId: string,
-): Promise<void> {
-  const existHospital = await hospitalService.existHospital(hospitalId);
-  if (!existHospital) {
+) {
+  const hospital = await hospitalService.findById(hospitalId);
+  if (!hospital) {
     throw new NotFoundException(
       '일치하는 병원이 없습니다. HospitalId를 확인해주세요.',
     );
   }
+  return hospital;
 }
 
 @Controller('hospital')
@@ -131,13 +132,34 @@ export class HospitalController {
 
   @Put(':hospitalId')
   @ApiOperation({ summary: '병원 수정' })
+  @ApiConsumes('multipart/form-data')
   @ApiCreatedResponse({ type: HospitalEntity })
+  @UseInterceptors(FilesInterceptor('files', 10))
   async update(
     @Param('hospitalId') hospitalId: string,
     @Body() data: PutHospitalDto,
+    @UploadedFiles(
+      new ParseFilePipe({
+        validators: [new FileTypeValidator({ fileType: 'image' })],
+      }),
+    )
+    files: [Express.Multer.File],
   ) {
-    await checkHospitalExistence(this.hospitalService, hospitalId);
-    return this.hospitalService.put(hospitalId, data);
+    const hospital = await checkHospitalExistence(
+      this.hospitalService,
+      hospitalId,
+    );
+    await this.hospitalService.put(hospitalId, data);
+    await Promise.all(
+      files.map(async (file) => {
+        return await this.imageService.put(
+          file.buffer,
+          hospitalId,
+          hospital.image,
+        );
+      }),
+    );
+    return await this.hospitalService.findById(hospital.id);
   }
 
   @Delete(':hospitalId')

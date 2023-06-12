@@ -6,6 +6,7 @@ import {
   CreateHospitalImageDto,
   CreateKidImageDto,
 } from './dto/create-image.dto';
+import { ImageEntity } from './entities/image.entity';
 
 @Injectable()
 export class ImageService {
@@ -61,6 +62,32 @@ export class ImageService {
       where: {
         kidId: id,
       },
+    });
+  }
+
+  async put(file: Buffer, hospitalId: string, images: ImageEntity[]) {
+    const fileKey = uuid() + '.jpg';
+    await this.s3Client.send(
+      new PutObjectCommand({
+        Bucket: process.env.S3_UPLOAD_BUCKET,
+        Key: fileKey,
+        Body: file,
+      }),
+    );
+
+    const data: CreateHospitalImageDto = {
+      hospitalId,
+      imageUrl: `https://devtie.s3.ap-northeast-2.amazonaws.com/${fileKey}`,
+    };
+
+    images.map((image) => {
+      this.prisma.image.delete({
+        where: { id: image.id },
+      });
+    });
+
+    return this.prisma.image.create({
+      data,
     });
   }
 

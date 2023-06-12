@@ -3,17 +3,20 @@ import {
     UnauthorizedException,
     HttpException,
   } from '@nestjs/common';
-import { VoteTag } from './dto/reviews.dto';
+import { VoteTag, VoteTagInput } from './dto/reviews.dto';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Vote } from './entities/reviews.entity'
+import { MappedType } from '@nestjs/mapped-types'
 
 @Injectable()
 export class ReviewsService{
     constructor(private prisma: PrismaService) {}
 
-    async newVote(param: VoteTag, body: VoteTag, User){
+    async newVote(param: VoteTagInput, body: VoteTagInput, User){
         const { hospitalId } = param
         const { vote } = body
+        const voteEnum: Vote = vote as Vote;
         const check = await this.prisma.reviews.findMany({
             where: {
                 posterId: User.id,
@@ -25,18 +28,18 @@ export class ReviewsService{
                 data: {
                     posterId: User.id,
                     hospitalId: hospitalId,
-                    vote: vote
+                    vote: voteEnum
                 }
             })
-        } else if (check.length !== 0 && check[0].vote === vote){
+        } else if (check.length !== 0 && check[0].vote === voteEnum){
             await this.prisma.reviews.delete({
                 where: { id: check[0].id }
             })
-        } else if (check.length !== 0 && check[0].vote !== vote){
+        } else if (check.length !== 0 && check[0].vote !== voteEnum){
             await this.prisma.reviews.update({
                 where: { id: check[0].id },
                 data: {
-                    vote: vote
+                    vote: voteEnum
                 }
             })
         }
@@ -50,14 +53,15 @@ export class ReviewsService{
     }
 
 
-    async checkReviews(param: VoteTag){
+    async checkReviews(param: VoteTagInput){
         const { hospitalId } = param
         let result = []
-        for(let i=0;i<6;i++){
+        const voteValues = Object.values(Vote)
+        for(const voteValue of voteValues){
             const reviews = await this.prisma.reviews.findMany({
                 where: {
                     hospitalId: hospitalId,
-                    vote: (i+1)
+                    vote: voteValue
                     }
                 })
                 result.push(reviews.length)
@@ -65,7 +69,7 @@ export class ReviewsService{
             return result;
     }
 
-    async isUserReviewed(param: VoteTag, User){
+    async isUserReviewed(param: VoteTagInput, User){
         const { hospitalId } = param
         const check = await this.prisma.reviews.findMany({
             where: {

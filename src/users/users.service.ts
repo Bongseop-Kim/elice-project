@@ -8,9 +8,12 @@ import {
   CreateManagerDto,
   CreateUserDto,
   UpdateUserDto,
+  UpdateUserInput,
 } from './dto/users.dtos';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Role } from './entities/users.entity'
+import { MappedType } from '@nestjs/mapped-types';
 
 @Injectable()
 export class UsersService {
@@ -41,7 +44,7 @@ export class UsersService {
       name: name,
       phoneNumber: phoneNumber,
       password: hashedPassedword,
-      role: 'client',
+      role: Role.client,
       address: null,
     };
 
@@ -80,7 +83,7 @@ export class UsersService {
   }
 
   //유저 정보 수정 API입니다.
-  async updateUserInfo(id: number, body: UpdateUserDto) {
+  async updateUserInfo(id: number, body: UpdateUserInput) {
     if (body.email) {
       throw new HttpException('이메일은 변경할 수 없습니다.', 400);
     }
@@ -125,7 +128,7 @@ export class UsersService {
       name,
       password: hashedPassedword,
       phoneNumber,
-      role: 'manager',
+      role: Role.manager,
       adminVerified: false,
     };
 

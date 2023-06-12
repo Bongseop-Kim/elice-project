@@ -13,7 +13,13 @@ import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { KidService } from './kid.service';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { GetKidsDto, RegistKidDto, UpdateKidDto } from './dto/kid.dtos';
+import {
+  GetKidsDto,
+  RegistKidDto,
+  RegistKidInput,
+  UpdateKidDto,
+  UpdateKidInput,
+} from './dto/kid.dtos';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 
 @Controller('kid')
@@ -57,7 +63,7 @@ export class KidController {
   //@Body() body: Type 를 해주지 않으면 prisma method 실행 단계에서 prisma index 내부 파일에서 에러가 발생한다.
   updateKid(
     @Param('id') id: string,
-    @Body() body: UpdateKidDto,
+    @Body() body: UpdateKidInput,
     @CurrentUser() User,
   ) {
     return this.kidService.updateKid(id, body, User);

@@ -1,5 +1,7 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { MappedType } from '@nestjs/mapped-types';
+import { Gender } from '../entities/kid.entity'
 
 export class RegistKidDto {
   @ApiProperty({
@@ -10,11 +12,13 @@ export class RegistKidDto {
   name: string;
 
   @ApiProperty({
-    required: false
+    required: false,
+    example: 'male',
+    enum: Gender
   })
   @IsString()
   @IsOptional()
-  gender: string;
+  gender: Gender;
 
   @ApiProperty({
     required: false
@@ -49,11 +53,12 @@ export class UpdateKidDto {
 
   @ApiProperty({
     required: false,
-    example: 'male'
+    example: 'male',
+    enum: Gender
   })
   @IsString()
   @IsOptional()
-  gender: string;
+  gender: Gender;
 
   @ApiProperty({
     required: false,
@@ -81,3 +86,7 @@ export class UpdateKidDto {
 }
 
 export class GetKidsDto extends PartialType(RegistKidDto){}
+
+export type RegistKidInput = Omit<RegistKidDto, 'gender'> & { gender : Gender };
+
+export type UpdateKidInput = Omit<UpdateKidDto, 'gender'> & { gender: Gender };

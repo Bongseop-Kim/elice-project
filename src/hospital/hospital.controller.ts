@@ -9,9 +9,13 @@ import {
   Put,
   Post,
   NotFoundException,
+  UploadedFiles,
+  ParseFilePipe,
+  FileTypeValidator,
 } from '@nestjs/common';
 import { HospitalService } from './hospital.service';
 import {
+  ApiConsumes,
   ApiCreatedResponse,
   ApiOperation,
   ApiQuery,
@@ -21,6 +25,8 @@ import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 import { HospitalEntity } from './entities/hospital.entity';
 import { PutHospitalDto } from './dto/put-hospital.dto';
 import { CreateHospitalDto } from './dto/create-hospital.dto';
+import { ImageService } from 'src/image/image.service';
+import { FilesInterceptor } from '@nestjs/platform-express';
 
 async function checkHospitalExistence(
   hospitalService: HospitalService,
@@ -38,13 +44,32 @@ async function checkHospitalExistence(
 @ApiTags('Hospital')
 @UseInterceptors(SuccessInterceptor)
 export class HospitalController {
-  constructor(private readonly hospitalService: HospitalService) {}
+  constructor(
+    private readonly hospitalService: HospitalService,
+    private readonly imageService: ImageService,
+  ) {}
 
   @Post()
   @ApiOperation({ summary: '신규 병원 등록' })
+  @ApiConsumes('multipart/form-data')
   @ApiCreatedResponse({ type: HospitalEntity })
-  create(@Body() data: CreateHospitalDto) {
-    return this.hospitalService.create(data);
+  @UseInterceptors(FilesInterceptor('files', 10))
+  async create(
+    @Body() data: CreateHospitalDto,
+    @UploadedFiles(
+      new ParseFilePipe({
+        validators: [new FileTypeValidator({ fileType: 'image' })],
+      }),
+    )
+    files: [Express.Multer.File],
+  ) {
+    const hospital = await this.hospitalService.create(data);
+    await Promise.all(
+      files.map(async (file) => {
+        return await this.imageService.upload(file.buffer, hospital.id, null);
+      }),
+    );
+    return await this.hospitalService.findById(hospital.id);
   }
 
   @Get()
@@ -59,8 +84,16 @@ export class HospitalController {
     @Query('size') size: string,
     @Query('page') page: string,
     @Query('sort') sort: string,
+    @Query('dutyName') dutyName: string,
   ) {
-    return this.hospitalService.findAll(depth1, depth2, +size, +page, sort);
+    return this.hospitalService.findAll(
+      depth1,
+      depth2,
+      +size,
+      +page,
+      sort,
+      dutyName,
+    );
   }
 
   @Get('hospitalName/:hospitalName')

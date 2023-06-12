@@ -38,8 +38,8 @@ async function checkHospitalExistence(
   }
 }
 
-@Controller('image')
 @ApiTags('Image')
+@Controller('image')
 @UseInterceptors(SuccessInterceptor)
 export class ImageController {
   constructor(

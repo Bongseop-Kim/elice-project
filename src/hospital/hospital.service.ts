@@ -11,7 +11,12 @@ export class HospitalService {
   async create(data: CreateHospitalDto) {
     const id = 'new' + new Date().getTime().toString();
     return await this.prisma.hospital.create({
-      data: { ...data, id },
+      data: {
+        ...data,
+        id,
+        wgs84Lat: data.wgs84Lat * 1,
+        wgs84Lon: data.wgs84Lon,
+      },
     });
   }
 

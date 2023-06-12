@@ -12,18 +12,22 @@ import {
 
 import { UsersService } from './users.service';
 import { AuthService } from 'src/auth/auth.service';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import {
   CreateManagerDto,
   CreateUserDto,
   UpdateUserDto,
-  UpdateUserInput,
 } from './dto/users.dtos';
 import { RequestLoginDto } from 'src/auth/dto/request.login.dto';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
-
+import { UserEntity } from './entities/users.entity';
 
 @Controller('users')
 @ApiTags('Users')
@@ -35,71 +39,57 @@ export class UsersController {
   ) {}
 
   @ApiOperation({ summary: '현재 user 가져오기' })
+  @ApiResponse({ type: UserEntity })
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @Get()
-  getCurrentUser(@CurrentUser() User) {
+  getCurrentUser(@CurrentUser() User: UserEntity) {
     return User;
   }
 
   @ApiOperation({ summary: '회원가입' })
-  @ApiBody({
-    description: 'post signup',
-    type: CreateUserDto,
-  })
   @Post('clientsignup')
+  @ApiResponse({ type: UserEntity })
   async clientSignUp(@Body() body: CreateUserDto) {
     return await this.usersService.clientSignUp(body);
   }
 
   @ApiOperation({ summary: '회원 탈퇴' })
+  @ApiResponse({ type: UserEntity })
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
-  @ApiBody({
-    description: 'user delete',
-  })
   @Delete('delete')
   deleteUser(@CurrentUser() User) {
     return this.usersService.deleteUser(User.id);
   }
 
   @ApiOperation({ summary: '유저 로그인' })
-  @ApiBody({
-    description: 'post login',
-    type: RequestLoginDto,
-  })
+  @ApiResponse({ type: UserEntity })
   @Post('login')
   async logIn(@Body() data: RequestLoginDto) {
     return await this.authService.jwtLogIn(data);
   }
 
   @ApiOperation({ summary: '유저 정보 조회' })
+  @ApiResponse({ type: UserEntity })
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
-  @ApiBody({
-    description: 'get userInfo',
-  })
   @Get('get')
   getUserInfo(@CurrentUser() User) {
     return this.usersService.getUserInfo(User.id);
   }
 
   @ApiOperation({ summary: '유저 정보 수정' })
+  @ApiResponse({ type: UserEntity })
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
-  @ApiBody({
-    description: 'update userInfo',
-  })
   @Patch('update')
-  updateUserInfo(@Body() body: UpdateUserInput, @CurrentUser() User){
-    return this.usersService.updateUserInfo(User.id, body)
+  updateUserInfo(@Body() body: UpdateUserDto, @CurrentUser() User) {
+    return this.usersService.updateUserInfo(User.id, body);
   }
 
   @ApiOperation({ summary: '병원 관계자 회원가입' })
-  @ApiBody({
-    description: 'post signup',
-    type: CreateManagerDto,
-  })
+  @ApiResponse({ type: UserEntity })
   @Post('managersignup')
   async managerSignUp(@Body() body: CreateManagerDto) {
     return await this.usersService.managerSignUp(body);

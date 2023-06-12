@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User, Reviews } from '@prisma/client';
+import { Reviews } from '@prisma/client';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export enum Vote {
@@ -8,26 +8,26 @@ export enum Vote {
   kindEmployee = 'kindEmployee',
   goodReceipt = 'goodReceipt',
   cleanHospital = 'cleanHospital',
-  goodTraffic = 'goodTraffic'
+  goodTraffic = 'goodTraffic',
 }
 
-class ReviewsEntities implements Reviews {
+export class ReviewsEntities implements Reviews {
   @ApiProperty({
-    example:1
+    example: 1,
   })
   @IsNumber()
   @IsNotEmpty()
   id: number;
 
   @ApiProperty({
-    example:1
+    example: 1,
   })
   @IsNumber()
   @IsNotEmpty()
   posterId: number;
 
   @ApiProperty({
-    example:'A1100401'
+    example: 'A1100401',
   })
   @IsString()
   @IsNotEmpty()

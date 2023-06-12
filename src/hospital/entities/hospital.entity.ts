@@ -41,6 +41,7 @@ export class HospitalEntity implements Hospital {
   @ApiProperty({
     example:
       '요일 휴진\n토요일,공휴일 (외래 휴진)투석실만 운영\n월요일~금요일 외래(물리치료실)는 09:00~18:00',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -55,6 +56,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -62,6 +64,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -69,6 +72,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -76,6 +80,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -83,6 +88,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -90,6 +96,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -97,6 +104,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -104,6 +112,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -111,6 +120,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -118,6 +128,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -125,6 +136,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -132,6 +144,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -139,6 +152,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -146,6 +160,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -153,6 +168,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -160,6 +176,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -167,6 +184,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -174,6 +192,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -181,6 +200,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -188,6 +208,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -195,6 +216,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '1900',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -202,6 +224,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: '7월 1일 휴무입니다.',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -209,6 +232,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: 37.5007795003494,
+    required: false,
   })
   @IsOptional()
   @IsNumber()
@@ -216,6 +240,7 @@ export class HospitalEntity implements Hospital {
 
   @ApiProperty({
     example: 127.1107520613008,
+    required: false,
   })
   @IsOptional()
   @IsNumber()

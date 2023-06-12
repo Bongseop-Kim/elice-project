@@ -19,9 +19,11 @@ import {
   CreateManagerDto,
   CreateUserDto,
   UpdateUserDto,
+  UpdateUserInput,
 } from './dto/users.dtos';
 import { RequestLoginDto } from 'src/auth/dto/request.login.dto';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
+
 
 @Controller('users')
 @ApiTags('Users')
@@ -89,7 +91,7 @@ export class UsersController {
     description: 'update userInfo',
   })
   @Patch('update')
-  updateUserInfo(@Body() body: UpdateUserDto, @CurrentUser() User){
+  updateUserInfo(@Body() body: UpdateUserInput, @CurrentUser() User){
     return this.usersService.updateUserInfo(User.id, body)
   }
 

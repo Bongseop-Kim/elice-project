@@ -1,5 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { Vote } from '../entities/reviews.entity'
+import { MappedType } from '@nestjs/mapped-types'
+
 
 export class VoteTag {
     @ApiProperty({
@@ -10,11 +13,12 @@ export class VoteTag {
     hospitalId: string;
 
     @ApiProperty({
-        example: 1
+        example: 'kindDoctor',
+        enum: Vote,
     })
-    @IsNumber()
+    @IsString()
     @IsOptional()
-    vote: number;
+    vote: Vote;
 
     @ApiProperty({
         required: false,
@@ -24,3 +28,5 @@ export class VoteTag {
     @IsOptional()
     posterId: number;
 }
+
+export type VoteTagInput = Omit<VoteTag, 'vote'> & { vote : Vote };

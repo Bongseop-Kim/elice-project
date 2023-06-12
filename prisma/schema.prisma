@@ -14,7 +14,7 @@ model User {
   emailVerified DateTime?
   password      String
   phoneNumber   String
-  role          String
+  role          Role
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -29,15 +29,26 @@ model User {
   reserved          Reservation[]
 }
 
+enum Role {
+  client
+  manager
+  admin
+}
+
 model Kid {
   id       Int     @id @default(autoincrement())
   parent   User    @relation(fields: [parentId], references: [id], onDelete: Cascade)
   parentId Int
   name     String?
-  gender   String?
+  gender   Gender?
   birth    String?
   memo     String?
   image    Image[]
+}
+
+enum Gender {
+  male
+  female
 }
 
 model Reservation {
@@ -58,7 +69,16 @@ model Reviews {
   posterId   Int
   hospital   Hospital @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
   hospitalId String
-  vote       Int
+  vote       Vote?
+}
+
+enum Vote {
+  kindDoctor
+  professional
+  kindEmployee
+  goodReceipt
+  cleanHospital
+  goodTraffic
 }
 
 model Favorite {

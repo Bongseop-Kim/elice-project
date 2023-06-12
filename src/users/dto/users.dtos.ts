@@ -1,5 +1,7 @@
 import { ApiProperty, PickType } from '@nestjs/swagger';
 import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { Role } from '../entities/users.entity'
+import { MappedType } from '@nestjs/mapped-types'
 
 export class CreateUserDto {
   @ApiProperty({
@@ -71,10 +73,13 @@ export class UpdateUserDto {
   @IsOptional()
   phoneNumber: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({
+    example: 'client',
+    enum: Role,
+  })
   @IsString()
   @IsOptional()
-  role: string;
+  role: Role;
 }
 
 export class CreateManagerDto extends PickType(CreateUserDto, [
@@ -95,3 +100,5 @@ export class CreateManagerDto extends PickType(CreateUserDto, [
   @IsNotEmpty()
   hospitalId: string;
 }
+
+export type UpdateUserInput = Omit<UpdateUserDto, 'role'> & { role: Role };

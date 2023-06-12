@@ -7,13 +7,14 @@ import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { UserType, Id, Ids } from './dto/admin.dtos';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Role } from '../users/entities/users.entity'
 
 @Injectable()
 export class AdminService {
   constructor(private prisma: PrismaService) {}
 
   isAdmin(User): boolean {
-    if (User.role !== 'admin') {
+    if (User.role !== Role.admin) {
       throw new UnauthorizedException('접근 권한이 없습니다.');
     }
     return true;
@@ -25,7 +26,7 @@ export class AdminService {
         if(userType === 'generelclient'){
             const client = await this.prisma.user.findMany({
                 where: {
-                    role: 'client',
+                    role: Role.client,
                 },
                 select: {
                     id: true,
@@ -40,7 +41,7 @@ export class AdminService {
         } else if (userType === 'hospitalclient'){
             const manager = await this.prisma.user.findMany({
                 where: {
-                    role: 'manager',
+                    role: Role.manager,
                     adminVerified: true
                 },
                 select: {
@@ -62,7 +63,7 @@ export class AdminService {
         } else if (userType === 'notverifiedhospitalclient'){
             const unVerifiedManager = await this.prisma.user.findMany({
                 where: {
-                    role: 'manager',
+                    role: Role.manager,
                     adminVerified: false
                 },
                 select: {

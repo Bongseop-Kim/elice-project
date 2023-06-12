@@ -1,14 +1,21 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { RegistKidDto, UpdateKidDto } from './dto/kid.dtos';
+import {
+  RegistKidDto,
+  UpdateKidDto,
+  RegistKidInput,
+  UpdateKidInput,
+} from './dto/kid.dtos';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { Prisma, Kid } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { MappedType } from '@nestjs/mapped-types';
 
 @Injectable()
 export class KidService {
   constructor(private prisma: PrismaService) {}
 
   async registKid(User) {
+
     const kid = await this.prisma.kid.create({
       data: {
         parentId: User.id
@@ -26,7 +33,7 @@ export class KidService {
     return kids;
   }
 
-  async updateKid(id: string, body: UpdateKidDto, User) {
+  async updateKid(id: string, body: UpdateKidInput, User) {
     await this.prisma.kid.updateMany({
       where: {
         id: Number(id),

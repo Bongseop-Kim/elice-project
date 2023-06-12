@@ -15,7 +15,7 @@ import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
   import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
-import { VoteTag } from './dto/reviews.dto';
+import { VoteTag, VoteTagInput } from './dto/reviews.dto';
 import { ReviewsService } from './reviews.service';
 
 @Controller('reviews')
@@ -34,7 +34,7 @@ export class ReviewsController {
         description: 'post new review',
     })
     @Post(':hospitalId')
-    async newVote(@Param() param: VoteTag, @Body() body: VoteTag, @CurrentUser() User){
+    async newVote(@Param() param: VoteTagInput, @Body() body: VoteTagInput, @CurrentUser() User){
         return await this.reviewsService.newVote(param, body, User)
     }
 
@@ -43,7 +43,7 @@ export class ReviewsController {
         description: 'show hospital reviews'
     })
     @Get(':hospitalId')
-    async checkReviews(@Param() param: VoteTag){
+    async checkReviews(@Param() param: VoteTagInput){
         return await this.reviewsService.checkReviews(param)
     }
 
@@ -54,7 +54,7 @@ export class ReviewsController {
         description: 'user review check'
     })
     @Get('user/:hospitalId')
-    async isUserReviewed(@Param() param: VoteTag, @CurrentUser() User){
+    async isUserReviewed(@Param() param: VoteTagInput, @CurrentUser() User){
         return await this.reviewsService.isUserReviewed(param, User)
     }
 }

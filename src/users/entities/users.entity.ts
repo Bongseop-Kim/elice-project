@@ -2,6 +2,12 @@ import { User } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
+export enum Role {
+  client = 'client',
+  manager = 'manager',
+  admin = 'admin'
+}
+
 export class UserEntity implements User {
   
   @ApiProperty({
@@ -43,10 +49,13 @@ export class UserEntity implements User {
   @IsNotEmpty()
   phoneNumber: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'client',
+    enum: Role,
+  })
   @IsString()
   @IsNotEmpty()
-  role: string;
+  role: Role;
 
   @ApiProperty()
   @IsOptional()

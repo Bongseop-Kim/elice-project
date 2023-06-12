@@ -6,7 +6,7 @@ CREATE TABLE `User` (
     `emailVerified` DATETIME(3) NULL,
     `password` VARCHAR(191) NOT NULL,
     `phoneNumber` VARCHAR(191) NOT NULL,
-    `role` VARCHAR(191) NOT NULL,
+    `role` ENUM('client', 'manager', 'admin') NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
     `hospitalId` VARCHAR(191) NULL,
@@ -23,7 +23,7 @@ CREATE TABLE `Kid` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `parentId` INTEGER NOT NULL,
     `name` VARCHAR(191) NULL,
-    `gender` VARCHAR(191) NULL,
+    `gender` ENUM('male', 'female') NULL,
     `birth` VARCHAR(191) NULL,
     `memo` VARCHAR(191) NULL,
 
@@ -48,7 +48,7 @@ CREATE TABLE `Reviews` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `posterId` INTEGER NOT NULL,
     `hospitalId` VARCHAR(191) NOT NULL,
-    `vote` INTEGER NOT NULL,
+    `vote` ENUM('kindDoctor', 'professional', 'kindEmployee', 'goodReceipt', 'cleanHospital', 'goodTraffic') NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

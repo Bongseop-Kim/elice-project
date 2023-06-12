@@ -15,6 +15,10 @@ export class HospitalService {
     });
   }
 
+  findEverything() {
+    return this.prisma.hospital.findMany();
+  }
+
   existHospital(id: string) {
     return this.prisma.hospital.findUnique({
       where: { id },
@@ -32,14 +36,15 @@ export class HospitalService {
     });
   }
 
-  async findByNames(hospitalName: string) {
-    const query = `%${'hospitalName'}%`;
-    return await this.prisma.$queryRaw`
-      SELECT *
-      FROM Hospital
-      WHERE dutyName LIKE '${query}';
-    `;
-  }
+  //평균 응답 시간 0.08초 8배
+  // async findByNames(hospitalName: string) {
+  //   const query = `%${hospitalName}%`;
+  //   return await this.prisma.$queryRaw`
+  //     SELECT *
+  //     FROM Hospital
+  //     WHERE dutyName LIKE ${query};
+  //   `;
+  // }
 
   findAll(
     depth1: string,

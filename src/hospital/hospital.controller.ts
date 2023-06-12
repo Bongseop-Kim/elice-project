@@ -72,6 +72,11 @@ export class HospitalController {
     return await this.hospitalService.findById(hospital.id);
   }
 
+  @Get('all')
+  findEverything() {
+    return this.hospitalService.findEverything();
+  }
+
   @Get()
   @ApiOperation({ summary: '지역 별 병원 찾기' })
   @ApiQuery({ name: 'depth1', required: false })
@@ -100,7 +105,7 @@ export class HospitalController {
   @ApiOperation({ summary: '이름으로 병원 찾기' })
   @ApiCreatedResponse({ type: HospitalEntity })
   findByName(@Param('hospitalName') hospitalName: string) {
-    return this.hospitalService.findByNames(hospitalName);
+    return this.hospitalService.findByName(hospitalName);
   }
 
   @Get('near')

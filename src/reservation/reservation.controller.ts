@@ -30,7 +30,7 @@ async function checkHospitalExistence(
   hospitalService: HospitalService,
   hospitalId: string,
 ): Promise<void> {
-  const existHospital = await hospitalService.existHospital(hospitalId);
+  const existHospital = await hospitalService.findById(hospitalId);
   if (!existHospital) {
     throw new NotFoundException(
       '일치하는 병원이 없습니다. HospitalId를 확인해주세요.',

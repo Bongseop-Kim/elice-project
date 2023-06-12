@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { PutHospitalDto } from './dto/put-hospital.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateHospitalDto } from './dto/create-hospital.dto';
-import { HospitalEntity } from './entities/hospital.entity';
 
 @Injectable()
 export class HospitalService {
@@ -22,12 +21,6 @@ export class HospitalService {
 
   findEverything() {
     return this.prisma.hospital.findMany();
-  }
-
-  existHospital(id: string) {
-    return this.prisma.hospital.findUnique({
-      where: { id },
-    });
   }
 
   findByName(hospitalName: string) {
@@ -164,7 +157,11 @@ export class HospitalService {
   put(id: string, data: PutHospitalDto) {
     return this.prisma.hospital.update({
       where: { id },
-      data,
+      data: {
+        ...data,
+        wgs84Lat: parseFloat(data.wgs84Lat),
+        wgs84Lon: parseFloat(data.wgs84Lon),
+      },
     });
   }
 

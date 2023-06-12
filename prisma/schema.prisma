@@ -91,7 +91,7 @@ model Favorite {
 
 model Hospital {
   id             String        @id
-  dutyAddr       String
+  dutyAddr       String        @unique
   dutyAddr1Depth String
   dutyAddr2Depth String
   dutyAddr3Depth String

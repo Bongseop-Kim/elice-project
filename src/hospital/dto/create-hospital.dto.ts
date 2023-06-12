@@ -8,18 +8,18 @@ export class CreateHospitalDto extends OmitType(HospitalEntity, [
   'wgs84Lon',
 ]) {
   @ApiProperty({
-    example: 37.5007795003494,
+    example: '37.5007795003494',
     required: false,
   })
   @IsOptional()
   @IsString()
-  wgs84Lat: number;
+  wgs84Lat: string;
 
   @ApiProperty({
-    example: 127.1107520613008,
+    example: '127.1107520613008',
     required: false,
   })
   @IsOptional()
   @IsString()
-  wgs84Lon: number;
+  wgs84Lon: string;
 }

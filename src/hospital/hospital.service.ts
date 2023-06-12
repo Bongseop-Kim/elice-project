@@ -14,8 +14,8 @@ export class HospitalService {
       data: {
         ...data,
         id,
-        wgs84Lat: data.wgs84Lat * 1,
-        wgs84Lon: data.wgs84Lon,
+        wgs84Lat: parseFloat(data.wgs84Lat),
+        wgs84Lon: parseFloat(data.wgs84Lon),
       },
     });
   }

@@ -62,10 +62,10 @@
 | 정민규(팀장) |   FE /    | 김봉섭(백엔드 리더) | BE / 병원 |
 |    김문진    |   FE /    |       노은탁        | BE / 유저 |
 |    박준형    |   FE /    |       이유진        |   FE /    |
-|    이준미    |   FE /    |       이채연        |   FE /    |
+|    이준미    |   FE /    |     이채연(1반)     |   FE /    |
 |              |           |                     |           |
 
-**멤버별 활동 내역**
+**구성원별 활동 내역**
 
 1. 정민규 : 팀장/프론트엔드 리더
 
@@ -87,6 +87,43 @@
 - 개발 단계 :
 - 수정 단계 :
 - 담당 업무 :
+
+4. 노은탁 : 백엔드 담당
+
+- 기획 단계 : 초기 DB 스키마, 및 API 명세서 구상
+- 개발 단계 : User / Admin / Kid / Reviews API 구현
+- 수정 단계 : 프론트엔드와 연동 및 README.md 작성
+- 담당 업무 : 일반 클라이언트, 병원 클라이언트, 관리자, 유저 상세 페이지, 유저 자녀정보 페이지, 리뷰 관리와 관계된 모든 API 동작 구현 및 연동 확인 후 각 API별 부하 테스트, DB INDEX 관리 및 README.md 작성
+
+5. 박준형 : 프론트엔드 담당
+
+- 기획 단계 :
+- 개발 단계 :
+- 수정 단계 :
+- 담당 업무 :
+
+6. 이유진 : 프론트엔드 담당
+
+- 기획 단계 :
+- 개발 단계 :
+- 수정 단계 :
+- 담당 업무 :
+
+7. 이준미 : 프론트엔드 담당
+
+- 기획 단계 :
+- 개발 단계 :
+- 수정 단계 :
+- 담당 업무 :
+
+8. 이채연(1반) : 프론트엔드 담당
+
+- 기획 단계 :
+- 개발 단계 :
+- 수정 단계 :
+- 담당 업무 :
+
+## 5. 실행 방법
 
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->

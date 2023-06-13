@@ -55,6 +55,12 @@
 
 - 사용 기술 스택
 
+- 와이어 프레임 : [와이어 프레임]()
+
+- API 명세서 : [API 명세서 Notion]() / [Nestjs SWAGGER / ID: qhdtjq0427 / PW: 0427]()
+
+- DB 모델링 : [관계도 및 스키마 명세서](https://www.notion.so/elice/640f9353a9bf4a9c85f7d0ed1417bb66)
+
 ## 4. 프로젝트 구성원 및 역할
 
 |     이름     | 담당 업무 |        이름         | 담당 업무 |

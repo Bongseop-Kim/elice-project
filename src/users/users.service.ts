@@ -8,12 +8,10 @@ import {
   CreateManagerDto,
   CreateUserDto,
   UpdateUserDto,
-  UpdateUserInput,
 } from './dto/users.dtos';
-import { Prisma, User } from '@prisma/client';
+import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Role } from './entities/users.entity'
-import { MappedType } from '@nestjs/mapped-types';
+import { Role } from './entities/users.entity';
 
 @Injectable()
 export class UsersService {
@@ -76,14 +74,14 @@ export class UsersService {
         createdAt: true,
         favoriteHospitals: true,
         reserved: true,
-        updatedAt: true
-      }
+        updatedAt: true,
+      },
     });
     return user;
   }
 
   //유저 정보 수정 API입니다.
-  async updateUserInfo(id: number, body: UpdateUserInput) {
+  async updateUserInfo(id: number, body: UpdateUserDto) {
     if (body.email) {
       throw new HttpException('이메일은 변경할 수 없습니다.', 400);
     }
@@ -97,23 +95,23 @@ export class UsersService {
       body.password = hashedPassedword;
     }
 
-      await this.prisma.user.update({
-        where: { id: id },
-        data: body,
-      });
+    await this.prisma.user.update({
+      where: { id: id },
+      data: body,
+    });
 
-      const user = await this.prisma.user.findUnique({
-        where: { id },
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          phoneNumber: true,
-          address: true,
-          updatedAt: true
-        }
-      })
-      return user;
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phoneNumber: true,
+        address: true,
+        updatedAt: true,
+      },
+    });
+    return user;
   }
 
   //병원 유저 회원 가입 API 입니다.

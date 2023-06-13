@@ -1,5 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { writeFile } from 'fs/promises';
+import * as fs from 'fs';
+import * as bcrypt from 'bcrypt';
 
 const firstName = [
   '김',
@@ -318,25 +320,67 @@ const nameWord = [
   '울',
   '련',
 ];
-const userRole = ['admin', 'clinet', 'manager'];
+
+const jsonFile = fs.readFileSync('./hospital.json', 'utf-8');
+
+const hospital = JSON.parse(jsonFile);
 
 const getRandomIndex = (array: string[]) => {
   return Math.floor(Math.random() * array.length);
 };
 
-// password, phoneNumber, hospitalId
-
-const jsonData = [];
-
-for (let i = 0; i < 100; i++) {
-  const userName =
-    firstName[getRandomIndex(firstName)] +
-    nameWord[getRandomIndex(nameWord)] +
-    nameWord[getRandomIndex(nameWord)];
-  const userEmail = uuid() + '@test.com';
-  jsonData.push({
-    name: userName,
-  });
+enum Role {
+  client = 'client',
+  manager = 'manager',
+  admin = 'admin',
 }
 
-writeFile('user.json', JSON.stringify(jsonData));
+const pushData = async () => {
+  const jsonData = [];
+
+  const hashedPassedword = await bcrypt.hash('password', 10);
+
+  jsonData.push({
+    name: 'admin',
+    email: 'admin@test.com',
+    password: hashedPassedword,
+    phoneNumber: '010-0000-0000',
+    role: Role.admin,
+  });
+
+  for (let i = 0; i < 1000; i++) {
+    const userName =
+      firstName[getRandomIndex(firstName)] +
+      nameWord[getRandomIndex(nameWord)] +
+      nameWord[getRandomIndex(nameWord)];
+    const userEmail = uuid() + '@test.com';
+
+    jsonData.push({
+      name: userName,
+      email: userEmail,
+      password: hashedPassedword,
+      phoneNumber: '010-0000-0000',
+      role: Role.manager,
+      hospitalId: hospital[i].id,
+    });
+  }
+
+  for (let i = 0; i < 1000; i++) {
+    const userName =
+      firstName[getRandomIndex(firstName)] +
+      nameWord[getRandomIndex(nameWord)] +
+      nameWord[getRandomIndex(nameWord)];
+    const userEmail = uuid() + '@test.com';
+
+    jsonData.push({
+      name: userName,
+      email: userEmail,
+      password: hashedPassedword,
+      phoneNumber: '010-0000-0000',
+      role: Role.client,
+    });
+  }
+
+  writeFile('user.json', JSON.stringify(jsonData));
+};
+pushData();

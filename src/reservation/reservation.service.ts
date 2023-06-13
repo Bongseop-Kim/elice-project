@@ -8,11 +8,12 @@ export class ReservationService {
   constructor(private prisma: PrismaService) {}
 
   create(data: CreateReservationDto, userId: number) {
-    const { hospitalId, memo, reservedTime } = data;
+    const { hospitalId, memo, reservedTime, reservedDate } = data;
 
     return this.prisma.reservation.create({
       data: {
         reservedTime,
+        reservedDate,
         hospitalId,
         memo,
         userId,

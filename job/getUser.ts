@@ -348,7 +348,7 @@ const pushData = async () => {
     role: Role.admin,
   });
 
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 10000; i++) {
     const userName =
       firstName[getRandomIndex(firstName)] +
       nameWord[getRandomIndex(nameWord)] +
@@ -365,7 +365,7 @@ const pushData = async () => {
     });
   }
 
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 10000; i++) {
     const userName =
       firstName[getRandomIndex(firstName)] +
       nameWord[getRandomIndex(nameWord)] +
@@ -380,7 +380,7 @@ const pushData = async () => {
       role: Role.client,
     });
   }
-
+  console.log(jsonData.length);
   writeFile('user.json', JSON.stringify(jsonData));
 };
 pushData();

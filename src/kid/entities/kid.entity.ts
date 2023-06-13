@@ -49,6 +49,6 @@ export class KidEntity implements Kid {
     example:1
   })
   @IsNumber()
-  @IsNotEmpty()
+  @IsOptional()
   parentId: number;
 }

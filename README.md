@@ -69,65 +69,72 @@
 |    김문진    |   FE /    |     노은탁     | BE / 유저, 리뷰 |
 |    박준형    |   FE /    |     이유진     |      FE /       |
 |    이준미    |   FE /    |  이채연(1반)   |      FE /       |
-|              |           |                |                 |
 
 **구성원별 활동 내역**
 
-1. 정민규 : 팀장/프론트엔드 리더
+<details><summary>정민규 : 팀장/프론트엔드 리더</summary>
 
 - 기획 단계 : 최초 서비스 기획 구상 및 설계 후 프로젝트 초안 작성
 - 개발 단계 :
 - 수정 단계 :
 - 담당 업무 :
+</details>
 
-2. 김봉섭 : 백엔드 리더
+<details><summary>김봉섭 : 백엔드 리더</summary>
 
 - 기획 단계 : 백엔드 초기 개발 환경 구성
 - 개발 단계 :
 - 수정 단계 :
 - 담당 업무 :
+</details>
 
-3. 김문진 : 프론트엔드 담당
+<details><summary>김문진 : 프론트엔드 담당</summary>
 
 - 기획 단계 :
 - 개발 단계 :
 - 수정 단계 :
 - 담당 업무 :
+</details>
 
-4. 노은탁 : 백엔드 담당
+<details><summary>노은탁 : 백엔드 담당</summary>
 
 - 기획 단계 : 초기 DB 스키마, 및 API 명세서 구상
 - 개발 단계 : User / Admin / Kid / Reviews API 구현
 - 수정 단계 : 프론트엔드와 연동 및 README.md 작성
 - 담당 업무 : 일반 클라이언트, 병원 클라이언트, 관리자, 유저 상세 페이지, 유저 자녀정보 페이지, 리뷰 관리와 관계된 모든 API 동작 구현 및 연동 확인 후 각 API별 부하 테스트, DB INDEX 관리 및 README.md 작성
+</details>
 
-5. 박준형 : 프론트엔드 담당
-
-- 기획 단계 :
-- 개발 단계 :
-- 수정 단계 :
-- 담당 업무 :
-
-6. 이유진 : 프론트엔드 담당
+<details><summary>박준형 : 프론트엔드 담당</summary>
 
 - 기획 단계 :
 - 개발 단계 :
 - 수정 단계 :
 - 담당 업무 :
+</details>
 
-7. 이준미 : 프론트엔드 담당
-
-- 기획 단계 :
-- 개발 단계 :
-- 수정 단계 :
-- 담당 업무 :
-
-8. 이채연(1반) : 프론트엔드 담당
+<details><summary>이유진 : 프론트엔드 담당</summary>
 
 - 기획 단계 :
 - 개발 단계 :
 - 수정 단계 :
 - 담당 업무 :
+</details>
+
+<details><summary>이준미 : 프론트엔드 담당</summary>
+
+- 기획 단계 :
+- 개발 단계 :
+- 수정 단계 :
+- 담당 업무 :
+</details>
+
+<details><summary>이채연(1반) : 프론트엔드 담당</summary>
+
+- 기획 단계 :
+- 개발 단계 :
+- 수정 단계 :
+- 담당 업무 :
+</details>
 
 ## 5. 실행 방법
 
@@ -164,7 +171,7 @@ DATABASE_URL='{MySQL DB 경로}'
 ## 7. 서비스 구현 영상 및 테스트 자료
 
 <details><summary>각 API별 부하 테스트<summary>
-<img src = '/uploads/APItest4.png' width ='640px' />
+<img src = 'https://kdt-gitlab.elice.io/sw_track/class_04/web_2_project/team05/back-end/uploads/e88cbcd4219d1627c6f5a4adf280f0b1/APItest5.png' width ='640px' />
 </details>
 
 ## 8. 버전

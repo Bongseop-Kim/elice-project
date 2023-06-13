@@ -171,7 +171,7 @@ DATABASE_URL='{MySQL DB 경로}'
 ## 7. 서비스 구현 영상 및 테스트 자료
 
 <details><summary>각 API별 부하 테스트<summary>
-<img src = 'https://kdt-gitlab.elice.io/sw_track/class_04/web_2_project/team05/back-end/uploads/e88cbcd4219d1627c6f5a4adf280f0b1/APItest5.png' width ='640px' />
+<img src = './uploads/APItest5.png' width ='400px' />
 </details>
 
 ## 8. 버전

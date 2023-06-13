@@ -14,21 +14,21 @@ export class UserEntity implements User {
     example: 1
   })
   @IsNumber()
-  @IsNotEmpty()
+  @IsOptional()
   id: number;
 
   @ApiProperty({
     example: '홍길동'
   })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   name: string;
 
   @ApiProperty({
     example: 'email@e.mail'
   })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   email: string;
 
   @ApiProperty()
@@ -39,14 +39,14 @@ export class UserEntity implements User {
     example:'password'
   })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   password: string;
 
   @ApiProperty({
     example:'010-0000-0000'
   })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   phoneNumber: string;
 
   @ApiProperty({
@@ -54,7 +54,7 @@ export class UserEntity implements User {
     enum: Role,
   })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   role: Role;
 
   @ApiProperty()

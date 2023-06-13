@@ -46,6 +46,13 @@ export class ReservationEntity implements Reservation {
   reservedTime: string;
 
   @ApiProperty({
+    example: '20230607',
+  })
+  @IsString()
+  @IsNotEmpty()
+  reservedDate: string;
+
+  @ApiProperty({
     example: false,
   })
   @IsBoolean()

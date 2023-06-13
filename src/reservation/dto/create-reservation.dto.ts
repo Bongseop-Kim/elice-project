@@ -5,4 +5,5 @@ export class CreateReservationDto extends PickType(ReservationEntity, [
   'hospitalId',
   'memo',
   'reservedTime',
+  'reservedDate',
 ]) {}

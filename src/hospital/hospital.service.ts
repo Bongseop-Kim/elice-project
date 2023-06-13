@@ -35,14 +35,21 @@ export class HospitalService {
   }
 
   //평균 응답 시간 0.08초 8배
-  // async findByNames(hospitalName: string) {
-  //   const query = `%${hospitalName}%`;
-  //   return await this.prisma.$queryRaw`
-  //     SELECT *
-  //     FROM Hospital
-  //     WHERE dutyName LIKE ${query};
-  //   `;
-  // }
+  async findByNames(hospitalName: string) {
+    const query = `%${hospitalName}%`;
+    return await this.prisma.$queryRaw`
+      SELECT *
+      FROM Hospital
+      WHERE dutyName LIKE ${query};
+    `;
+  }
+
+  findByNameTen(size: number, page: number) {
+    return this.prisma.hospital.findMany({
+      skip: size * (page - 1),
+      take: size,
+    });
+  }
 
   findAll(
     depth1: string,

@@ -59,7 +59,7 @@ model Reservation {
   hospitalId   String
   memo         String?
   reservedTime String
-  reservedDate String
+  reservedDate DateTime
   read         Boolean  @default(false)
   createdAt    DateTime @default(now())
 }

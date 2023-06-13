@@ -57,7 +57,15 @@ export class ReservationController {
     @Body() data: CreateReservationDto,
   ) {
     await checkHospitalExistence(this.hospitalService, data.hospitalId);
-    return this.reservationService.create(data, user.id);
+    const reservation = await this.reservationService.create(data, user.id);
+
+    const year = reservation.reservedDate.getFullYear();
+    const month = String(reservation.reservedDate.getMonth() + 1).padStart(
+      2,
+      '0',
+    );
+    const day = String(reservation.reservedDate.getDate()).padStart(2, '0');
+    return { ...reservation, reservedDate: `${year}${month}${day}` };
   }
 
   @Get('reservation/:id')

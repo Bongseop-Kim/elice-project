@@ -1,9 +1,15 @@
-import { PickType } from '@nestjs/swagger';
+import { ApiProperty, PickType } from '@nestjs/swagger';
 import { ReservationEntity } from '../entities/reservation.entity';
+import { IsNotEmpty } from 'class-validator';
 
 export class CreateReservationDto extends PickType(ReservationEntity, [
   'hospitalId',
   'memo',
   'reservedTime',
-  'reservedDate',
-]) {}
+]) {
+  @ApiProperty({
+    example: '20230607',
+  })
+  @IsNotEmpty()
+  reservedDate: string;
+}

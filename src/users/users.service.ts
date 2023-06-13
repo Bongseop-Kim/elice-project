@@ -9,10 +9,9 @@ import {
   CreateUserDto,
   UpdateUserDto,
 } from './dto/users.dtos';
-import { Prisma, User } from '@prisma/client';
+import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Role } from './entities/users.entity';
-import { MappedType } from '@nestjs/mapped-types';
 
 @Injectable()
 export class UsersService {

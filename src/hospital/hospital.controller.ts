@@ -115,13 +115,17 @@ export class HospitalController {
     return this.hospitalService.findByName(hospitalName);
   }
 
-  @Get('hp10')
+  @Get('hp10/:hospitalName')
   @ApiQuery({ name: 'page', required: false })
   @ApiQuery({ name: 'size', required: false })
   @ApiOperation({ summary: '이름으로 병원 찾기 10개' })
   @ApiCreatedResponse({ type: [HospitalEntity] })
-  findByNameTen(@Query('size') size: string, @Query('page') page: string) {
-    return this.hospitalService.findByNameTen(+size, +page);
+  findByNameTen(
+    @Query('size') size: string,
+    @Query('page') page: string,
+    @Param('hospitalName') hospitalName: string,
+  ) {
+    return this.hospitalService.findByNameTen(+size, +page, hospitalName);
   }
 
   @Get('near')

@@ -44,8 +44,11 @@ export class HospitalService {
     `;
   }
 
-  findByNameTen(size: number, page: number) {
+  findByNameTen(size: number, page: number, hospitalName: string) {
     return this.prisma.hospital.findMany({
+      where: {
+        dutyName: { contains: hospitalName },
+      },
       skip: size * (page - 1),
       take: size,
     });

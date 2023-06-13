@@ -125,55 +125,38 @@
 
 ## 5. 실행 방법
 
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
+#### 프론트엔드 : 실행 방법
 
 ```bash
-$ npm install
+
 ```
 
-## Running the app
+#### 백엔드 : 실행 방법
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+0. cd ./back-end
+1. npm install
+2. npm build
 ```
 
-## Test
+## 6. 환경변수(env) 설정 파일
+
+#### 프론트엔드 : .env 구성
 
 ```bash
-# unit tests
-$ npm run test
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
-## Support
+#### 백엔드 : .env 구성
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+PORT=5000
+JWT_SECRET='sercretkey'
+DATABASE_URL='{MySQL DB 경로}'
+```
 
-## Stay in touch
+## 7. 서비스 구현 영상
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## 8. 버전
 
-## License
-
-Nest is [MIT licensed](LICENSE).
+## 9. 문의 및 연락처

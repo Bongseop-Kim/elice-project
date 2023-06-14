@@ -84,6 +84,7 @@ export class ReservationService {
           lt: nextWeek,
         },
       },
+      include: { hospital: true },
     });
   }
 

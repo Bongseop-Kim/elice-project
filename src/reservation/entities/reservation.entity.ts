@@ -39,7 +39,7 @@ export class ReservationEntity implements Reservation {
   memo: string;
 
   @ApiProperty({
-    example: '10:00',
+    example: '1000',
   })
   @IsString()
   @IsNotEmpty()
@@ -50,7 +50,7 @@ export class ReservationEntity implements Reservation {
   })
   @IsString()
   @IsNotEmpty()
-  reservedDate: string;
+  reservedDate: Date;
 
   @ApiProperty({
     example: false,

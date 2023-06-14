@@ -12,6 +12,8 @@ import {
   UploadedFiles,
   ParseFilePipe,
   FileTypeValidator,
+  UseGuards,
+  HttpException,
 } from '@nestjs/common';
 import { HospitalService } from './hospital.service';
 import {
@@ -27,6 +29,9 @@ import { PutHospitalDto } from './dto/put-hospital.dto';
 import { CreateHospitalDto } from './dto/create-hospital.dto';
 import { ImageService } from 'src/image/image.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
+import { CurrentUser } from 'src/common/decorators/user.decorator';
+import { UserEntity } from 'src/users/entities/users.entity';
 
 async function checkHospitalExistence(
   hospitalService: HospitalService,
@@ -102,11 +107,24 @@ export class HospitalController {
     );
   }
 
+  //쓰는곳 있나?
   @Get('hospitalName/:hospitalName')
   @ApiOperation({ summary: '이름으로 병원 찾기' })
   @ApiCreatedResponse({ type: HospitalEntity })
   findByName(@Param('hospitalName') hospitalName: string) {
     return this.hospitalService.findByName(hospitalName);
+  }
+
+  @Get('hp10/:hospitalName')
+  @ApiQuery({ name: 'page', required: false })
+  @ApiQuery({ name: 'size', required: false })
+  @ApiOperation({ summary: '이름으로 병원 찾기 10개' })
+  @ApiCreatedResponse({ type: [HospitalEntity] })
+  findByNameTen(
+    @Query('size') size: string,
+    @Param('hospitalName') hospitalName: string,
+  ) {
+    return this.hospitalService.findByNameTen(+size, hospitalName);
   }
 
   @Get('near')
@@ -120,6 +138,16 @@ export class HospitalController {
     @Query('r') r: number,
   ) {
     return this.hospitalService.findByDistance(userLat, userLon, r);
+  }
+
+  @Get('user')
+  @ApiOperation({ summary: '병원 매니저의 병원 찾기' })
+  @UseGuards(JwtAuthGuard)
+  async findByUser(@CurrentUser() user: UserEntity) {
+    if (!user.hospitalId) {
+      throw new HttpException('등륵되지 않은 관리자입니다.', 401);
+    }
+    return this.hospitalService.findById(user.hospitalId);
   }
 
   @Get(':hospitalId')

@@ -89,6 +89,18 @@ export class ReservationController {
     }));
   }
 
+  @Get('alarm')
+  @ApiBearerAuth('access-token')
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: '유저ID로 안읽은 예약정보 가져오기' })
+  async getAlarm(@CurrentUser() user: UserEntity) {
+    const reservations = await this.reservationService.getAlarm(user);
+    return reservations.map((reservation) => ({
+      ...reservation,
+      reservedDate: dateToString(reservation.reservedDate),
+    }));
+  }
+
   @Get('hospital/:hospitalId')
   @ApiOperation({ summary: '병원ID로 모든 예약정보 가져오기' })
   @ApiResponse({ type: [ReservationEntity] })

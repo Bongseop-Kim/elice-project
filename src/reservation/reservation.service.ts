@@ -1,6 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { UserEntity } from 'src/users/entities/users.entity';
 
 @Injectable()
 export class ReservationService {
@@ -66,6 +67,21 @@ export class ReservationService {
           select: {
             dutyName: true,
           },
+        },
+      },
+    });
+  }
+
+  getAlarm(user: UserEntity) {
+    const currentDate = new Date();
+    const nextWeek = new Date(currentDate.setDate(currentDate.getDate() + 7));
+
+    return this.prisma.reservation.findMany({
+      where: {
+        userId: user.id,
+        reservedDate: {
+          gte: new Date(),
+          lt: nextWeek,
         },
       },
     });

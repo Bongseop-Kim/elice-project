@@ -43,7 +43,7 @@ model Kid {
   gender   Gender?
   birth    String?
   memo     String?
-  image    Image[]
+  image    Image?
 }
 
 enum Gender {
@@ -141,7 +141,7 @@ model Image {
   imageUrl String
 
   kid   Kid? @relation(fields: [kidId], references: [id], onDelete: Cascade)
-  kidId Int?
+  kidId Int? @unique
 
   hospital   Hospital? @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
   hospitalId String?

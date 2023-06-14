@@ -37,6 +37,13 @@ async function checkHospitalExistence(
     );
   }
 }
+function dateToString(date: Date) {
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+
+  return year + month + day;
+}
 
 @ApiTags('Reservation')
 @UseInterceptors(SuccessInterceptor)
@@ -57,22 +64,16 @@ export class ReservationController {
     @Body() data: CreateReservationDto,
   ) {
     await checkHospitalExistence(this.hospitalService, data.hospitalId);
-    const reservation = await this.reservationService.create(data, user.id);
-
-    const year = reservation.reservedDate.getFullYear();
-    const month = String(reservation.reservedDate.getMonth() + 1).padStart(
-      2,
-      '0',
-    );
-    const day = String(reservation.reservedDate.getDate()).padStart(2, '0');
-    return { ...reservation, reservedDate: `${year}${month}${day}` };
+    return await this.reservationService.create(data, user.id);
   }
 
   @Get('reservation/:id')
   @ApiOperation({ summary: '예약ID로 예약정보 하나 가져오기' })
   @ApiResponse({ type: ReservationEntity })
-  findOne(@Param('id') id: string) {
-    return this.reservationService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const reservation = await this.reservationService.findOne(+id);
+    const reservedDate = dateToString(reservation.reservedDate);
+    return { ...reservation, reservedDate };
   }
 
   @Get('user')
@@ -80,8 +81,12 @@ export class ReservationController {
   @ApiResponse({ type: [ReservationEntity] })
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
-  findByUser(@CurrentUser() user: UserEntity) {
-    return this.reservationService.findByUser(user.id);
+  async findByUser(@CurrentUser() user: UserEntity) {
+    const reservations = await this.reservationService.findByUser(user.id);
+    return reservations.map((reservaiton) => ({
+      ...reservaiton,
+      reservedDate: dateToString(reservaiton.reservedDate),
+    }));
   }
 
   @Get('hospital/:hospitalId')
@@ -89,7 +94,13 @@ export class ReservationController {
   @ApiResponse({ type: [ReservationEntity] })
   async findByHospital(@Param('hospitalId') hospitalId: string) {
     await checkHospitalExistence(this.hospitalService, hospitalId);
-    return this.reservationService.findByHospital(hospitalId);
+    const reservations = await this.reservationService.findByHospital(
+      hospitalId,
+    );
+    return reservations.map((reservaiton) => ({
+      ...reservaiton,
+      reservedDate: dateToString(reservaiton.reservedDate),
+    }));
   }
 
   //prismaOrm의 장점 memoUpdate, readUpdate 각 Api 생성 안해도 된다.

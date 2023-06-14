@@ -122,10 +122,9 @@ export class HospitalController {
   @ApiCreatedResponse({ type: [HospitalEntity] })
   findByNameTen(
     @Query('size') size: string,
-    @Query('page') page: string,
     @Param('hospitalName') hospitalName: string,
   ) {
-    return this.hospitalService.findByNameTen(+size, +page, hospitalName);
+    return this.hospitalService.findByNameTen(+size, hospitalName);
   }
 
   @Get('near')

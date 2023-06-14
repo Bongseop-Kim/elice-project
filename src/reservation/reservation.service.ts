@@ -1,8 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
-import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { error } from 'console';
 
 @Injectable()
 export class ReservationService {
@@ -78,10 +76,17 @@ export class ReservationService {
     });
   }
 
-  update(id: number, data: UpdateReservationDto) {
+  updateMemo(id: number, memo: string) {
     return this.prisma.reservation.update({
       where: { id },
-      data,
+      data: { memo },
+    });
+  }
+
+  updateRead(id: number, read: boolean) {
+    return this.prisma.reservation.update({
+      where: { id },
+      data: { read },
     });
   }
 

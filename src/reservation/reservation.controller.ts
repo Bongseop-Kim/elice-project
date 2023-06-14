@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { ReservationService } from './reservation.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
-import { UpdateReservationDto } from './dto/update-reservation.dto';
+import { UpdateMemoDto, UpdateReadDto } from './dto/update-reservation.dto';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -94,11 +94,18 @@ export class ReservationController {
 
   //prismaOrm의 장점 memoUpdate, readUpdate 각 Api 생성 안해도 된다.
   //아니면 RDBMS의 장점인가? UPDATE Reservation SET memo="value" WHERE id="id";
-  @Patch(':id')
-  @ApiOperation({ summary: '예약ID로 에약 memo, read 수정' })
+  @Patch('memo/:id')
+  @ApiOperation({ summary: '예약ID로 에약 memo 수정' })
   @ApiResponse({ type: ReservationEntity })
-  update(@Param('id') id: string, @Body() data: UpdateReservationDto) {
-    return this.reservationService.update(+id, data);
+  updateMemo(@Param('id') id: string, @Body() data: UpdateMemoDto) {
+    return this.reservationService.updateMemo(+id, data.memo);
+  }
+
+  @Patch('read/:id')
+  @ApiOperation({ summary: '예약ID로 에약 read 수정' })
+  @ApiResponse({ type: ReservationEntity })
+  updateRead(@Param('id') id: string, @Body() data: UpdateReadDto) {
+    return this.reservationService.updateRead(+id, data.read);
   }
 
   @Delete(':id')

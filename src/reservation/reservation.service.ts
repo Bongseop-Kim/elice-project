@@ -9,11 +9,6 @@ export class ReservationService {
   async create(data: CreateReservationDto, userId: number) {
     const { hospitalId, memo, reservedTime, reservedDate } = data;
 
-    const year = parseInt(reservedDate.substring(0, 4), 10);
-    const month = parseInt(reservedDate.substring(4, 6), 10) - 1; // Subtract 1 from the month since it is zero-based.
-    const day = parseInt(reservedDate.substring(6, 8), 10);
-    const typeDate = new Date(year, month, day);
-
     const hospital = await this.prisma.hospital.findUnique({
       where: { id: hospitalId },
       include: { reservations: true },
@@ -25,8 +20,9 @@ export class ReservationService {
         2,
         '0',
       );
-      const day = String(reservation.reservedDate.getDate()).padStart(2, '0');
-
+      const day =
+        parseInt(String(reservation.reservedDate.getDate()).padStart(2, '0')) -
+        1;
       const dateString = `${year}${month}${day}`;
       if (dateString === reservedDate) {
         if (reservation.reservedTime === reservedTime) {
@@ -37,6 +33,11 @@ export class ReservationService {
         }
       }
     });
+
+    const year = parseInt(reservedDate.substring(0, 4));
+    const month = parseInt(reservedDate.substring(4, 6)) - 1; // Subtract 1 from the month since it is zero-based.
+    const day = parseInt(reservedDate.substring(6, 8)) + 1;
+    const typeDate = new Date(year, month, day);
 
     return this.prisma.reservation.create({
       data: {

@@ -152,7 +152,7 @@
 #### 프론트엔드 : .env 구성
 
 ```bash
-REACT_APP_KAKAO_MAPS_API_KEY="1d360bf8723604f386884c191abb5e58"
+none
 ```
 
 #### 백엔드 : .env 구성

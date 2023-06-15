@@ -23,7 +23,7 @@ export class HospitalService {
     return this.prisma.hospital.findMany();
   }
 
-  findByName(hospitalName: string) {
+  async findByName(hospitalName: string) {
     return this.prisma.hospital.findMany({
       where: {
         dutyName: {
@@ -32,16 +32,6 @@ export class HospitalService {
       },
       take: 10,
     });
-  }
-
-  //평균 응답 시간 0.08초 8배
-  async findByNames(hospitalName: string) {
-    const query = `%${hospitalName}%`;
-    return await this.prisma.$queryRaw`
-      SELECT *
-      FROM Hospital
-      WHERE dutyName LIKE ${query};
-    `;
   }
 
   findByNameTen(size: number, page: number, hospitalName: string) {
@@ -56,7 +46,7 @@ export class HospitalService {
     });
   }
 
-  findAll(
+  async findAll(
     depth1: string,
     depth2: string,
     size: number,
@@ -89,13 +79,18 @@ export class HospitalService {
       orderBy.reviews = { _count: 'desc' };
     }
 
-    return this.prisma.hospital.findMany({
+    const hospitals = await this.prisma.hospital.findMany({
       where,
       orderBy,
       skip: size * (page - 1),
       take: size,
       include: { reviews: true },
     });
+    const counts = await this.prisma.hospital.count({
+      where,
+    });
+
+    return [[hospitals], counts];
   }
 
   //아래 쿼리문은 이미지가 없으면 [null]이 반환된다....

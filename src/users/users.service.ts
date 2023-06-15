@@ -121,6 +121,8 @@ export class UsersService {
         phoneNumber: true,
         address: true,
         updatedAt: true,
+        userLat: true,
+        userLon: true,
       },
     });
     return user;

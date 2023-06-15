@@ -116,7 +116,7 @@
 </details>
 
 <details><summary>이준미 : 프론트엔드 담당</summary>
-<img src = './uploads/APItest6.png' width =60% />
+
 - 기획 단계 : 기획 단계 초기 와이어프레임 제작 및 공유 후 메인화면, 로그인 회원가입 와이어 프레임 제작
 - 개발 단계 : 공통 컴퍼넌트 제작 로그인, 회원가입 기능 구현 후 반응형 디자인 제작 및 감독
 - 담당 업무 : 메인홈, 로그인, 회원가입 페이지 및 공통 컴포넌트 button, container, navigationBar 담당
@@ -169,8 +169,21 @@ DATABASE_URL='{MySQL DB 경로}'
 <img src = './uploads/apitest.png' width =60% />
 </details>
 
-<details><summary>메인화면 및 로그인</summary>
-<img src = './uploads/mainnlogin.gif' width =60% />
+<details><summary>회원가입 및 로그인</summary>
+<img src = './uploads/registandlogin.gif' width =60% />
+</details>
+
+<details><summary>내 정보 및 자녀 등록</summary>
+<img src = './uploads/infoandkid.gif' width =60% />
+</details>
+
+<details><summary>병원 검색 및 예약</summary>
+<img src = './uploads/searchandreserv.gif' width =60% />
+</details>
+
+<details><summary>병원 관계자 및 관리자</summary>
+<img src = './uploads/hospitaluser.gif' width =60% />
+<img src = './uploads/admin.gif' width =60% />
 </details>
 
 ## 8. 버전

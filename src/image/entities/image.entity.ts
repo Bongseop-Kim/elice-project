@@ -19,6 +19,13 @@ export class ImageEntity implements Image {
   imageUrl: string;
 
   @ApiProperty({
+    example: 'sample.jpeg',
+  })
+  @IsString()
+  @IsNotEmpty()
+  imageName: string;
+
+  @ApiProperty({
     example: 1,
     required: false,
   })

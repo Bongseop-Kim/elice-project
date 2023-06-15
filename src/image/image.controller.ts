@@ -93,6 +93,7 @@ export class ImageController {
       files.map(async (file) => {
         return await this.imageService.upload(
           file.buffer,
+          file.originalname,
           data.hospitalId,
           +data.kidId,
         );

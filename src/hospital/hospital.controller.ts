@@ -72,7 +72,12 @@ export class HospitalController {
     const hospital = await this.hospitalService.create(data);
     await Promise.all(
       files.map(async (file) => {
-        return await this.imageService.upload(file.buffer, hospital.id, null);
+        return await this.imageService.upload(
+          file.buffer,
+          file.originalname,
+          hospital.id,
+          null,
+        );
       }),
     );
     return await this.hospitalService.findById(hospital.id);
@@ -183,6 +188,7 @@ export class HospitalController {
       files.map(async (file) => {
         return await this.imageService.put(
           file.buffer,
+          file.originalname,
           hospitalId,
           hospital.image,
         );

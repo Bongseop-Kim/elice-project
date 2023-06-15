@@ -5,7 +5,11 @@ import { CreateHospitalDto } from './dto/create-hospital.dto';
 
 @Injectable()
 export class HospitalService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) {
+    // this.prisma.$on('query', (e) => {
+    //   console.log('Query:' + e.query);
+    // });
+  }
 
   async create(data: CreateHospitalDto) {
     const id = 'new' + new Date().getTime().toString();

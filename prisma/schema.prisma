@@ -140,7 +140,8 @@ model Hospital {
 model Image {
   id Int @id @default(autoincrement())
 
-  imageUrl String
+  imageUrl  String
+  imageName String
 
   kid   Kid? @relation(fields: [kidId], references: [id], onDelete: Cascade)
   kidId Int? @unique

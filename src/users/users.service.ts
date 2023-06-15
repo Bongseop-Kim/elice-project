@@ -35,14 +35,14 @@ export class UsersService {
     const { email, name, password, phoneNumber } = body;
     await this.existByEmail(email);
 
-    if(name === null || ''){
-      throw new HttpException('이름을 정확히 입력해 주세요', 400)
+    if (name === null || '') {
+      throw new HttpException('이름을 정확히 입력해 주세요', 400);
     }
-    if(phoneNumber === null || ''){
-      throw new HttpException('연락처는 필수입력 항목입니다', 400)
+    if (phoneNumber === null || '') {
+      throw new HttpException('연락처는 필수입력 항목입니다', 400);
     }
-    if(password === null || ''){
-      throw new HttpException('비밀번호는 필수 항목입니다.', 400)
+    if (password === null || '') {
+      throw new HttpException('비밀번호는 필수 항목입니다.', 400);
     }
 
     const hashedPassedword = await bcrypt.hash(password, 10);
@@ -85,6 +85,8 @@ export class UsersService {
         favoriteHospitals: true,
         reserved: true,
         updatedAt: true,
+        userLat: true,
+        userLon: true,
       },
     });
     return user;
@@ -130,17 +132,17 @@ export class UsersService {
     await this.existByEmail(email);
 
     const hashedPassedword = await bcrypt.hash(password, 10);
-    if(name === null || ''){
-      throw new HttpException('이름을 정확히 입력해 주세요', 400)
+    if (name === null || '') {
+      throw new HttpException('이름을 정확히 입력해 주세요', 400);
     }
-    if(phoneNumber === null || ''){
-      throw new HttpException('연락처는 필수입력 항목입니다', 400)
+    if (phoneNumber === null || '') {
+      throw new HttpException('연락처는 필수입력 항목입니다', 400);
     }
-    if(password === null || ''){
-      throw new HttpException('비밀번호는 필수 항목입니다.', 400)
+    if (password === null || '') {
+      throw new HttpException('비밀번호는 필수 항목입니다.', 400);
     }
-    if(hospitalId === null || ''){
-      throw new HttpException('병원 관계자는 소속된 병원이 필요합니다.', 400)
+    if (hospitalId === null || '') {
+      throw new HttpException('병원 관계자는 소속된 병원이 필요합니다.', 400);
     }
 
     const user = {
@@ -189,9 +191,7 @@ export class UsersService {
   //auth에서 사용되는 API입니다.
   findUserByIdWithoutPassword(id: number): Promise<User | null> {
     return this.prisma.user.findUnique({
-      where: {
-        id: id,
-      },
+      where: { id },
     });
   }
 }

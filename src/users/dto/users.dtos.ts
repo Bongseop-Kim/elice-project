@@ -15,6 +15,8 @@ export class UpdateUserDto extends PickType(UserEntity, [
   'password',
   'phoneNumber',
   'role',
+  'userLat',
+  'userLon',
 ]) {}
 
 export class CreateManagerDto extends PickType(UserEntity, [

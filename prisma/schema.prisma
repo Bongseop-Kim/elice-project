@@ -17,6 +17,8 @@ model User {
   role          Role
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  userLat       Float?
+  userLon       Float?
 
   hospital   Hospital? @relation(fields: [hospitalId], references: [id])
   hospitalId String?   @unique

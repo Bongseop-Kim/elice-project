@@ -1,31 +1,36 @@
 import { User } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export enum Role {
   client = 'client',
   manager = 'manager',
-  admin = 'admin'
+  admin = 'admin',
 }
 
 export class UserEntity implements User {
-  
   @ApiProperty({
-    example: 1
+    example: 1,
   })
   @IsNumber()
   @IsOptional()
   id: number;
 
   @ApiProperty({
-    example: '홍길동'
+    example: '홍길동',
   })
   @IsString()
   @IsOptional()
   name: string;
 
   @ApiProperty({
-    example: 'email@e.mail'
+    example: 'email@e.mail',
   })
   @IsString()
   @IsOptional()
@@ -36,14 +41,14 @@ export class UserEntity implements User {
   emailVerified: Date;
 
   @ApiProperty({
-    example:'password'
+    example: 'password',
   })
   @IsString()
   @IsOptional()
   password: string;
 
   @ApiProperty({
-    example:'010-0000-0000'
+    example: '010-0000-0000',
   })
   @IsString()
   @IsOptional()
@@ -56,6 +61,20 @@ export class UserEntity implements User {
   @IsString()
   @IsOptional()
   role: Role;
+
+  @ApiProperty({
+    example: 37.451874508,
+  })
+  @IsOptional()
+  @IsNumber()
+  userLat: number;
+
+  @ApiProperty({
+    example: 126.6686252259,
+  })
+  @IsOptional()
+  @IsNumber()
+  userLon: number;
 
   @ApiProperty()
   @IsOptional()

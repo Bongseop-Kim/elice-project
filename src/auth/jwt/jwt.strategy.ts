@@ -18,9 +18,38 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     const user = await this.usersService.findUserByIdWithoutPassword(
       payload.sub,
     );
-
+    const {
+      id,
+      name,
+      email,
+      emailVerified,
+      password,
+      phoneNumber,
+      role,
+      createdAt,
+      updatedAt,
+      userLat,
+      userLon,
+      hospitalId,
+      adminVerified,
+      address,
+    } = user;
     if (user) {
-      return user; //request.user
+      return {
+        id,
+        name,
+        email,
+        emailVerified,
+        phoneNumber,
+        role,
+        createdAt,
+        updatedAt,
+        userLat,
+        userLon,
+        hospitalId,
+        adminVerified,
+        address,
+      }; //request.user
     } else {
       throw new UnauthorizedException('접근 오류');
     }

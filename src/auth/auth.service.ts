@@ -39,7 +39,8 @@ export class AuthService {
     return {
       token: this.jwtService.sign(payload),
       role: user.role,
-      hospitalId: user.hospitalId
+      hospitalId: user.hospitalId,
+      adminVerified: user.adminVerified
     };
   }
 }

@@ -169,8 +169,16 @@ DATABASE_URL='{MySQL DB 경로}'
 <img src = './uploads/apitest.png' width =60% />
 </details>
 
-<details><summary>메인화면 및 로그인</summary>
-<img src = './uploads/mainnlogin.gif' width =60% />
+<details><summary>회원가입 및 로그인</summary>
+<img src = './uploads/registeramdlogin.gif' width =60% />
+</details>
+
+<details><summary>내 정보 및 자녀 등록</summary>
+<img src = './uploads/infoandkid.gif' width =60% />
+</details>
+
+<details><summary>병원 검색 및 예약</summary>
+<img src = './uploads/searchandreserv.gif' width =60% />
 </details>
 
 ## 8. 버전

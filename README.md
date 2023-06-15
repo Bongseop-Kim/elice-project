@@ -54,7 +54,7 @@
 ## 3. 서비스 구성
 
 - 사용 기술 스택
-  <img src = './uploads/Group_101.png' width=60% >
+  <img src = './uploads/stacks.png' width=60% >
 
 - 와이어 프레임 : [와이어 프레임](https://www.figma.com/file/7l9vvHRjn6VYUsUlHOvmlC/%EC%95%84%EC%9D%B4%EC%82%AC%EB%9E%91-%EC%9B%B9%EC%82%AC%EC%9D%B4%ED%8A%B8?type=design&node-id=0-1&t=iQRbEkIpYiR0FXWO-0)
 
@@ -166,8 +166,11 @@ DATABASE_URL='{MySQL DB 경로}'
 ## 7. 서비스 구현 영상 및 테스트 자료
 
 <details><summary>각 API별 부하테스트</summary>
+<img src = './uploads/apitest.png' width =60% />
+</details>
 
-<img src = './uploads/APItest6.png' width =60% />
+<details><summary>메인화면 및 로그인</summary>
+<img src = './uploads/mainnlogin.gif' width =60% />
 </details>
 
 ## 8. 버전

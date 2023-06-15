@@ -19,7 +19,12 @@ export class ImageService {
     },
   });
 
-  async upload(file: Buffer, hospitalId: string, kidId: number) {
+  async upload(
+    file: Buffer,
+    imageName: string,
+    hospitalId: string,
+    kidId: number,
+  ) {
     const fileKey = uuid() + '.jpg';
     await this.s3Client.send(
       new PutObjectCommand({
@@ -33,6 +38,7 @@ export class ImageService {
     if (hospitalId) {
       const data: CreateHospitalImageDto = {
         hospitalId,
+        imageName,
         imageUrl: `https://devtie.s3.ap-northeast-2.amazonaws.com/${fileKey}`,
       };
       return await this.prisma.image.create({
@@ -41,6 +47,7 @@ export class ImageService {
     } else if (kidId) {
       const data: CreateKidImageDto = {
         kidId,
+        imageName,
         imageUrl: `https://devtie.s3.ap-northeast-2.amazonaws.com/${fileKey}`,
       };
       return await this.prisma.image.create({
@@ -65,7 +72,12 @@ export class ImageService {
     });
   }
 
-  async put(file: Buffer, hospitalId: string, images: ImageEntity[]) {
+  async put(
+    file: Buffer,
+    imageName: string,
+    hospitalId: string,
+    images: ImageEntity[],
+  ) {
     const fileKey = uuid() + '.jpg';
     await this.s3Client.send(
       new PutObjectCommand({
@@ -76,6 +88,7 @@ export class ImageService {
     );
 
     const data: CreateHospitalImageDto = {
+      imageName,
       hospitalId,
       imageUrl: `https://devtie.s3.ap-northeast-2.amazonaws.com/${fileKey}`,
     };

@@ -116,7 +116,7 @@
 </details>
 
 <details><summary>이준미 : 프론트엔드 담당</summary>
-
+<img src = './uploads/APItest6.png' width =60% />
 - 기획 단계 : 기획 단계 초기 와이어프레임 제작 및 공유 후 메인화면, 로그인 회원가입 와이어 프레임 제작
 - 개발 단계 : 공통 컴퍼넌트 제작 로그인, 회원가입 기능 구현 후 반응형 디자인 제작 및 감독
 - 담당 업무 : 메인홈, 로그인, 회원가입 페이지 및 공통 컴포넌트 button, container, navigationBar 담당
@@ -152,7 +152,7 @@
 #### 프론트엔드 : .env 구성
 
 ```bash
-
+REACT_APP_KAKAO_MAPS_API_KEY="1d360bf8723604f386884c191abb5e58"
 ```
 
 #### 백엔드 : .env 구성
@@ -165,7 +165,8 @@ DATABASE_URL='{MySQL DB 경로}'
 
 ## 7. 서비스 구현 영상 및 테스트 자료
 
-<details><summary>각 API별 부하 테스트<summary>
+<details><summary>각 API별 부하테스트</summary>
+
 <img src = './uploads/APItest6.png' width =60% />
 </details>
 

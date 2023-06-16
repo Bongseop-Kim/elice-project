@@ -362,6 +362,7 @@ const pushData = async () => {
       phoneNumber: '010-0000-0000',
       role: Role.manager,
       hospitalId: hospital[i].id,
+      adminVerfied: 1,
     });
   }
 

@@ -19,7 +19,7 @@ async function bootstrap() {
       },
     }),
   );
-
+  app.setGlobalPrefix('api');
   const config = new DocumentBuilder()
     .setTitle('C.I.C')
     .setDescription('team05')
@@ -44,7 +44,6 @@ async function bootstrap() {
     credentials: true,
   });
 
-  app.setGlobalPrefix('api');
   const PORT = process.env.PORT;
   await app.listen(PORT);
 }

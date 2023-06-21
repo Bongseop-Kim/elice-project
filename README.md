@@ -80,12 +80,17 @@
 - 담당 업무 : 관리자, 병원 정보 수정, 신규 병원 등록 페이지, 스크럼 진행 및 전체 일정 관리
 </details>
 
-<details><summary>김봉섭 : 백엔드 리더</summary>
+<summary>김봉섭 : 백엔드 리더</summary>
 
 - 기획 단계 : 백엔드 초기 개발 환경 구성, Auth API 및 데코레이터 구현
 - 개발 단계 : Hospital / Reservation / Favorite / image API 구현 및 Prisma, MySQL 환경 구성
 - 담당 업무 : 병원, 병원 검색, 예약, 즐겨찾기 관리와 관련 된 모든 API 동작 구현 및 연동 확인 후 추가 API 최적화 테스트 및 발표 자료 준비
-</details>
+
+[트러블 슈팅]
+- API 속도 개선
+ 1. API 성능 테스트를 위해 siege와 prisma middleware logging을 이용해 시간 측정.
+ 2. MySql의 ST_Distance_Sphere 함수를 이용해 실행 속도 0.4 sec -> 0.04 sec 단축.
+(https://cdn.discordapp.com/attachments/1119289947728379926/1121094542947536997/2023-06-22_12.08.56.png)
 
 <details><summary>김문진 : 프론트엔드 담당</summary>
 

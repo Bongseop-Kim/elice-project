@@ -71,104 +71,35 @@
 |    박준형    |   FE / 마이 페이지, 자녀 페이지   |     이유진     |    FE / 예약 관련 페이지    |
 |    이준미    |   FE / 메인홈, 로그인, 회원가입   |  이채연(1반)   | FE / 병원 검색, 지도 페이지 |
 
-**구성원별 활동 내역**
-
-<details><summary>정민규 : 팀장/프론트엔드 리더</summary>
-
-- 기획 단계 : 최초 서비스 기획 구상 및 설계 후 프로젝트 초안 작성
-- 개발 단계 : 관리자 페이지, 병원 정보 수정, 신규 병원 등록 페이지 작성
-- 담당 업무 : 관리자, 병원 정보 수정, 신규 병원 등록 페이지, 스크럼 진행 및 전체 일정 관리
-</details>
+## 나의 활동 내역
 
 <summary>김봉섭 : 백엔드 리더</summary>
 
-- 기획 단계 : 백엔드 초기 개발 환경 구성, Auth API 및 데코레이터 구현
+- 기획 단계 : 백엔드 초기 개발 환경 구성, Auth API 및 데코레이터 구현, 프론트엔드, 백엔드 배포
 - 개발 단계 : Hospital / Reservation / Favorite / image API 구현 및 Prisma, MySQL 환경 구성
-- 담당 업무 : 병원, 병원 검색, 예약, 즐겨찾기 관리와 관련 된 모든 API 동작 구현 및 연동 확인 후 추가 API 최적화 테스트 및 발표 자료 준비
+- 담당 업무 : 병원, 병원 검색, 예약, 즐겨찾기 관리와 관련 된 모든 API 동작 구현 및 연동 확인 후 추가 API 최적화 테스트 및 발표진행
 
 [트러블 슈팅]
-- API 속도 개선
- 1. API 성능 테스트를 위해 siege와 prisma middleware logging을 이용해 시간 측정.
- 2. MySql의 ST_Distance_Sphere 함수를 이용해 실행 속도 0.4 sec -> 0.04 sec 단축.
-(https://cdn.discordapp.com/attachments/1119289947728379926/1121094542947536997/2023-06-22_12.08.56.png)
+1. API 속도 개선
+ - API 성능 테스트를 위해 siege와 prisma middleware logging을 이용해 시간 측정.
+ -  MySql의 ST_Distance_Sphere 함수를 이용해 실행 속도 0.4 sec -> 0.04 sec 단축.
+ ![스크린샷 2023-06-22 오전 12 08 56](https://github.com/Bongseop-Kim/kidLove/assets/96857444/326fd369-de7f-44b5-8c62-7bc24c2faeb9)
 
-<details><summary>김문진 : 프론트엔드 담당</summary>
+2. 오픈 API 데이터 추출
+ - fs/promises 를 이용해 실제 병원 데이터를 json 형태로 저장 후 DB로 마이그레이션.
+![스크린샷 2023-06-22 오전 12 15 46](https://github.com/Bongseop-Kim/kidLove/assets/96857444/cff69edc-a581-4324-8393-18961439c211)
 
-- 기획 단계 : 인포메이션 아키텍처, 브랜드 디자인, 병원상세페이지·예약페이지·내정보 페이지 와이어 프레임 설계
-- 개발 단계 : 병원상세페이지·예약페이지 작성, 리뷰·예약 정보 post 작성
-- 담당 업무 : 병원상세페이지·예약페이지 담당
-</details>
+3. 코드 유지보수 및 재사용성
+ - 커스텀 데코레이터를 제작해 반복되는 코드 수 감소.
+ - logger, interceptor, exception, prisma 미들웨어를 제작해 코드 재사용성 증가.
+   
+![스크린샷 2023-06-22 오전 12 21 18](https://github.com/Bongseop-Kim/kidLove/assets/96857444/ad8885d4-ea32-4007-9331-689edd3f0549)
 
-<details><summary>노은탁 : 백엔드 담당</summary>
+4. AWS Ubuntu 환경에서 DB 조작, 프론트 엔드, 백엔드 서버 배포
 
-- 기획 단계 : 초기 DB 스키마, 및 API 명세서 구상
-- 개발 단계 : User / Admin / Kid / Reviews API 구현
-- 담당 업무 : 유저, 리뷰와 관계된 모든 API 동작 구현 및 연동 확인 후 전체 파트 API별 부하 테스트 및 README.md 작성
-</details>
+5. AWS S3 다중 이미지 업로드 기능 구현
 
-<details><summary>박준형 : 프론트엔드 담당</summary>
-
-- 기획 단계 : 마이페이지 및 차일드페이지 구상 및 아이정보를 담을 차일드박스 컴포넌트 구상
-- 개발 단계 : 마이페이지, 차일드페이지, 차일드박스 컴포넌트 제작 및 api연동
-- 담당 업무 : 마이페이지, 유저정보와 그 유저의 아이정보 수정 기능 구현
-</details>
-
-<details><summary>이유진 : 프론트엔드 담당</summary>
-
-- 기획 단계 : 예약 현황 페이지 와이어 프레임 기획
-- 개발 단계 : 예약 현황 달력, 예약 상세 확인 페이지, 메모 모달 페이지 작성
-- 담당 업무 : 예약 현황 페이지, 예약 상세 확인 페이지, 공통 컴포넌트 header 담당
-</details>
-
-<details><summary>이준미 : 프론트엔드 담당</summary>
-
-- 기획 단계 : 기획 단계 초기 와이어프레임 제작 및 공유 후 메인화면, 로그인 회원가입 와이어 프레임 제작
-- 개발 단계 : 공통 컴퍼넌트 제작 로그인, 회원가입 기능 구현 후 반응형 디자인 제작 및 감독
-- 담당 업무 : 메인홈, 로그인, 회원가입 페이지 및 공통 컴포넌트 button, container, navigationBar 담당
-</details>
-
-<details><summary>이채연(1반) : 프론트엔드 담당</summary>
-
-- 기획 단계 : 병원 검색 페이지, 지도 페이지 와이어 프레임 구성 후 지도 관련 외부 API 활용 방안 구상
-- 개발 단계 : 병원 검색, 지도 페이지 컴퍼넌트 구성 후 병원 검색, 지도 매핑 기능 구현
-- 담당 업무 : 병원 검색, 지도 페이지 컴포넌트 및 페이지 담당
-</details>
-
-## 5. 실행 방법
-
-#### 프론트엔드 : 실행 방법
-
-```bash
-0. cd ./front-end
-1. npm install
-2. npm build
-```
-
-#### 백엔드 : 실행 방법
-
-```bash
-0. cd ./back-end
-1. npm install
-2. npm build
-```
-
-## 6. 환경변수(env) 설정 파일
-
-#### 프론트엔드 : .env 구성
-
-```bash
-none
-```
-
-#### 백엔드 : .env 구성
-
-```bash
-PORT=5000
-JWT_SECRET='sercretkey'
-DATABASE_URL='{MySQL DB 경로}'
-```
-
-## 7. 서비스 구현 영상 및 테스트 자료
+## 5. 서비스 구현 영상 및 테스트 자료
 
 <details><summary>각 API별 부하테스트</summary>
 <img src = './uploads/apitest.png' width =60% />
@@ -191,8 +122,3 @@ DATABASE_URL='{MySQL DB 경로}'
 <img src = './uploads/admin.gif' width =60% />
 </details>
 
-## 8. 버전
-
-- beta (0.9.0)
-
-## 9. 문의 및 연락처
